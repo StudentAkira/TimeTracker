@@ -12,6 +12,8 @@ if TYPE_CHECKING:
 class Note(Base):
     __tablename__ = "note"
 
+    id: int = Column(Integer, unique=True, primary_key=True, autoincrement=True)
+
     title: str = Column(String, unique=True, index=True, nullable=False)#may be auto generation
     content: str = Column(String, primary_key=True, nullable=False)
     datetime_: DateTime = Column(DateTime)

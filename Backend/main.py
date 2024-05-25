@@ -12,12 +12,10 @@ settings = get_settings()
 app = FastAPI()
 
 from db.models.note import Note
+from db.models.topic import Topic
+from db.models.period import Period
+
 database.Base.metadata.create_all(bind=database.engine)
-
-
-@app.get("/")
-async def main():
-    return {"hello": "world"}
 
 
 app.include_router(auth)
