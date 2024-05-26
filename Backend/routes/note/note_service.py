@@ -14,16 +14,17 @@ class NoteService:
 
         self.__note_created_message = "note_created"
 
-    def create_note(self, response: Response, token: str, note_data: NoteSchema):
+    def create(self, response: Response, token: str, note_data: NoteSchema):
         decoded_token = self.__token_manager.decode_token(token, response)
         self.__note_manager.create_note(decoded_token, note_data)
         return {"message": self.__note_created_message}
 
-    def read_note(self, response: Response, token: str):
+    def read(self, response: Response, token: str):
         decoded_token = self.__token_manager.decode_token(token, response)
         return self.__note_manager.read_note(decoded_token)
 
-    def edit_note(self):
+    def update(self, response: Response, token: str):
         pass
 
-
+    def delete(self, response: Response, token: str):
+        pass

@@ -1,9 +1,8 @@
 from pydantic import BaseModel
 
 
-class EditUserSchema(BaseModel):
+class UpdateUserSchema(BaseModel):
     username: str
-    password: str
     first_name: str
     second_name: str
     third_name: str

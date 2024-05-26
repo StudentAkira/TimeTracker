@@ -8,6 +8,7 @@ from routes.note.note_service import NoteService
 
 note = APIRouter(prefix="/api/note", tags=["note"])
 
+
 @note.post("/create")
 async def create_note(
         response: Response,
@@ -16,16 +17,35 @@ async def create_note(
         db: Session = Depends(get_db),
 ) -> dict[str, str]:
     service = NoteService(db)
-    return service.create_note(response, token, note_data)
+    return service.create(response, token, note_data)
 
 
-@note.get("/list")
+@note.get("/read")
 async def read_note(
         response: Response,
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db)
-):
+) -> dict[str, str]:
     service = NoteService(db)
-    return service.read_note(response, token)
+    return service.read(response, token)
 
+
+@note.put("/update")
+async def update_note(
+        response: Response,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db)
+) -> dict[str, str]:
+    service = NoteService(db)
+    return service.update(response, token)
+
+
+@note.delete("/delete")
+async def delete_note(
+        response: Response,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db)
+) -> dict[str, str]:
+    service = NoteService(db)
+    return service.delete(response, token)
 
