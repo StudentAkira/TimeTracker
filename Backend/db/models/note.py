@@ -20,4 +20,4 @@ class Note(Base):
 
     owner_id: int = Column(Integer, ForeignKey("users.id"), nullable=False)
 
-    owner: Mapped["User"] = relationship("User", back_populates="notes")
+    owner: Mapped["User"] = relationship("User",   back_populates="notes")

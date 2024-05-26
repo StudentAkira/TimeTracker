@@ -26,6 +26,6 @@ class User(Base):
     second_name: str = Column(String, unique=False, nullable=False)
     third_name: str = Column(String, unique=False, nullable=False)
 
-    tokens: Mapped[list["Token"]] = relationship("Token", back_populates="owner")
-    notes: Mapped[list["Note"]] = relationship("Note", back_populates="owner")
-    topics: Mapped[list["Topic"]] = relationship("Topic", back_populates="owner")
+    tokens: Mapped[list["Token"]] = relationship("Token", cascade="all,delete", back_populates="owner")
+    notes: Mapped[list["Note"]] = relationship("Note", cascade="all,delete", back_populates="owner")
+    topics: Mapped[list["Topic"]] = relationship("Topic", cascade="all,delete", back_populates="owner")
