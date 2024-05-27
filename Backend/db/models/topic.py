@@ -18,7 +18,7 @@ class Topic(Base):
     title: str = Column(String, index=True, nullable=False)
     description: str = Column(String, primary_key=True, nullable=False)
 
-    total_hours: float = Column(Float, nullable=True)
+    total_hours: float = Column(Float, nullable=False, default=0)
 
     owner_id: int = Column(Integer, ForeignKey("users.id"), nullable=False)
     owner: Mapped["User"] = relationship("User", back_populates="topics")
