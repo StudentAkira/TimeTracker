@@ -3,6 +3,5 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 
-class PeriodSchema(BaseModel):
+class PeriodReadRequestSchema(BaseModel):
     topic_title: str = Field(min_length=7)
-    start_time: datetime
