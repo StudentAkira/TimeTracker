@@ -1,19 +1,17 @@
 import datetime
 from typing import cast
 
-from sqlalchemy import and_, func
+from sqlalchemy import and_
 from sqlalchemy.orm import Session
 
 from db.models.period import Period
 from db.models.topic import Topic
-from db.schemas.period.period import PeriodSchema
-from db.schemas.period.period_finish import PeriodFinishSchema
 from db.schemas.period.period_patch_end_time import PeriodPatchEndTimeSchema
 
 
-def create_period_db(db: Session, topic_db: Topic, period_data: PeriodSchema):
+def create_period_db(db: Session, topic_db: Topic):
     period_db = Period(
-        start_time=period_data.start_time
+        start_time=datetime.datetime.now()
     )
     topic_db.periods.append(period_db)
     db.add(period_db)

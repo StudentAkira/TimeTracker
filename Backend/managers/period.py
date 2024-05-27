@@ -24,7 +24,7 @@ class PeriodManager:
     def create(self, topic_db: Topic, period_data: PeriodSchema):
         unfinished_period_db = self.get_unfinished_period(topic_db)
         self.check_if_unfinished_period_exists(unfinished_period_db)
-        create_period_db(self.__db, topic_db, period_data)
+        create_period_db(self.__db, topic_db)
 
     def read(self, topic_db: Topic, offset: int, limit: int) -> list[PeriodReadResponseSchema]:
         return [
