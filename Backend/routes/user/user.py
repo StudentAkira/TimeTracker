@@ -34,7 +34,7 @@ async def read_user(
     return service.read(response, token, offset, limit)
 
 
-@user.put("/update")
+@user.patch("/patch")
 async def update_user(
         response: Response,
         user_data: UpdateUserSchema,

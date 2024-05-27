@@ -46,10 +46,10 @@ def get_user_by_id_db(db: Session, user_id: int) -> type(User) | None:
 
 
 def update_user_db(db: Session, user_db: User, user_data: UpdateUserSchema):
-    user_db.username = user_data.username
-    user_db.first_name = user_data.first_name
-    user_db.second_name = user_data.second_name
-    user_db.third_name = user_data.third_name
+    user_db.username = user_data.username if user_data.username else user_db.username
+    user_db.first_name = user_data.first_name if user_data.first_name else user_db.first_name
+    user_db.second_name = user_data.second_name if user_data.second_name else user_db.second_name
+    user_db.third_name = user_data.third_name if user_data.third_name else user_db.third_name
     db.add(user_db)
     db.commit()
 

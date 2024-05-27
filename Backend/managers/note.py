@@ -2,8 +2,12 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
-from db.crud.note import create_note_db, get_note_by_title_db, read_note_db
+from db.crud.note import create_note_db, get_note_by_title_db, read_note_db, get_user_note_db, update_user_note_db, \
+    delete_note_db
+from db.models.user import User
 from db.schemas.note.note import NoteSchema
+from db.schemas.note.note_delete import NoteDeleteSchema
+from db.schemas.note.note_update import NoteUpdateSchema
 from db.schemas.token.token_decoded import TokenDecodedSchema
 from managers.user import UserManager
 
@@ -14,12 +18,35 @@ class NoteManager:
 
         self.__user_manager = UserManager(self.__db)
 
-        self.__note_title_taken_error = "note_title_taken"
+        self.__note_title_taken_error = "note title taken"
+        self.__note_not_found_error = "note not found"
 
     def create_note(self, decoded_token: TokenDecodedSchema, note_data: NoteSchema):
         self.raise_exception_if_note_title_taken(note_data.title)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         create_note_db(self.__db, user_db, note_data)
+
+    def read_note(self, decoded_token: TokenDecodedSchema, offset: int, limit: int) -> list[NoteSchema]:
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        return read_note_db(self.__db, user_db, offset, limit)
+
+    def update(self, user_db: User, note_data: NoteUpdateSchema):
+        note_db = self.get_user_note(user_db, note_data.title)
+        self.raise_exception_if_note_title_taken(note_data.new_title)
+        update_user_note_db(self.__db, note_db, note_data)
+
+    def delete(self, user_db: User, note_data: NoteDeleteSchema):
+        note_db = self.get_user_note(user_db, note_data.title)
+        delete_note_db(self.__db, note_db)
+
+    def get_user_note(self, user_db: User, title: str):
+        note_db = get_user_note_db(self.__db, user_db, title)
+        if not note_db:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={"error": self.__note_not_found_error}
+            )
+        return note_db
 
     def get_note_by_title(self, title: str):
         note_db = get_note_by_title_db(self.__db, title)
@@ -33,7 +60,4 @@ class NoteManager:
                 detail={"error": self.__note_title_taken_error}
             )
 
-    def read_note(self, decoded_token: TokenDecodedSchema):
-        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
-        return read_note_db(user_db)
 

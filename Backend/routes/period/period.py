@@ -28,7 +28,7 @@ async def read_period(
     return service.read(response, token)
 
 
-@period.put("/update")
+@period.patch("/patch")
 async def update_period(
         response: Response,
         token: str = Depends(authorized_only),

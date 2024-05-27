@@ -28,7 +28,7 @@ async def read_topic(
     return service.read_topic(response, token)
 
 
-@topic.put('/update')
+@topic.patch('/patch')
 async def update_topic(
         response: Response,
         token: str = Depends(authorized_only),
