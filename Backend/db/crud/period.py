@@ -1,7 +1,7 @@
 import datetime
 from typing import cast
 
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 from sqlalchemy.orm import Session
 
 from db.models.period import Period
@@ -40,19 +40,19 @@ def get_period_by_id_db(db: Session, period_id: int) -> Period | None:
     return period_db
 
 
-def update_end_time_db(db: Session, period_db: Period, period_data: PeriodPatchEndTimeSchema):
+def update_end_time_db(db: Session, period_db: Period, period_data: PeriodPatchEndTimeSchema):#todo total hours topic field
     period_db.end_time = period_data.end_time
     db.add(period_db)
     db.commit()
 
 
-def finish_period_db(db: Session, period_db: Period):
+def finish_period_db(db: Session, period_db: Period):#todo total hours topic field
     period_db.end_time = datetime.datetime.now()
     period_db.finished = True
     db.add(period_db)
     db.commit()
 
 
-def delete_period_db(db: Session, period_db: Period):
+def delete_period_db(db: Session, period_db: Period):#todo total hours topic field
     db.delete(period_db)
     db.commit()
