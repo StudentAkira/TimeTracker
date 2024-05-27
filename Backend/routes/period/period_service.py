@@ -60,5 +60,6 @@ class PeriodService:
         decoded_token = self.__token_manager.decode_token(token, response)
         period_db = self.__period_manager.get_or_raise_exception_if_period_does_not_exists(period_data.id)
         self.__period_manager.raise_exception_if_period_ownership_wrong(decoded_token.user_id, period_db)
+        self.__period_manager.raise_exception_if_period_already_finished(period_db)
         self.__period_manager.finish_period(period_db)
         return {"message": self.__period_finished_message}

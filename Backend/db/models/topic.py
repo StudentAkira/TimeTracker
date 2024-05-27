@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, String, ForeignKey, Integer, UniqueConstraint
+from sqlalchemy import Column, String, ForeignKey, Integer, UniqueConstraint, Float
 from sqlalchemy.orm import Mapped, relationship
 
 from db.database import Base
@@ -17,6 +17,8 @@ class Topic(Base):
 
     title: str = Column(String, index=True, nullable=False)
     description: str = Column(String, primary_key=True, nullable=False)
+
+    total_hours: float = Column(Float, nullable=True)
 
     owner_id: int = Column(Integer, ForeignKey("users.id"), nullable=False)
     owner: Mapped["User"] = relationship("User", back_populates="topics")

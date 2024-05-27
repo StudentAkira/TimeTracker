@@ -19,6 +19,7 @@ class PeriodManager:
         self.__previous_period_unfinished_error = "previous period unfinished"
         self.__period_ownership_wrong_error = "period ownership wrong"
         self.__period_not_found_error = "period not found"
+        self.__period_already_finished_error = "period already finished"
 
     def create(self, topic_db: Topic, period_data: PeriodSchema):
         unfinished_period_db = self.get_unfinished_period(topic_db)
@@ -44,6 +45,9 @@ class PeriodManager:
         period_db = get_unfinished_period_db(self.__db, topic_db)
         return period_db
 
+    def finish_period(self, period_db: Period):
+        finish_period_db(self.__db, period_db)
+
     def check_if_unfinished_period_exists(self, period_db: Period | None):
         if period_db:
             raise HTTPException(
@@ -67,5 +71,9 @@ class PeriodManager:
             )
         return period_db
 
-    def finish_period(self, period_db: Period):
-        finish_period_db(self.__db, period_db)
+    def raise_exception_if_period_already_finished(self, period_db: Period):
+        if period_db.finished:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail={"error": self.__period_already_finished_error}
+            )
