@@ -21,6 +21,6 @@ class Topic(Base):
     owner_id: int = Column(Integer, ForeignKey("users.id"), nullable=False)
     owner: Mapped["User"] = relationship("User", back_populates="topics")
 
-    periods: Mapped[list["Period"]] = relationship("Period", back_populates="topic")
+    periods: Mapped[list["Period"]] = relationship("Period", cascade="all,delete", back_populates="topic")
 
     __table_args__ = (UniqueConstraint('title', 'owner_id', name='_title_owner_unique'),)
