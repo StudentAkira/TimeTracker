@@ -6,6 +6,7 @@ from starlette.responses import Response
 
 from db.schemas.subject.subject import SubjectSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
+from db.schemas.subject.topic_to_subject import TopicToSubjectSchema
 from dependencies import get_db, authorized_only
 from routes.subject.subject_service import SubjectService
 
@@ -35,6 +36,17 @@ async def read_subject(
     return service.read(response, token, offset, limit)
 
 
+@subject.get("/get_topics")
+async def remove_topic_from_subject(
+        response: Response,
+        subject_title: Annotated[str, Query()],
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+):
+    service = SubjectService(db)
+    return service.read_all_topic_by_subject(response, token, subject_title)
+
+
 @subject.patch("/patch")
 async def update_subject(
         response: Response,
@@ -55,3 +67,25 @@ async def delete_subject(
 ):
     service = SubjectService(db)
     return service.delete(response, token, subject_title)
+
+
+@subject.post("/append_topic")
+async def append_topic_to_subject(
+        response: Response,
+        topic_to_subject_data: TopicToSubjectSchema,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+):
+    service = SubjectService(db)
+    return service.append_topic_to_subject(response, token, topic_to_subject_data)
+
+
+@subject.post("/remove_topic")
+async def remove_topic_from_subject(
+        response: Response,
+        topic_to_subject_data: TopicToSubjectSchema,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+):
+    service = SubjectService(db)
+    return service.remove_topic_from_subject(response, token, topic_to_subject_data)
