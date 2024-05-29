@@ -5,6 +5,7 @@ from db import database
 from routes.auth.auth import auth
 from routes.note.note import note
 from routes.period.period import period
+from routes.subject.subject import subject
 from routes.topic.topic import topic
 from routes.user.user import user
 
@@ -26,3 +27,4 @@ app.include_router(user)
 app.include_router(note)
 app.include_router(topic)
 app.include_router(period)
+app.include_router(subject)
