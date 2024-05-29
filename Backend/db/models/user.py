@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from db.models.token import Token
     from db.models.note import Note
     from db.models.topic import Topic
+    from db.models.subject import Subject
 
 
 class User(Base):
@@ -29,3 +30,4 @@ class User(Base):
     tokens: Mapped[list["Token"]] = relationship("Token", cascade="all,delete", back_populates="owner")
     notes: Mapped[list["Note"]] = relationship("Note", cascade="all,delete", back_populates="owner")
     topics: Mapped[list["Topic"]] = relationship("Topic", cascade="all,delete", back_populates="owner")
+    subjects: Mapped[list["Subject"]] = relationship("Subject", cascade="all,delete", back_populates="owner")

@@ -8,6 +8,7 @@ from db.database import Base
 if TYPE_CHECKING:
     from db.models.user import User
     from db.models.period import Period
+    from db.models.subject import Subject
 
 
 class Topic(Base):
@@ -21,8 +22,10 @@ class Topic(Base):
     total_hours: float = Column(Float, nullable=False, default=0)
 
     owner_id: int = Column(Integer, ForeignKey("users.id"), nullable=False)
-    owner: Mapped["User"] = relationship("User", back_populates="topics")
+    subject_id: int = Column(Integer, ForeignKey("subject.id"))
 
+    owner: Mapped["User"] = relationship("User", back_populates="topics")
+    subject: Mapped["Subject"] = relationship("Subject", back_populates="topics")
     periods: Mapped[list["Period"]] = relationship("Period", cascade="all,delete", back_populates="topic")
 
     __table_args__ = (UniqueConstraint('title', 'owner_id', name='_title_owner_unique'),)

@@ -7,14 +7,19 @@ from sqlalchemy.orm import Session
 from db.models.period import Period
 from db.models.topic import Topic
 from db.schemas.period.period_patch_end_time import PeriodPatchEndTimeSchema
+from utils.date_util import DateUtil
 
 
 def create_period_db(db: Session, topic_db: Topic):
+    date_util = DateUtil()
     period_db = Period(
-        start_time=datetime.datetime.now()
+        start_time=datetime.datetime.now(),
+        end_time=datetime.datetime.now() + datetime.timedelta(seconds=1)
     )
+    topic_db.total_hours += date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     topic_db.periods.append(period_db)
     db.add(period_db)
+    db.add(topic_db)
     db.commit()
 
 
@@ -38,8 +43,11 @@ def get_period_by_id_db(db: Session, period_id: int) -> Period | None:
     return period_db
 
 
-def update_end_time_db(db: Session, period_db: Period, period_data: PeriodPatchEndTimeSchema):#todo total hours topic field
-    period_db.end_time = period_data.end_time
+def update_end_time_db(db: Session, period_db: Period):#todo total hours topic field
+    date_util = DateUtil()
+    period_db.topic.total_hours -= date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
+    period_db.end_time = datetime.datetime.now()
+    period_db.topic.total_hours += date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     db.add(period_db)
     db.commit()
 
@@ -47,10 +55,16 @@ def update_end_time_db(db: Session, period_db: Period, period_data: PeriodPatchE
 def finish_period_db(db: Session, period_db: Period):#todo total hours topic field
     period_db.end_time = datetime.datetime.now()
     period_db.finished = True
+    date_util = DateUtil()
+    period_db.topic.total_hours = date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     db.add(period_db)
     db.commit()
 
 
 def delete_period_db(db: Session, period_db: Period):#todo total hours topic field
+    date_util = DateUtil()
+    period_db.topic.total_hours -= date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     db.delete(period_db)
     db.commit()
+
+

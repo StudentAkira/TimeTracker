@@ -53,7 +53,7 @@ class PeriodService:
         decoded_token = self.__token_manager.decode_token(token, response)
         period_db = self.__period_manager.get_or_raise_exception_if_period_does_not_exists(period_data.id)
         self.__period_manager.raise_exception_if_period_ownership_wrong(decoded_token.user_id, period_db)
-        self.__period_manager.update_end_time(period_db, period_data)
+        self.__period_manager.update_end_time(period_db)
         return {"message": self.__period_end_time_updated_message}
 
     def finish_period(self, response: Response, token: str, period_data: PeriodFinishSchema):

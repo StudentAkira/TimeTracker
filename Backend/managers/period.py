@@ -38,8 +38,8 @@ class PeriodManager:
     def delete(self, period_db: Period):
         delete_period_db(self.__db, period_db)
 
-    def update_end_time(self, period_db, period_data):
-        update_end_time_db(self.__db, period_db, period_data)
+    def update_end_time(self, period_db):
+        update_end_time_db(self.__db, period_db)
 
     def get_unfinished_period(self, topic_db: Topic) -> Period | None:
         period_db = get_unfinished_period_db(self.__db, topic_db)

@@ -15,7 +15,7 @@ class Period(Base):
     id: int = Column(Integer, unique=True, primary_key=True, autoincrement=True)
 
     start_time: DateTime = Column(DateTime, nullable=False)
-    end_time: DateTime = Column(DateTime, nullable=True)
+    end_time: DateTime = Column(DateTime, nullable=False)
 
     finished: bool = Column(Boolean, nullable=False, default=False)
 

@@ -16,6 +16,7 @@ app = FastAPI()
 from db.models.note import Note
 from db.models.topic import Topic
 from db.models.period import Period
+from db.models.subject import Subject
 
 database.Base.metadata.create_all(bind=database.engine)
 
