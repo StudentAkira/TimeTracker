@@ -1,0 +1,19 @@
+.login_button {
+    margin: 0;
+    padding: 0;
+    
+    width: 50%;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+
+    border-radius: 10px;
+    border: 1px solid black;
+
+    background-color: #D2E8E3;
+}
+
+.login_button:hover {
+    cursor: pointer;
+}
