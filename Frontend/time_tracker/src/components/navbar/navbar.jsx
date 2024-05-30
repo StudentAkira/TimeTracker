@@ -45,6 +45,12 @@ function NavBar() {
                 <a href={frontURLs.topic}>Topic</a>
                 </div>
             </div>
+
+            <div className='nav_item'>
+                <div className='nav_link'>
+                <a href={frontURLs.period}>Period</a>
+                </div>
+            </div>
             
             <button onClick={logout} className='logout_button'>
                 logout

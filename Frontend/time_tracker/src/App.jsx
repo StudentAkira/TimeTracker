@@ -8,6 +8,7 @@ import Note from './components/note/note.jsx';
 import NavBar from './components/navbar/navbar.jsx';
 import Subject from './components/subject/subject.jsx';
 import Topic from './components/topic/topic.jsx';
+import Period from './components/period/period.jsx';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path={frontURLs.note} element={<Note />}/>
           <Route path={frontURLs.subject} element={<Subject />}/>
           <Route path={frontURLs.topic} element={<Topic />}/>
+          <Route path={frontURLs.period} element={<Period />}/>
         </Routes>
       </BrowserRouter>
     </div>

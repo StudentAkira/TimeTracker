@@ -85,7 +85,7 @@ function Note() {
                 items.map(
                     (item) => (
                         <div className="note_wrapper">
-                            <Card title={item.title} content={item.content}/>
+                            <Card title={item.title} content={item.content} additional_data={`${item.datetime_.substring(0, 19)}`}/>
                         </div>
                     )
                 )

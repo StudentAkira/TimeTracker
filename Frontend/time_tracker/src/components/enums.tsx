@@ -12,7 +12,10 @@ export enum APIEndpoints {
     subject_create = base + "/subject/create",
     
     topic_read = base + "/topic/read",
-    topic_create = base + "/topic/create"
+    topic_create = base + "/topic/create",
+
+    period_read = base + "/period/read",
+    period_create = base + "/period/create"
 }
 export enum frontURLs {
     base = "http://127.0.0.1:3000",
@@ -21,5 +24,6 @@ export enum frontURLs {
 
     note = "/note",
     subject = "/subject",
-    topic = "/topic"
+    topic = "/topic",
+    period = "/period"
 }
