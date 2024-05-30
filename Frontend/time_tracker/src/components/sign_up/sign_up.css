@@ -1,0 +1,52 @@
+.wrapper {
+    /* background-color: var(--main_bg_color); */
+
+    height: 100vh;
+
+    display: grid;
+}
+
+.sign_in_content {
+    background-color:antiquewhite ;
+
+    place-self: center;
+
+    height: 50vh;
+    width: 50vh;
+    border-radius: 10%;
+
+    display: grid;
+    justify-content: space-around;
+
+}
+
+.inputs {
+
+    place-self: center;
+    display: grid;
+
+    gap: 2rem;
+
+}
+
+.actions {
+    place-self: center;
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 3.5rem;
+    color:var(--font_color);
+}
+
+div > a {
+    font-family: "Roboto", sans-serif;
+    color:var(--font_color);
+    text-decoration: none;
+    font-size: 1.5rem;
+}
