@@ -4,12 +4,22 @@ export enum APIEndpoints {
     logout = base + "/auth/logout",
     user_create = base + "/user/create",
     login = base + "/auth/login",
-    create_note = base + "/note/create"
+
+    note_read = base + "/note/read",
+    note_create = base + "/note/create",
+
+    subject_read = base + "/subject/read",
+    subject_create = base + "/subject/create",
+    
+    topic_read = base + "/topic/read",
+    topic_create = base + "/topic/create"
 }
 export enum frontURLs {
     base = "http://127.0.0.1:3000",
     sign_up = "/sign_up",
     login = "/login",
 
-    note = "/note"
+    note = "/note",
+    subject = "/subject",
+    topic = "/topic"
 }

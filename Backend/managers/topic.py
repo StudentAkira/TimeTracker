@@ -7,6 +7,7 @@ from db.crud.topic import get_topic_by_title_and_user_id_db, create_topic_db, re
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.topic.topic import TopicSchema
+from db.schemas.topic.topic_create import TopicCreateSchema
 from db.schemas.topic.topic_update import TopicUpdateSchema
 
 
@@ -17,7 +18,7 @@ class TopicManager:
         self.__topic_name_taken_error = "topic name taken"
         self.__topic_not_found_error = "topic not found"
 
-    def create(self, user_db: User, topic_data: TopicSchema):
+    def create(self, user_db: User, topic_data: TopicCreateSchema):
         create_topic_db(self.__db, user_db, topic_data)
 
     def read(self, user_db: User, offset: int, limit: int) -> list[TopicSchema]:

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { APIEndpoints, frontURLs } from '../enums.tsx';
+import Card from '../card/card.jsx';
+import "./note.css"
 
 
 function Note() {
 
 
     const [items, setItems] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(49);
 
-    const get_notes = async () => {
+    const read_items = async () => {
+        
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
 
@@ -18,7 +23,7 @@ function Note() {
         credentials: "include"
         };
 
-        const response = await fetch("http://127.0.0.1:8000/api/note/read?offset=0&limit=49", requestOptions)
+        const response = await fetch(`${APIEndpoints.note_read}?offset=${offset}&limit=${limit}`, requestOptions)
         const response_json = await response.json()
 
         if ("detail" in response_json){
@@ -28,26 +33,20 @@ function Note() {
         setItems(response_json);
     }
 
-    useEffect(() => {
-        get_notes()
-    }, []);
-
-    const logout = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-
-        const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials:"include"
-        };
-
-        const response = await fetch(APIEndpoints.logout, requestOptions);
-        const response_json = await response.json()
-
-        window.location.href = frontURLs.login;
+    const is_auth = () => {
+        if(localStorage.getItem("user_data") == null){
+            return false;
+        }
+        return true 
     }
+
+    useEffect(() => {
+        if(!is_auth()){
+            window.location.href = frontURLs.login
+            return;
+        }
+        read_items()
+    }, []);
 
     const create_note = async () => {
 
@@ -58,7 +57,7 @@ function Note() {
         let d = new Date();
         const raw = JSON.stringify({
         "title": document.getElementById("title").value,
-        "content": document.getElementById("note_content").value,
+        "content": document.getElementById("content").value,
         "datetime_": d.toJSON()
         });
 
@@ -70,7 +69,7 @@ function Note() {
         credentials: "include"
         };
 
-        const response = await fetch(APIEndpoints.create_note, requestOptions);
+        const response = await fetch(APIEndpoints.note_create, requestOptions);
         const response_json = await response.json();
         if ("detail" in response_json){
             alert(response_json["detail"]["error"])
@@ -80,19 +79,13 @@ function Note() {
     }
 
   return (
-    <div className="Note">
-        <button onClick={logout}>
-            logout
-        </button>
-
-
+    <div className="note">
         <div className="notes">
             {
                 items.map(
                     (item) => (
                         <div className="note_wrapper">
-                            <h1 key={item.title}>{item.title}</h1>
-                            <p>{item.content}</p>
+                            <Card title={item.title} content={item.content}/>
                         </div>
                     )
                 )
@@ -101,7 +94,7 @@ function Note() {
 
         <div className="create_note">
             <h1>title :: </h1><input type="text" id="title"/><br />
-            <textarea name="note_content" id="note_content" cols="60" rows="30"></textarea>
+            <textarea name="content" id="content" cols="60" rows="30"></textarea>
             <button onClick={create_note}>create</button>
         </div>
     </div>

@@ -1,0 +1,15 @@
+.card {
+    width: 100%;
+
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.card > h2 {
+    text-align: center;
+}
+.card > p {
+    padding-left: 10px;
+    padding-right: 10px;
+    line-break: anywhere;
+}

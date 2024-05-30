@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.topic.topic import TopicSchema
+from db.schemas.topic.topic_create import TopicCreateSchema
 from db.schemas.topic.topic_delete import TopicDeleteSchema
 from db.schemas.topic.topic_update import TopicUpdateSchema
 from managers.note import NoteManager
@@ -23,7 +24,7 @@ class TopicService:
         self.__topic_updated_message = "topic updated"
         self.__topic_deleted_message = "topic deleted"
 
-    def create_topic(self, response: Response, token: str, topic_data: TopicSchema) -> dict[str, str]:
+    def create_topic(self, response: Response, token: str, topic_data: TopicCreateSchema) -> dict[str, str]:
         decoded_token = self.__token_manager.decode_token(token, response)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         topic_with_taken_name = self.__topic_manager.\

@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.topic.topic import TopicSchema
+from db.schemas.topic.topic_create import TopicCreateSchema
 from db.schemas.topic.topic_delete import TopicDeleteSchema
 from db.schemas.topic.topic_update import TopicUpdateSchema
 from dependencies import authorized_only, get_db
@@ -16,7 +17,7 @@ topic = APIRouter(prefix="/api/topic", tags=["topic"])
 @topic.post('/create')
 async def create_topic(
         response: Response,
-        topic_data: TopicSchema,
+        topic_data: TopicCreateSchema,
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ) -> dict[str, str]:

@@ -5,12 +5,11 @@ from sqlalchemy.orm import Session
 
 from db.models.topic import Topic
 from db.models.user import User
-from db.schemas.topic.topic import TopicSchema
-from db.schemas.topic.topic_delete import TopicDeleteSchema
+from db.schemas.topic.topic_create import TopicCreateSchema
 from db.schemas.topic.topic_update import TopicUpdateSchema
 
 
-def create_topic_db(db: Session, user_db: User, topic_data: TopicSchema):
+def create_topic_db(db: Session, user_db: User, topic_data: TopicCreateSchema):
     topic_db = Topic(
         title=topic_data.title,
         description=topic_data.description

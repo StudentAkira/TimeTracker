@@ -31,6 +31,7 @@ function Auth() {
       return
     }
 
+    localStorage.setItem("user_data", 1)
     window.location.href = frontURLs.note;
 
   }

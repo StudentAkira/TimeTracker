@@ -1,0 +1,20 @@
+.subjects {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    justify-content: left;
+}
+
+.subject_wrapper {
+
+    display: flex;
+    justify-self: center;
+    width: 100%;
+}
+
+.create_subject {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 100px;
+}
