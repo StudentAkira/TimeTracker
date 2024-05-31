@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import NotFound from "../../notfound/notfound.jsx";
 
 function SingleTopic(){
 
@@ -39,7 +40,8 @@ function SingleTopic(){
         setItem(response_json)
         setFetching(false)
         setTitle(response_json["title"])
-        setDescription(response_json["content"])
+        setDescription(response_json["description"])
+
     }
 
     const update_item = async () => {
@@ -101,6 +103,20 @@ function SingleTopic(){
         get_item()
     }, []);
 
+    if (fetching) {
+        return (
+            <>
+            
+            </>
+        );
+    }
+
+    if (!fetching && item == null) {
+        return (
+            <NotFound />
+        )
+    }
+
     return (
         <div className="wrapper">
             <div className="topic">
@@ -111,17 +127,21 @@ function SingleTopic(){
                                 }/>
                 <br />
                 <br />
-                <h1 className="title_description">description :: </h1>
-                <textarea name="title_description" id="title_description" cols="60" rows="30" defaultValue={description} onChange={
+                <h1 className="topic_description">description :: </h1>
+                <textarea name="topic_description" id="topic_description" cols="60" rows="30" defaultValue={description} onChange={
                                 (e) => {
                                     description == e.target.value? new_description = null: new_description = e.target.value;
                                     }
                                 }>
-
                 </textarea>
 
                 <div className="buttons">
-                    <button className="update_topic" onClick={update_item}>update</button>
+                    <button className="update_topic" onClick={
+                                ()=>{
+                                    update_item()
+                                    get_item()
+                            }
+                        }>update</button>
                     <button className="delete_topic" onClick={delete_note}>delete</button>
                 </div>
             </div>

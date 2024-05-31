@@ -52,7 +52,7 @@ function SingleNote(){
         const raw = JSON.stringify({
         "title": title,
         "new_title": new_title == null ? null : new_title,
-        "new_description": new_description == null ? null : new_description,
+        "new_content": new_description == null ? null : new_description,
         });
 
         const requestOptions = {
@@ -134,9 +134,9 @@ function SingleNote(){
                                     description == e.target.value? new_description = null: new_description = e.target.value;
                                     }
                                 }>
-
+                                    {item.description}
                 </textarea>
-
+                            
                 <div className="buttons">
                     <button className="update_note" onClick={update_item}>update</button>
                     <button className="delete_note" onClick={delete_note}>delete</button>

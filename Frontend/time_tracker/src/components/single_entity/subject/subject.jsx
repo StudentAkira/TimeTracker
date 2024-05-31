@@ -186,12 +186,11 @@ function SingleSubject(){
                     <br />
                     <h1 className="subject_description">description :: </h1>
                     <div className="content">
-                        <textarea name="subject_content" id="description" cols="60" rows="30" onChange={
+                        <textarea name="subject_content" id="description" cols="60" rows="30" defaultValue={description} onChange={
                         (e) => {
                             description == e.target.value? new_description = null: new_description = e.target.value;
                             }
                         }>
-                            {item.description}
                         </textarea>
                     </div>
                     <br />
