@@ -74,6 +74,7 @@ function SingleSubject(){
             return
           }
         alert('Subject was updated');
+        window.location.href = new_title == null ? title : new_title
     }
 
     useEffect(() => {

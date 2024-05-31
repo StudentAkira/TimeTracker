@@ -4,8 +4,10 @@ from starlette import status
 
 from db.crud.note import create_note_db, get_note_by_title_db, read_note_db, get_user_note_db, update_user_note_db, \
     delete_note_db
+from db.models.note import Note
 from db.models.user import User
 from db.schemas.note.note import NoteSchema
+from db.schemas.note.note_create import NoteCreateSchema
 from db.schemas.note.note_delete import NoteDeleteSchema
 from db.schemas.note.note_update import NoteUpdateSchema
 from db.schemas.token.token_decoded import TokenDecodedSchema
@@ -21,7 +23,7 @@ class NoteManager:
         self.__note_title_taken_error = "note title taken"
         self.__note_not_found_error = "note not found"
 
-    def create_note(self, decoded_token: TokenDecodedSchema, note_data: NoteSchema):
+    def create_note(self, decoded_token: TokenDecodedSchema, note_data: NoteCreateSchema):
         self.raise_exception_if_note_title_taken(note_data.title)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         create_note_db(self.__db, user_db, note_data)
@@ -35,11 +37,11 @@ class NoteManager:
         self.raise_exception_if_note_title_taken(note_data.new_title)
         update_user_note_db(self.__db, note_db, note_data)
 
-    def delete(self, user_db: User, note_data: NoteDeleteSchema):
-        note_db = self.get_user_note(user_db, note_data.title)
+    def delete(self, user_db: User, title: str):
+        note_db = self.get_user_note(user_db, title)
         delete_note_db(self.__db, note_db)
 
-    def get_user_note(self, user_db: User, title: str):
+    def get_user_note(self, user_db: User, title: str) -> Note:
         note_db = get_user_note_db(self.__db, user_db, title)
         if not note_db:
             raise HTTPException(

@@ -54,11 +54,9 @@ function Note() {
         myHeaders.append("accept", "application/json");
         myHeaders.append("Content-Type", "application/json");
 
-        let d = new Date();
         const raw = JSON.stringify({
-        "title": document.getElementById("title").value,
-        "content": document.getElementById("content").value,
-        "datetime_": d.toJSON()
+            "title": document.getElementById("title").value,
+            "content": document.getElementById("content").value,
         });
 
         const requestOptions = {
@@ -85,7 +83,9 @@ function Note() {
                 items.map(
                     (item) => (
                         <div className="note_wrapper">
-                            <Card title={item.title} content={item.content} additional_data={`${item.datetime_.substring(0, 19)}`}/>
+                            <Card title={
+                                <a href={`${frontURLs.note}/${item.title}`}>{item.title}</a>
+                                } content={item.content} additional_data={`${item.datetime_.substring(0, 19)}`}/>
                         </div>
                     )
                 )
@@ -95,7 +95,10 @@ function Note() {
         <div className="create_note">
             <h1>title :: </h1><input type="text" id="title"/><br />
             <textarea name="content" id="content" cols="60" rows="30"></textarea>
-            <button onClick={create_note}>create</button>
+            <button onClick={()=>{
+                create_note()
+                read_items()
+            }}>create</button>
         </div>
     </div>
   );

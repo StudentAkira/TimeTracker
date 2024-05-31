@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.note.note import NoteSchema
+from db.schemas.note.note_create import NoteCreateSchema
 from db.schemas.note.note_delete import NoteDeleteSchema
 from db.schemas.note.note_update import NoteUpdateSchema
 from dependencies import get_db, authorized_only
@@ -16,7 +17,7 @@ note = APIRouter(prefix="/api/note", tags=["note"])
 @note.post("/create")
 async def create_note(
         response: Response,
-        note_data: NoteSchema,
+        note_data: NoteCreateSchema,
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ) -> dict[str, str]:
@@ -36,6 +37,17 @@ async def read_note(
     return service.read(response, token, offset, limit)
 
 
+@note.get("/read_by_title")
+async def read_note(
+        response: Response,
+        title: Annotated[str, Query()],
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db)
+) -> NoteSchema:
+    service = NoteService(db)
+    return service.read_by_title(response, token, title)
+
+
 @note.patch("/patch")
 async def update_note(
         response: Response,
@@ -50,10 +62,10 @@ async def update_note(
 @note.delete("/delete")
 async def delete_note(
         response: Response,
-        note_data: NoteDeleteSchema,
+        title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db)
 ) -> dict[str, str]:
     service = NoteService(db)
-    return service.delete(response, token, note_data)
+    return service.delete(response, token, title)
 

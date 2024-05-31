@@ -1,3 +1,4 @@
+import datetime
 from typing import cast
 
 from sqlalchemy import and_
@@ -6,14 +7,15 @@ from sqlalchemy.orm import Session
 from db.models.note import Note
 from db.models.user import User
 from db.schemas.note.note import NoteSchema
+from db.schemas.note.note_create import NoteCreateSchema
 from db.schemas.note.note_update import NoteUpdateSchema
 
 
-def create_note_db(db: Session, user_db: User, note_data: NoteSchema):
+def create_note_db(db: Session, user_db: User, note_data: NoteCreateSchema):
     note_db = Note(
         title=note_data.title,
         content=note_data.content,
-        datetime_=note_data.datetime_
+        datetime_=datetime.datetime.now()
     )
     user_db.notes.append(note_db)
     db.add(note_db)

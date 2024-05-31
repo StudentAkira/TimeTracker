@@ -6,7 +6,10 @@ export enum APIEndpoints {
     login = base + "/auth/login",
 
     note_read = base + "/note/read",
+    note_read_by_title = base + "/note/read_by_title",
     note_create = base + "/note/create",
+    note_update = base + "/note/patch",
+    note_delete = base + "/note/delete",
 
     subject_read = base + "/subject/read",
     subject_read_by_title = base + "/subject/read_by_title",
@@ -32,5 +35,6 @@ export enum frontURLs {
     topic = "/topic",
     period = "/period",
 
-    single_subject = "/subject/:title"
+    single_subject = "/subject/:title",
+    single_note = "/note/:title"
 }
