@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.subject.topic_to_subject import TopicToSubjectSchema
 from dependencies import get_db, authorized_only
@@ -34,6 +35,17 @@ async def read_subject(
 ) -> list[SubjectSchema]:
     service = SubjectService(db)
     return service.read(response, token, offset, limit)
+
+
+@subject.get("/read_by_title")
+async def read_subject_by_title(
+        response: Response,
+        title: Annotated[str, Query()],
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> SubjectFullDataSchema | None:
+    service = SubjectService(db)
+    return service.read_by_title(response, token, title)
 
 
 @subject.get("/get_topics")

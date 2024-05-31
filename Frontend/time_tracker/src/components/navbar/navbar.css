@@ -6,6 +6,8 @@
 .navbar {
     height: 10vh;
     display: grid;
+    background-color: grey;
+    margin-bottom: 30px;
 }
 
 .nav_item {

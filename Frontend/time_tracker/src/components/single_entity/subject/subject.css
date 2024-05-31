@@ -1,0 +1,24 @@
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0px 30px 0px 30px;
+}
+
+.subject_topics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.topic_wrapper {
+    height: 40vh;
+}
+
+.subject_edit {
+    display: flex;
+}

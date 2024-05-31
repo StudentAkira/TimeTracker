@@ -9,7 +9,9 @@ export enum APIEndpoints {
     note_create = base + "/note/create",
 
     subject_read = base + "/subject/read",
+    subject_read_by_title = base + "/subject/read_by_title",
     subject_create = base + "/subject/create",
+    subject_update = base + "/subject/patch",
     
     topic_read = base + "/topic/read",
     topic_create = base + "/topic/create",
@@ -25,5 +27,7 @@ export enum frontURLs {
     note = "/note",
     subject = "/subject",
     topic = "/topic",
-    period = "/period"
+    period = "/period",
+
+    single_subject = "/subject/:title"
 }

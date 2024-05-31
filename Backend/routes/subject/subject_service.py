@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.subject.topic_to_subject import TopicToSubjectSchema
 from db.schemas.topic.topic import TopicSchema
@@ -39,6 +40,11 @@ class SubjectService:
         decoded_token = self.__token_manager.decode_token(token, response)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         return self.__subject_manager.read(user_db, offset, limit)
+
+    def read_by_title(self, response : Response, token: str, title: str) -> SubjectFullDataSchema | None:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        return self.__subject_manager.read_by_title(user_db, title)
 
     def read_all_topic_by_subject(self, response: Response, token: str, subject_title: str) -> list[TopicSchema]:
         decoded_token = self.__token_manager.decode_token(token, response)

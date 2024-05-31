@@ -9,6 +9,7 @@ import NavBar from './components/navbar/navbar.jsx';
 import Subject from './components/subject/subject.jsx';
 import Topic from './components/topic/topic.jsx';
 import Period from './components/period/period.jsx';
+import SingleSubject from './components/single_entity/subject/subject.jsx';
 
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
           <Route path={frontURLs.subject} element={<Subject />}/>
           <Route path={frontURLs.topic} element={<Topic />}/>
           <Route path={frontURLs.period} element={<Period />}/>
+          
+
+          <Route path="/subject/:title" element={<SingleSubject />}/>
+          {/* <Route path={frontURLs.single_subject} element={<SingleSubject />}/> */}
         </Routes>
       </BrowserRouter>
     </div>

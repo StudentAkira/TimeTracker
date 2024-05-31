@@ -26,6 +26,14 @@ def read_subjects_by_owner_db(db: Session, user_db: User, offset: int, limit: in
     return subjects_db
 
 
+def read_subject_by_title_db(db: Session, user_db: User, title: str) -> Subject | None:
+    subject_db = db.query(Subject).filter(and_(
+        Subject.owner_id == user_db.id,
+        Subject.title == title
+    )).first()
+    return subject_db
+
+
 def update_subject_db(db: Session, subject_db: Subject, subject_data: SubjectUpdateSchema):
     subject_db.title = subject_data.new_title if subject_data.new_title else subject_db.title
     subject_db.description = subject_data.new_description if subject_data.new_description else subject_db.description

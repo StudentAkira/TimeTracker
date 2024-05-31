@@ -69,6 +69,7 @@ function Subject() {
             return
           }
         alert(response_json["message"]);
+        get_items()
     }
 
   return (
@@ -76,9 +77,17 @@ function Subject() {
         <div className="subjects">
             {
                 items.map(
-                    (item) => (
-                        <div className="subject_wrapper">
-                            <Card title={item.title} content={item.description}/>
+                    (item, index) => (
+                        <div className="subject_wrapper" >
+                            <Card 
+                                title={item.title} 
+                                content={item.description} 
+                                additional_data={
+                                    <>
+                                        <a href={`${frontURLs.subject}/${item.title}`}>more....</a>
+                                    </>
+                                }
+                            />
                         </div>
                     )
                 )

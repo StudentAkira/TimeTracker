@@ -4,11 +4,13 @@ from starlette import status
 
 from db.crud.subject import get_subject_by_user_id_title_db, create_subject_db, read_subjects_by_owner_db, \
     update_subject_db, \
-    delete_subject_db, append_topic_to_subject_db, remove_topic_from_subject_db, read_all_topic_by_subject_db
+    delete_subject_db, append_topic_to_subject_db, remove_topic_from_subject_db, read_all_topic_by_subject_db, \
+    read_subject_by_title_db
 from db.models.subject import Subject
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.topic.topic import TopicSchema
 
@@ -28,6 +30,16 @@ class SubjectManager:
     def read(self, user_db: User, offset: int, limit: int) -> list[SubjectSchema]:
         return [SubjectSchema.from_orm(subject_db)
                 for subject_db in read_subjects_by_owner_db(self.__db, user_db, offset, limit)]
+
+    def read_by_title(self, user_db: User, title: str) -> SubjectFullDataSchema | None:
+        subject_db = read_subject_by_title_db(self.__db, user_db, title)
+        if not subject_db:
+            return None
+        return SubjectFullDataSchema(
+            title=subject_db.title,
+            description=subject_db.description,
+            topics=[TopicSchema.from_orm(topic_db) for topic_db in subject_db.topics]
+        )
 
     def update(self, existing_subject_db: Subject, subject_data: SubjectUpdateSchema):
         update_subject_db(self.__db, existing_subject_db, subject_data)
@@ -83,4 +95,6 @@ class SubjectManager:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail={"error": self.__topic_already_in_subject_error}
             )
+
+
 
