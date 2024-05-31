@@ -120,7 +120,7 @@ function SingleNote(){
 
     return (
         <div className="wrapper">
-            <div className="note_">
+            <div className="note">
                 <h1 className="note_title">title :: </h1><input type="text" id="note_title" defaultValue={title}  onChange={
                                 (e) => {
                                     title == e.target.value? new_title = null: new_title = e.target.value;
@@ -138,8 +138,8 @@ function SingleNote(){
                 </textarea>
 
                 <div className="buttons">
-                    <button className="update_subject" onClick={update_item}>update</button>
-                    <button className="delete_subject" onClick={delete_note}>delete</button>
+                    <button className="update_note" onClick={update_item}>update</button>
+                    <button className="delete_note" onClick={delete_note}>delete</button>
                 </div>
             </div>
         </div>

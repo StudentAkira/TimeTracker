@@ -38,6 +38,11 @@ class TopicService:
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         return self.__topic_manager.read(user_db, offset, limit)
 
+    def read_topic_by_title(self, response: Response, token: str, title: str) -> TopicSchema:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        topic_db = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, title)
+        return TopicSchema.from_orm(topic_db)
+
     def update_topic(self, response: Response, token: str, topic_data: TopicUpdateSchema) -> dict[str, str]:
         decoded_token = self.__token_manager.decode_token(token, response)
         topic_to_update_db = self.__topic_manager.\
@@ -49,9 +54,10 @@ class TopicService:
         self.__topic_manager.update(topic_to_update_db, topic_data)
         return {"message": self.__topic_updated_message}
 
-    def delete_topic(self, response: Response, token: str, topic_data: TopicDeleteSchema) -> dict[str, str]:
+    def delete_topic(self, response: Response, token: str, title: str) -> dict[str, str]:
         decoded_token = self.__token_manager.decode_token(token, response)
-        topic_to_delete = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, topic_data.title)
+        topic_to_delete = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, title)
         self.__topic_manager.raise_exception_if_topic_does_not_exists(topic_to_delete)
         self.__topic_manager.delete(topic_to_delete)
         return {"message": self.__topic_deleted_message}
+

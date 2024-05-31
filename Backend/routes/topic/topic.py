@@ -37,6 +37,17 @@ async def read_topic(
     return service.read_topic(response, token, offset, limit)
 
 
+@topic.get('/read_by_title')
+async def read_topic_by_title(
+        response: Response,
+        title: Annotated[str, Query()],
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> TopicSchema:
+    service = TopicService(db)
+    return service.read_topic_by_title(response, token, title)
+
+
 @topic.patch('/patch')
 async def update_topic(
         response: Response,
@@ -51,9 +62,9 @@ async def update_topic(
 @topic.delete('/delete')
 async def delete_topic(
         response: Response,
-        topic_data: TopicDeleteSchema,
+        title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ) -> dict[str, str]:
     service = TopicService(db)
-    return service.delete_topic(response, token, topic_data)
+    return service.delete_topic(response, token, title)

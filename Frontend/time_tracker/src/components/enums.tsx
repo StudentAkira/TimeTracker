@@ -20,7 +20,10 @@ export enum APIEndpoints {
     subject_delete = base + "/subject/delete",
     
     topic_read = base + "/topic/read",
+    topic_read_by_title = base + "/topic/read_by_title",
     topic_create = base + "/topic/create",
+    topic_update = base + "/topic/patch",
+    topic_delete = base + "/topic/delete",
 
     period_read = base + "/period/read",
     period_create = base + "/period/create"
@@ -36,5 +39,6 @@ export enum frontURLs {
     period = "/period",
 
     single_subject = "/subject/:title",
-    single_note = "/note/:title"
+    single_note = "/note/:title",
+    single_topic = "/topic/:title"
 }

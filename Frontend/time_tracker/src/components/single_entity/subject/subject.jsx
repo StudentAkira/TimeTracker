@@ -231,7 +231,11 @@ function SingleSubject(){
                         (topic, index) => (
                             <div className="topic_wrapper" >
                                 <Card 
-                                    title={topic.title} 
+                                    title={
+
+                                        topic.title
+                                        
+                                    } 
                                     content={topic.description} 
                                     additional_data={
                                     <>
