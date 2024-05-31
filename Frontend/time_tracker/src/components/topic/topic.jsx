@@ -54,11 +54,11 @@ function Topic() {
         myHeaders.append("accept", "application/json");
         myHeaders.append("Content-Type", "application/json");
 
-        let d = new Date();
         const raw = JSON.stringify({
         "title": document.getElementById("title").value,
         "description": document.getElementById("description").value,
         });
+
 
         const requestOptions = {
         method: "POST",
@@ -72,9 +72,11 @@ function Topic() {
         const response_json = await response.json();
         if ("detail" in response_json){
             alert(response_json["detail"]["error"])
+            console.log(response_json);
             return
           }
         alert(response_json["message"]);
+        read_items();
     }
 
   return (

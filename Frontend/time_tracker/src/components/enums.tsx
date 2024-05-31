@@ -12,6 +12,9 @@ export enum APIEndpoints {
     subject_read_by_title = base + "/subject/read_by_title",
     subject_create = base + "/subject/create",
     subject_update = base + "/subject/patch",
+    append_topic_to_subject = base + "/subject/append_topic",
+    remove_topic_from_subject = base + "/subject/remove_topic",
+    subject_delete = base + "/subject/delete",
     
     topic_read = base + "/topic/read",
     topic_create = base + "/topic/create",

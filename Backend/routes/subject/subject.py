@@ -73,7 +73,7 @@ async def update_subject(
 @subject.delete("/delete")
 async def delete_subject(
         response: Response,
-        subject_title: Annotated[str, Body()],
+        subject_title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ):

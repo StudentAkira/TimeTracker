@@ -80,6 +80,84 @@ function SingleSubject(){
         get_item()
     }, []);
 
+    const append_topic_to_subject = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+        "topic_title": document.getElementById("topic_title_to_append").value,
+        "subject_title": title
+        });
+
+        const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+        credentials: "include"
+        };
+
+        const response = await fetch(APIEndpoints.append_topic_to_subject, requestOptions)
+        const response_json = await response.json()
+        if ("detail" in response_json){
+            alert(response_json["detail"]["error"]);
+            return
+          }
+        
+    }
+
+    const remove_topic_from_subject = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            "topic_title": document.getElementById("topic_title_to_remove").value,
+            "subject_title": title
+        });
+
+        const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+        credentials: "include"
+        };
+
+        const response = await fetch(APIEndpoints.remove_topic_from_subject, requestOptions)
+        const response_json = await response.json()
+        if ("detail" in response_json){
+            alert(response_json["detail"]["error"]);
+            return
+          }
+    }
+
+    const delete_subject = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Content-Type", "application/json");
+
+        const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        redirect: "follow",
+        credentials: "include"
+        };
+
+        const response = await fetch(APIEndpoints.subject_delete + `/?subject_title=${title}`, requestOptions)
+        const response_json = await response.json()
+
+        console.log(response_json);
+
+        if ("detail" in response_json){
+            alert(response_json["detail"]["error"]);
+            return
+          }
+        alert('Subject was deleted');
+        window.location.href = frontURLs.subject
+    }
+
     if (fetching) {
         return (
             <>
@@ -118,21 +196,29 @@ function SingleSubject(){
                     <br />
                     <div className="buttons">
                         <button className="update_subject" onClick={update_item}>update</button>
-                        <button className="delete_subject" >delete</button>
+                        <button className="delete_subject" onClick={delete_subject}>delete</button>
                     </div>
                 </div>
                 <div className="topic_to_subject_wrapper">
                     <div className="topic_append">
-                        topic title :: <input type="text" />
-                        <button>
+                        topic title :: <input type="text" id="topic_title_to_append"/>
+                        <button onClick={() => {
+                                setFetching(true)
+                                append_topic_to_subject()
+                                get_item()
+                            }}>
                             append
                         </button>
                     </div>
                     <br />
                     <br />
                     <div className="topic_remove">
-                        topic title :: <input type="text" />
-                        <button>
+                        topic title :: <input type="text" id="topic_title_to_remove"/>
+                        <button onClick={() => {
+                                setFetching(true)
+                                remove_topic_from_subject()
+                                get_item()
+                            }}>
                             remove
                         </button>
                     </div>
