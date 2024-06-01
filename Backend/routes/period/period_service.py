@@ -39,6 +39,13 @@ class PeriodService:
         topic_db = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, period_data.topic_title)
         return self.__period_manager.read(topic_db, offset, limit)
 
+    def read_last_unfinished(self, response: Response, token: str) -> PeriodSchema | None:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        if not user_db.last_unfinished_period:
+            return None
+        return PeriodSchema.from_orm(user_db. last_unfinished_period)
+
     def update(self, response: Response, token: str):
         pass
 
@@ -63,3 +70,4 @@ class PeriodService:
         self.__period_manager.raise_exception_if_period_already_finished(period_db)
         self.__period_manager.finish_period(period_db)
         return {"message": self.__period_finished_message}
+

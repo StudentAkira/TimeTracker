@@ -110,7 +110,7 @@ function Note() {
             alert(response_json["detail"]["error"])
             return
           }
-          
+        sort_items_by_tile(response_json)  
         setItems(response_json);
     }
 
@@ -123,7 +123,8 @@ function Note() {
     }, []);
 
   return (
-    <div className="note">
+    <div className="wrapper">
+        <div className="note">
 
         <div className="search_bar">
             <h1 className='search_label'>Search by title :: </h1>
@@ -151,6 +152,7 @@ function Note() {
                 create_note()
                 read_items()
             }}>create</button>
+        </div>
         </div>
     </div>
   );

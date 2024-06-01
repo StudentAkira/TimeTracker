@@ -13,6 +13,7 @@ import SingleSubject from './components/single_entity/subject/single_subject.jsx
 import SingleNote from './components/single_entity/note/single_note.jsx';
 import SingleTopic from './components/single_entity/topic/single_topic.jsx';
 import SinglePeriod from './components/single_entity/period/single_period.jsx';
+import SinglePeriodCreate from './components/single_entity/period/single_period_create.jsx';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path={frontURLs.single_note} element={<SingleNote />}/>
           <Route path="/topic/:title" element={<SingleTopic />}/>
           <Route path="/period/:title" element={<SinglePeriod />}/>
+          <Route path={frontURLs.period_create} element={<SinglePeriodCreate />}/>
         </Routes>
       </BrowserRouter>
     </div>

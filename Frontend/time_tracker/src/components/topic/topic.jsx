@@ -80,28 +80,30 @@ function Topic() {
     }
 
   return (
-    <div className="topic">
-        <div className="topics">
-            {
-                items.map(
-                    (item) => (
-                        <div className="topic_wrapper">
-                            <Card title={
-                                <a href={`${frontURLs.topic}/${item.title}`}>{item.title}</a>
-                                } content={item.description} additional_data={`${String(item.total_hours).substring(0, 5)} hours`}/>
-                        </div>
+    <div className="wrapper">
+        <div className="topic">
+            <div className="topics">
+                {
+                    items.map(
+                        (item) => (
+                            <div className="topic_wrapper">
+                                <Card title={
+                                    <a href={`${frontURLs.topic}/${item.title}`}>{item.title}</a>
+                                    } content={item.description} additional_data={`${String(item.total_hours).substring(0, 5)} hours`}/>
+                            </div>
+                        )
                     )
-                )
-            }
-        </div>
+                }
+            </div>
 
-        <div className="create_topic">
-        <h1>title :: </h1><input type="text" id="title"/>
-            <br />
-            <br />
-            <h1>description :: </h1>
-            <textarea name="description" id="description" cols="60" rows="30"></textarea>
-            <button onClick={create_topic}>create</button>
+            <div className="create_topic">
+            <h1>title :: </h1><input type="text" id="title"/>
+                <br />
+                <br />
+                <h1>description :: </h1>
+                <textarea name="description" id="description" cols="60" rows="30"></textarea>
+                <button onClick={create_topic}>create</button>
+            </div>
         </div>
     </div>
   );

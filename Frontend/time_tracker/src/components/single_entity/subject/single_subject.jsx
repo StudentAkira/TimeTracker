@@ -231,17 +231,12 @@ function SingleSubject(){
                             <div className="topic_wrapper" >
                                 <Card 
                                     title={
-
-                                        topic.title
-                                        
+                                        <a href={`${frontURLs.topic}/${topic.title}`}>{topic.title}</a>
                                     } 
                                     content={topic.description} 
                                     additional_data={
                                     <>
                                         <h3>{String(topic.total_hours).substring(0, 5)} hours</h3>
-                                        <br />
-                                        <br />
-                                        <a href={`${frontURLs.topic}/${topic.title}`}>more....</a>
                                     </>
                                 }
                                 />

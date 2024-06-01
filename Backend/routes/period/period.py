@@ -40,6 +40,16 @@ async def read_period(
     return service.read(response, token, period_data, offset, limit)
 
 
+@period.get("/read_last_unfinished")
+async def read__last_unfinished_period(
+        response: Response,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> list[PeriodReadResponseSchema]:
+    service = PeriodService(db)
+    return service.read_last_unfinished(response, token)
+
+
 @period.patch("/patch_end_time")
 async def update_end_time_period(
         response: Response,

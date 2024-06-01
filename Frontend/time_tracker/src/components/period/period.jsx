@@ -45,7 +45,7 @@ function Period() {
             window.location.href = frontURLs.login
             return;
         }
-        read_items()
+        // read_items()
     }, []);
 
     const create_period = async () => {
@@ -77,23 +77,18 @@ function Period() {
     }
 
   return (
-    <div className="period">
-        <div className="periods">
-            {
-                items.map(
-                    (item) => (
-                        <div className="period_wrapper">
-                            <Card title={item.title}/>
-                        </div>
-                    )
-                )
-            }
-        </div>
-
-        <div className="create_period">
-            <h1>title :: </h1><input type="text" id="title"/><br />
-            <button onClick={create_period}>create</button>
-        </div>
+    <div className="wrapper">
+      <div className="period">
+        <h1 className='period_title'>title :: </h1><input type="text" />
+        <h1 className='period_description'>description :: </h1>
+        <textarea name="period_description" id="period_description" cols="30" rows="10">
+        </textarea>
+        <br />
+        <br />
+        <button className='create_period_button'>
+          create
+        </button>
+      </div>
     </div>
   );
 }

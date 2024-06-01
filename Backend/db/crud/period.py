@@ -18,6 +18,7 @@ def create_period_db(db: Session, topic_db: Topic):
     )
     topic_db.total_hours += date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     topic_db.periods.append(period_db)
+    topic_db.owner.last_unfinished_period = period_db
     db.add(period_db)
     db.add(topic_db)
     db.commit()
@@ -43,7 +44,7 @@ def get_period_by_id_db(db: Session, period_id: int) -> Period | None:
     return period_db
 
 
-def update_end_time_db(db: Session, period_db: Period):#todo total hours topic field
+def update_end_time_db(db: Session, period_db: Period):
     date_util = DateUtil()
     period_db.topic.total_hours -= date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     period_db.end_time = datetime.datetime.now()
@@ -52,16 +53,17 @@ def update_end_time_db(db: Session, period_db: Period):#todo total hours topic f
     db.commit()
 
 
-def finish_period_db(db: Session, period_db: Period):#todo total hours topic field
+def finish_period_db(db: Session, period_db: Period):
     period_db.end_time = datetime.datetime.now()
     period_db.finished = True
     date_util = DateUtil()
     period_db.topic.total_hours = date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
+    period_db.user_started = None
     db.add(period_db)
     db.commit()
 
 
-def delete_period_db(db: Session, period_db: Period):#todo total hours topic field
+def delete_period_db(db: Session, period_db: Period):
     date_util = DateUtil()
     period_db.topic.total_hours -= date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
     db.delete(period_db)

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from db.models.note import Note
     from db.models.topic import Topic
     from db.models.subject import Subject
+    from db.models.period import Period
 
 
 class User(Base):
@@ -31,3 +32,4 @@ class User(Base):
     notes: Mapped[list["Note"]] = relationship("Note", cascade="all,delete", back_populates="owner")
     topics: Mapped[list["Topic"]] = relationship("Topic", cascade="all,delete", back_populates="owner")
     subjects: Mapped[list["Subject"]] = relationship("Subject", cascade="all,delete", back_populates="owner")
+    last_unfinished_period: Mapped["Period"] = relationship("Period", back_populates="user_started")

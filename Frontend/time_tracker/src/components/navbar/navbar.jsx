@@ -47,8 +47,17 @@ function NavBar() {
             </div>
 
             <div className='nav_item'>
-                <div className='nav_link'>
-                <a href={frontURLs.period}>Period</a>
+                <div className='nav_link drop_down'>
+                    <a href={frontURLs.period_create}>Period</a>
+                    
+                    {/* <div class="dropdown-content">
+                        <div className="drop_link">
+                            <a href={frontURLs.period_create}>Link 1</a>
+                        </div>
+                        <div className="drop_link">
+                            <a href="#">Link 2</a>
+                        </div>
+                    </div> */}
                 </div>
             </div>
             

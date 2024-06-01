@@ -73,34 +73,31 @@ function Subject() {
     }
 
   return (
-    <div className="subject">
-        <div className="subjects">
-            {
-                items.map(
-                    (item, index) => (
-                        <div className="subject_wrapper" >
-                            <Card 
-                                title={item.title} 
-                                content={item.description} 
-                                additional_data={
-                                    <>
-                                        <a href={`${frontURLs.subject}/${item.title}`}>more....</a>
-                                    </>
-                                }
-                            />
-                        </div>
+    <div className="wrapper">
+        <div className="subject">
+            <div className="subjects">
+                {
+                    items.map(
+                        (item, index) => (
+                            <div className="subject_wrapper" >
+                                <Card 
+                                    title={<a href={`${frontURLs.subject}/${item.title}`}>{item.title}</a>} 
+                                    content={item.description} 
+                                />
+                            </div>
+                        )
                     )
-                )
-            }
-        </div>
+                }
+            </div>
 
-        <div className="create_subject">
-            <h1>title :: </h1><input type="text" id="title"/>
-            <br />
-            <br />
-            <h1>description :: </h1>
-            <textarea name="description" id="description" cols="60" rows="30"></textarea>
-            <button onClick={create_subject}>create</button>
+            <div className="create_subject">
+                <h1>title :: </h1><input type="text" id="title"/>
+                <br />
+                <br />
+                <h1>description :: </h1>
+                <textarea name="description" id="description" cols="60" rows="30"></textarea>
+                <button onClick={create_subject}>create</button>
+            </div>
         </div>
     </div>
   );

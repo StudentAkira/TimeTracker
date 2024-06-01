@@ -4,7 +4,7 @@
 }
 
 .navbar {
-    height: 10vh;
+    height: 6vh;
     display: grid;
     background-color: grey;
     margin-bottom: 30px;
@@ -12,10 +12,12 @@
 
 .nav_item {
     display: grid;
+    width: 15vh;
 }
 
 .nav_link {
-    place-self:center ;
+    place-self: center;
+    width: 100%;
 }
 
 .nav_link > a {
@@ -33,4 +35,23 @@
 
 .logout_button:hover {
     cursor: pointer;
+}
+
+.dropdown-content {
+    position:absolute;
+    display: none;
+    background-color: rgb(209, 207, 207);
+    transition: .2s;
+}
+
+.drop_down {
+    position: relative;
+}
+
+.drop_link {
+    margin: 0.5rem 0px;
+}
+
+.drop_down:hover .dropdown-content {
+    display: grid;
 }

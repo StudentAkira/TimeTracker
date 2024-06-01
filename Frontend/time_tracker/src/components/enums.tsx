@@ -38,8 +38,12 @@ export enum frontURLs {
     subject = "/subject",
     topic = "/topic",
     period = "/period",
+    period_create = "/period_create",
 
     single_subject = "/subject/:title",
     single_note = "/note/:title",
-    single_topic = "/topic/:title"
+    single_topic = "/topic/:title",
+    single_period = "/period/:title"
+
+
 }
