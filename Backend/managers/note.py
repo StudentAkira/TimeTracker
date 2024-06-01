@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from db.crud.note import create_note_db, get_note_by_title_db, read_note_db, get_user_note_db, update_user_note_db, \
-    delete_note_db
+    delete_note_db, get_user_notes_starts_with_db
 from db.models.note import Note
 from db.models.user import User
 from db.schemas.note.note import NoteSchema
@@ -54,6 +54,10 @@ class NoteManager:
         note_db = get_note_by_title_db(self.__db, title)
         return note_db
 
+    def get_user_notes_with_title_starts_with(self, user_db: User, title: str, offset: int, limit: int) -> list[NoteSchema]:
+        notes_db = get_user_notes_starts_with_db(self.__db, user_db, title, offset, limit)
+        return [NoteSchema.from_orm(note_db) for note_db in notes_db]
+
     def raise_exception_if_note_title_taken(self, title: str):
         note_db = self.get_note_by_title(title)
         if note_db:
@@ -61,5 +65,6 @@ class NoteManager:
                 status_code=status.HTTP_409_CONFLICT,
                 detail={"error": self.__note_title_taken_error}
             )
+
 
 

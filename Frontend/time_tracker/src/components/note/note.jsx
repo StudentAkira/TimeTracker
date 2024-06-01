@@ -30,6 +30,7 @@ function Note() {
             alert(response_json)
             return
           }
+        sort_items_by_tile(response_json)
         setItems(response_json);
     }
 
@@ -39,14 +40,6 @@ function Note() {
         }
         return true 
     }
-
-    useEffect(() => {
-        if(!is_auth()){
-            window.location.href = frontURLs.login
-            return;
-        }
-        read_items()
-    }, []);
 
     const create_note = async () => {
 
@@ -76,8 +69,67 @@ function Note() {
         alert(response_json["message"]);
     }
 
+    const debounce = (cb, delay = 500) => {
+        let timeout
+        return (...args) => {
+            clearTimeout(timeout)
+            timeout = setTimeout(() => {
+                cb(...args)
+            }, delay)
+        }
+    }
+
+    const sort_items_by_tile = (items) => {
+        console.log(items);
+        items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))
+        console.log(items);
+    }
+
+    const search_by_title_starts_with = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+
+        const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+        credentials: "include"
+        };
+
+        const response = await fetch(`${APIEndpoints.note_read_by_title_starts_witn}?title=${
+            document.getElementById("title_input").value
+        }&offset=${
+            offset
+        }&limit=${
+            limit
+        }`, requestOptions)
+
+        const response_json = await response.json()
+
+        if ("detail" in response_json){
+            alert(response_json["detail"]["error"])
+            return
+          }
+          
+        setItems(response_json);
+    }
+
+    useEffect(() => {
+        if(!is_auth()){
+            window.location.href = frontURLs.login
+            return;
+        }
+        read_items()
+    }, []);
+
   return (
     <div className="note">
+
+        <div className="search_bar">
+            <h1 className='search_label'>Search by title :: </h1>
+            <div className='search_input_wrapper'><input type="text" id="title_input" onChange={debounce(search_by_title_starts_with)}/></div>
+        </div>
+
         <div className="notes">
             {
                 items.map(

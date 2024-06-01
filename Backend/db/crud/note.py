@@ -1,7 +1,7 @@
 import datetime
 from typing import cast
 
-from sqlalchemy import and_
+from sqlalchemy import and_, literal, func
 from sqlalchemy.orm import Session
 
 from db.models.note import Note
@@ -44,6 +44,14 @@ def get_user_note_db(db: Session, user_db: User, title: str):
         Note.title == title
     )).first()
     return note_db
+
+
+def get_user_notes_starts_with_db(db: Session, user_db: User, title: str, offset: int, limit: int):
+    notes_db = db.query(Note).filter(and_(
+        Note.owner_id == user_db.id,
+        Note.title.ilike(f"{title}%")
+    )).offset(offset).limit(limit).all()
+    return notes_db
 
 
 def update_user_note_db(db: Session, note_db: Note, note_data: NoteUpdateSchema):

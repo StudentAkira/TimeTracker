@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Auth from './components/auth/auth.jsx';
+import Auth from './components/login/login.jsx';
 import { frontURLs } from './components/enums.tsx';
 import SignUp from './components/sign_up/sign_up.jsx';
 import Note from './components/note/note.jsx';
@@ -9,7 +9,7 @@ import NavBar from './components/navbar/navbar.jsx';
 import Subject from './components/subject/subject.jsx';
 import Topic from './components/topic/topic.jsx';
 import Period from './components/period/period.jsx';
-import SingleSubject from './components/single_entity/subject/subject.jsx';
+import SingleSubject from './components/single_entity/subject/single_subject.jsx';
 import SingleNote from './components/single_entity/note/single_note.jsx';
 import SingleTopic from './components/single_entity/topic/single_topic.jsx';
 import SinglePeriod from './components/single_entity/period/single_period.jsx';

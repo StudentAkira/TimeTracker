@@ -38,7 +38,7 @@ async def read_note(
 
 
 @note.get("/read_by_title")
-async def read_note(
+async def read_note_by_title(
         response: Response,
         title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
@@ -46,6 +46,19 @@ async def read_note(
 ) -> NoteSchema:
     service = NoteService(db)
     return service.read_by_title(response, token, title)
+
+
+@note.get("/read_by_title_starts_with")
+async def read_note_by_title_starts_with(
+        response: Response,
+        title: Annotated[str, Query()],
+        offset: Annotated[int, Query(gte=0)] = 0,
+        limit: Annotated[int, Query(lt=50)] = 49,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db)
+) -> list[NoteSchema]:
+    service = NoteService(db)
+    return service.read_by_title_by_starts_with(response, token, title, offset, limit)
 
 
 @note.patch("/patch")

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import NotFound from "../../notfound/notfound.jsx";
-import "./subject.css"
+import "./single_subject.css"
 import Card from "../../card/card.jsx";
 
 function SingleSubject(){

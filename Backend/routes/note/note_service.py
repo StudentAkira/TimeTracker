@@ -37,6 +37,19 @@ class NoteService:
         note_db = self.__note_manager.get_user_note(user_db, title)
         return NoteSchema.from_orm(note_db)
 
+    def read_by_title_by_starts_with(
+            self,
+            response: Response,
+            token: str,
+            title: str,
+            offset: int,
+            limit: int
+    ) -> list[NoteSchema]:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        notes = self.__note_manager.get_user_notes_with_title_starts_with(user_db, title, offset, limit)
+        return notes
+
     def update(self, response: Response, token: str, note_data: NoteUpdateSchema):
         decoded_token = self.__token_manager.decode_token(token, response)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
