@@ -1,4 +1,4 @@
-.period_wrapper {
+.period_create_wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
@@ -26,7 +26,4 @@
 .finish_button {
     display: block;
     grid-column: 3;
-}
-.wrapper {
-    display: block;
 }

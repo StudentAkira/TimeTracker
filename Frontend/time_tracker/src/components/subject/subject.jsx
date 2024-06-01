@@ -73,7 +73,6 @@ function Subject() {
     }
 
   return (
-    <div className="wrapper">
         <div className="subject">
             <div className="subjects">
                 {
@@ -99,7 +98,6 @@ function Subject() {
                 <button onClick={create_subject}>create</button>
             </div>
         </div>
-    </div>
   );
 }
 

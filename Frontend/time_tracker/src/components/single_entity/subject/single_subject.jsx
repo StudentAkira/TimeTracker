@@ -174,78 +174,78 @@ function SingleSubject(){
     }
 
     return (
-        <div className="wrapper">
+        <>
             <div className="subject_edit">
-                <div className="subject_create_wrapper">
-                    <h1 className="subject_title">title :: </h1><input type="text" id="title" defaultValue={title}  onChange={
-                        (e) => {
-                            title == e.target.value? new_title = null: new_title = e.target.value;
-                            }
-                        }/>
-                    <br />
-                    <br />
-                    <h1 className="subject_description">description :: </h1>
-                    <div className="content">
-                        <textarea name="subject_content" id="description" cols="60" rows="30" defaultValue={description} onChange={
-                        (e) => {
-                            description == e.target.value? new_description = null: new_description = e.target.value;
-                            }
-                        }>
-                        </textarea>
-                    </div>
-                    <br />
-                    <div className="buttons">
-                        <button className="update_subject" onClick={update_item}>update</button>
-                        <button className="delete_subject" onClick={delete_subject}>delete</button>
-                    </div>
-                </div>
-                <div className="topic_to_subject_wrapper">
-                    <div className="topic_append">
-                        topic title :: <input type="text" id="topic_title_to_append"/>
-                        <button onClick={() => {
-                                setFetching(true)
-                                append_topic_to_subject()
-                                get_item()
-                            }}>
-                            append
-                        </button>
-                    </div>
-                    <br />
-                    <br />
-                    <div className="topic_remove">
-                        topic title :: <input type="text" id="topic_title_to_remove"/>
-                        <button onClick={() => {
-                                setFetching(true)
-                                remove_topic_from_subject()
-                                get_item()
-                            }}>
-                            remove
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className="subject_topics">
-                {
-                    topics.map(
-                        (topic, index) => (
-                            <div className="topic_wrapper" >
-                                <Card 
-                                    title={
-                                        <a href={`${frontURLs.topic}/${topic.title}`}>{topic.title}</a>
-                                    } 
-                                    content={topic.description} 
-                                    additional_data={
-                                    <>
-                                        <h3>{String(topic.total_hours).substring(0, 5)} hours</h3>
-                                    </>
+                    <div className="subject_create_wrapper">
+                        <h1 className="subject_title">title :: </h1><input type="text" id="title" defaultValue={title}  onChange={
+                            (e) => {
+                                title == e.target.value? new_title = null: new_title = e.target.value;
                                 }
-                                />
-                            </div>
+                            }/>
+                        <br />
+                        <br />
+                        <h1 className="subject_description">description :: </h1>
+                        <div className="content">
+                            <textarea name="subject_content" id="description" cols="60" rows="30" defaultValue={description} onChange={
+                            (e) => {
+                                description == e.target.value? new_description = null: new_description = e.target.value;
+                                }
+                            }>
+                            </textarea>
+                        </div>
+                        <br />
+                        <div className="buttons">
+                            <button className="update_subject" onClick={update_item}>update</button>
+                            <button className="delete_subject" onClick={delete_subject}>delete</button>
+                        </div>
+                    </div>
+                    <div className="topic_to_subject_wrapper">
+                        <div className="topic_append">
+                            topic title :: <input type="text" id="topic_title_to_append"/>
+                            <button onClick={() => {
+                                    setFetching(true)
+                                    append_topic_to_subject()
+                                    get_item()
+                                }}>
+                                append
+                            </button>
+                        </div>
+                        <br />
+                        <br />
+                        <div className="topic_remove">
+                            topic title :: <input type="text" id="topic_title_to_remove"/>
+                            <button onClick={() => {
+                                    setFetching(true)
+                                    remove_topic_from_subject()
+                                    get_item()
+                                }}>
+                                remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="subject_topics">
+                    {
+                        topics.map(
+                            (topic, index) => (
+                                <div className="topic_wrapper" >
+                                    <Card 
+                                        title={
+                                            <a href={`${frontURLs.topic}/${topic.title}`}>{topic.title}</a>
+                                        } 
+                                        content={topic.description} 
+                                        additional_data={
+                                        <>
+                                            <h3>{String(topic.total_hours).substring(0, 5)} hours</h3>
+                                        </>
+                                    }
+                                    />
+                                </div>
+                            )
                         )
-                    )
-                }
+                    }
             </div>
-        </div>
+        </>
     );
 }
 

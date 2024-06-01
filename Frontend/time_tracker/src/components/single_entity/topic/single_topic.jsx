@@ -118,7 +118,6 @@ function SingleTopic(){
     }
 
     return (
-        <div className="wrapper">
             <div className="topic">
                 <h1 className="topic_title">title :: </h1><input type="text" id="topic_title" defaultValue={title}  onChange={
                                 (e) => {
@@ -145,7 +144,6 @@ function SingleTopic(){
                     <button className="delete_topic" onClick={delete_note}>delete</button>
                 </div>
             </div>
-        </div>
     );
 }
 

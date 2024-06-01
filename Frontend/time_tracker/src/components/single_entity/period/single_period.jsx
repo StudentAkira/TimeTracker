@@ -1,18 +1,52 @@
-function SinglePeriod(){
-    return (
-        <div className="wrapper">
-            <div className="period_data_wrapper">
-                    <div className="period_title_wrapper">
-                        <h1 className="period_title">title :: </h1><input type="text" />
-                    </div>
-                    <div className="period_description_wrapper">
-                        <h1 className="period_description">description :: </h1>
-                        <textarea name="period_description" id="period_description" cols="30" rows="10">
+import { useEffect, useState } from "react";
+import { APIEndpoints } from "../../enums.tsx";
+import SinglePeriodCreate from "./single_period_create";
+import SinglePeriodStarted from "./single_period_started";
 
-                        </textarea>
-                    </div>
-                </div>
-        </div>
+function SinglePeriod(){
+
+    const [period, setPeriod] = useState()
+    const [fetching, setFetching] = useState(true)
+
+
+    const get_active_period = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+          credentials: "include"
+        };
+        
+        const response = await fetch(APIEndpoints.get_active_period, requestOptions)
+        const response_json = await response.json()
+
+        if(response_json == null){
+            setPeriod(response_json)
+            return
+        }
+        if ("detail" in response_json){
+            alert(response_json["detail"]["error"])
+            return
+          }
+        setPeriod(response_json)
+        setFetching(false)
+    }
+
+    useEffect(() => {
+        get_active_period()
+    }, []);
+
+    if(fetching){
+        return (
+            <h1>Fetching...</h1>
+        );
+    }
+
+    return (
+        <>{period == null ? <SinglePeriodCreate /> : <SinglePeriodStarted period={period}/>}</>
     );
 }
 

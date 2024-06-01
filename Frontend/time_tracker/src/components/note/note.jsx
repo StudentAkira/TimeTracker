@@ -123,38 +123,35 @@ function Note() {
     }, []);
 
   return (
-    <div className="wrapper">
         <div className="note">
+            <div className="search_bar">
+                <h1 className='search_label'>Search by title :: </h1>
+                <div className='search_input_wrapper'><input type="text" id="title_input" onChange={debounce(search_by_title_starts_with)}/></div>
+            </div>
 
-        <div className="search_bar">
-            <h1 className='search_label'>Search by title :: </h1>
-            <div className='search_input_wrapper'><input type="text" id="title_input" onChange={debounce(search_by_title_starts_with)}/></div>
-        </div>
-
-        <div className="notes">
-            {
-                items.map(
-                    (item) => (
-                        <div className="note_wrapper">
-                            <Card title={
-                                <a href={`${frontURLs.note}/${item.title}`}>{item.title}</a>
-                                } content={item.content} additional_data={`${item.datetime_.substring(0, 19)}`}/>
-                        </div>
+            <div className="notes">
+                {
+                    items.map(
+                        (item) => (
+                            <div className="note_wrapper">
+                                <Card title={
+                                    <a href={`${frontURLs.note}/${item.title}`}>{item.title}</a>
+                                    } content={item.content} additional_data={`${item.datetime_.substring(0, 19)}`}/>
+                            </div>
+                        )
                     )
-                )
-            }
-        </div>
+                }
+            </div>
 
-        <div className="create_note">
-            <h1>title :: </h1><input type="text" id="title"/><br />
-            <textarea name="content" id="content" cols="60" rows="30"></textarea>
-            <button onClick={()=>{
-                create_note()
-                read_items()
-            }}>create</button>
+            <div className="create_note">
+                <h1>title :: </h1><input type="text" id="title"/><br />
+                <textarea name="content" id="content" cols="60" rows="30"></textarea>
+                <button onClick={()=>{
+                    create_note()
+                    read_items()
+                }}>create</button>
+            </div>
         </div>
-        </div>
-    </div>
   );
 }
 

@@ -26,8 +26,10 @@ export enum APIEndpoints {
     topic_update = base + "/topic/patch",
     topic_delete = base + "/topic/delete",
 
+    get_active_period = base + "/period/read_last_unfinished",
     period_read = base + "/period/read",
     period_create = base + "/period/create"
+
 }
 export enum frontURLs {
     base = "http://127.0.0.1:3000",

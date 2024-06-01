@@ -1,11 +1,3 @@
-.wrapper {
-    /* background-color: var(--main_bg_color); */
-
-    height: 100vh;
-
-    display: grid;
-}
-
 .sign_in_content {
     background-color:antiquewhite ;
 

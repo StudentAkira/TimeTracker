@@ -80,7 +80,6 @@ function Topic() {
     }
 
   return (
-    <div className="wrapper">
         <div className="topic">
             <div className="topics">
                 {
@@ -105,7 +104,6 @@ function Topic() {
                 <button onClick={create_topic}>create</button>
             </div>
         </div>
-    </div>
   );
 }
 

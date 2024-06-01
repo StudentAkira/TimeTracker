@@ -119,31 +119,28 @@ function SingleNote(){
     }
 
     return (
-        <div className="wrapper">
-            <div className="note">
-                <h1 className="note_title">title :: </h1><input type="text" id="note_title" defaultValue={title}  onChange={
-                                (e) => {
-                                    title == e.target.value? new_title = null: new_title = e.target.value;
-                                    }
-                                }/>
-                <br />
-                <br />
-                <h1 className="note_description">description :: </h1>
-                <textarea name="note_description" id="note_description" cols="60" rows="30" defaultValue={description} onChange={
-                                (e) => {
-                                    description == e.target.value? new_description = null: new_description = e.target.value;
-                                    }
-                                }>
-                                    {item.description}
-                </textarea>
-                            
-                <div className="buttons">
-                    <button className="update_note" onClick={update_item}>update</button>
-                    <button className="delete_note" onClick={delete_note}>delete</button>
-                </div>
+        <div className="note">
+            <h1 className="note_title">title :: </h1><input type="text" id="note_title" defaultValue={title}  onChange={
+                            (e) => {
+                                title == e.target.value? new_title = null: new_title = e.target.value;
+                                }
+                            }/>
+            <br />
+            <br />
+            <h1 className="note_description">description :: </h1>
+            <textarea name="note_description" id="note_description" cols="60" rows="30" defaultValue={description} onChange={
+                            (e) => {
+                                description == e.target.value? new_description = null: new_description = e.target.value;
+                                }
+                            }>
+                                {item.description}
+            </textarea>
+                        
+            <div className="buttons">
+                <button className="update_note" onClick={update_item}>update</button>
+                <button className="delete_note" onClick={delete_note}>delete</button>
             </div>
         </div>
-        
     );
 }
 
