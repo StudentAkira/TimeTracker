@@ -32,4 +32,4 @@ class User(Base):
     notes: Mapped[list["Note"]] = relationship("Note", cascade="all,delete", back_populates="owner")
     topics: Mapped[list["Topic"]] = relationship("Topic", cascade="all,delete", back_populates="owner")
     subjects: Mapped[list["Subject"]] = relationship("Subject", cascade="all,delete", back_populates="owner")
-    last_unfinished_period: Mapped["Period"] = relationship("Period", back_populates="user_started")
+    last_unfinished_period: Mapped["Period"] = relationship("Period", back_populates="active_user")

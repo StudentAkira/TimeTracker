@@ -6,7 +6,6 @@ from starlette.responses import Response
 
 from db.schemas.period.period import PeriodSchema
 from db.schemas.period.period_delete import PeriodDeleteSchema
-from db.schemas.period.period_finish import PeriodFinishSchema
 from db.schemas.period.period_patch_end_time import PeriodPatchEndTimeSchema
 from db.schemas.period.period_read_request import PeriodReadRequestSchema
 from db.schemas.period.period_read_response import PeriodReadResponseSchema
@@ -41,16 +40,16 @@ async def read_period(
 
 
 @period.get("/read_last_unfinished")
-async def read__last_unfinished_period(
+async def read_last_unfinished_period(
         response: Response,
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
-) -> list[PeriodReadResponseSchema]:
+) -> PeriodReadResponseSchema | None:
     service = PeriodService(db)
     return service.read_last_unfinished(response, token)
 
 
-@period.patch("/patch_end_time")
+@period.patch("/patch_end_time", deprecated=True)
 async def update_end_time_period(
         response: Response,
         period_data: PeriodPatchEndTimeSchema,
@@ -61,15 +60,14 @@ async def update_end_time_period(
     return service.update_end_time(response, token, period_data)
 
 
-@period.patch("/finish")
+@period.post("/finish")
 async def finish_period(
         response: Response,
-        period_data: PeriodFinishSchema,
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ):
     service = PeriodService(db)
-    return service.finish_period(response, token, period_data)
+    return service.finish_period(response, token)
 
 
 @period.delete("/delete")
