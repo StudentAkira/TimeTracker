@@ -47,11 +47,6 @@ function SinglePeriodStarted(params){
   const hours = Math.floor(minutes / 60) % 24;
   const days = Math.floor(hours / 24) / 31;
   
-  const test = Math.ceil((Date.now() - (params.period.start_time * 1000)) / 1000)
-  console.log("seconds :: ", Math.floor(timestamp) % 60);
-  console.log("minutes :: ", Math.floor(timestamp / 60) % 60);
-  console.log("hours :: ", Math.floor(minutes / 60) % 24);
-
     return (
       <div className="period_wrapper">
 
