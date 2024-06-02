@@ -1,13 +1,17 @@
 .nav_items {
     display: flex;
-    justify-content: space-around;
+    gap: .3rem;
 }
 
 .navbar {
     height: 6vh;
     display: grid;
-    background-color: grey;
+    background-color: #823237;
     margin-bottom: 30px;
+    
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    
 }
 
 .nav_item {
@@ -18,19 +22,19 @@
 .nav_link {
     place-self: center;
     width: 100%;
+    text-align: center;
+
 }
 
 .nav_link > a {
-    color: black;
+    color: #ED9691;
     text-decoration: none;
 }
 
 .logout_button {
     border-radius: 10px;
     border: 1px solid black;
-    height: 50%;
-    display: block;
-    place-self: center;
+    height: 75%;
 }
 
 .logout_button:hover {

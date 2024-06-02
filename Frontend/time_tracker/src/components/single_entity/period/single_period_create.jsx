@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./single_period_create.css"
-import { APIEndpoints } from "../../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
 
 
 function SinglePeriodCreate(){
@@ -37,6 +37,20 @@ function SinglePeriodCreate(){
         setStarting(false);
         window.location.href = "/period"
     }
+
+    const is_auth = () => {
+        if(localStorage.getItem("user_data") == null){
+            return false;
+        }
+        return true 
+    }
+
+    useEffect(() => {
+        if(!is_auth()){
+            window.location.href = frontURLs.login
+            return;
+        }
+    }, []);
 
     if(starting){
         return (

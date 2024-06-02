@@ -49,15 +49,15 @@ function Note() {
 
         const raw = JSON.stringify({
             "title": document.getElementById("title").value,
-            "content": document.getElementById("content").value,
+            "description": document.getElementById("description").value,
         });
 
         const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-        credentials: "include"
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+            credentials: "include"
         };
 
         const response = await fetch(APIEndpoints.note_create, requestOptions);
@@ -80,9 +80,7 @@ function Note() {
     }
 
     const sort_items_by_tile = (items) => {
-        console.log(items);
         items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))
-        console.log(items);
     }
 
     const search_by_title_starts_with = async () => {
@@ -145,7 +143,7 @@ function Note() {
 
             <div className="create_note">
                 <h1>title :: </h1><input type="text" id="title"/><br />
-                <textarea name="content" id="content" cols="60" rows="30"></textarea>
+                <textarea name="description" id="description" cols="60" rows="30"></textarea>
                 <button onClick={()=>{
                     create_note()
                     read_items()

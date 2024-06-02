@@ -33,7 +33,7 @@ def read_note_db(db: Session, user_db: User, offset: int, limit: int) -> list[No
         filter(cast("ColumnElement[bool]", Note.owner_id == user_db.id)).offset(offset).limit(limit).all()
     return [NoteSchema(
         title=note_db.title,
-        content=note_db.content,
+        description=note_db.content,
         datetime_=note_db.datetime_
     ) for note_db in notes]
 

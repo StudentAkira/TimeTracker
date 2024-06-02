@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./single_period_started.css"
-import { APIEndpoints } from "../../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
 
 
 function SinglePeriodStarted(params){
@@ -40,6 +40,18 @@ function SinglePeriodStarted(params){
     window.location.href = "/period"
 
   }
+  const is_auth = () => {
+    if(localStorage.getItem("user_data") == null){
+        return false;
+    }
+    return true 
+}
+  useEffect(() => {
+    if(!is_auth()){
+      window.location.href = frontURLs.login
+      return;
+  }
+  }, []);
 
   const timestamp =  Math.ceil((Date.now() - (params.period.start_time * 1000)) / 1000);
   const seconds = Math.floor(timestamp) % 60;

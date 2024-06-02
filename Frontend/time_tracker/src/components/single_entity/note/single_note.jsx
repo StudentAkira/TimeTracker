@@ -101,8 +101,17 @@ function SingleNote(){
         alert('Note was deleted');
         window.location.href = frontURLs.note
     }
-
+    const is_auth = () => {
+        if(localStorage.getItem("user_data") == null){
+            return false;
+        }
+        return true 
+    }
     useEffect(() => {
+        if(!is_auth()){
+            window.location.href = frontURLs.login
+            return;
+        }
         get_item()
     }, []);
 

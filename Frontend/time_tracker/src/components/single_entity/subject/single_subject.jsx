@@ -78,8 +78,19 @@ function SingleSubject(){
         alert('Subject was updated');
         window.location.href = new_title == null ? title : new_title
     }
+    
+    const is_auth = () => {
+        if(localStorage.getItem("user_data") == null){
+            return false;
+        }
+        return true 
+    }
 
     useEffect(() => {
+        if(!is_auth()){
+            window.location.href = frontURLs.login
+            return;
+        }
         get_item()
     }, []);
 

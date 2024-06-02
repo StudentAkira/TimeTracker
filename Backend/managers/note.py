@@ -56,7 +56,11 @@ class NoteManager:
 
     def get_user_notes_with_title_starts_with(self, user_db: User, title: str, offset: int, limit: int) -> list[NoteSchema]:
         notes_db = get_user_notes_starts_with_db(self.__db, user_db, title, offset, limit)
-        return [NoteSchema.from_orm(note_db) for note_db in notes_db]
+        return [NoteSchema(
+            title=note_db.title,
+            description=note_db.content,
+            datetime_=note_db.datetime_
+        ) for note_db in notes_db]
 
     def raise_exception_if_note_title_taken(self, title: str):
         note_db = self.get_note_by_title(title)

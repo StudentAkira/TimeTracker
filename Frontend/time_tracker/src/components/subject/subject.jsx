@@ -32,14 +32,19 @@ function Subject() {
         setItems(response_json);
     }
 
-    const check_auth = () => {
+    const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
-            window.location.href = frontURLs.login
+            return false;
         }
+        return true 
     }
 
+
     useEffect(() => {
-        check_auth()
+        if(!is_auth()){
+            window.location.href = frontURLs.login
+            return;
+        }
         get_items()
     }, []);
 

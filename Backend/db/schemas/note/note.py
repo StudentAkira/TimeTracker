@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class NoteSchema(BaseModel):
     title: str
-    content: str
+    description: str
     datetime_: datetime.datetime
 
     class Config:

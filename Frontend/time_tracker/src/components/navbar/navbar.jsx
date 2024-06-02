@@ -60,10 +60,14 @@ function NavBar() {
                     </div> */}
                 </div>
             </div>
+            <div className='nav_item'>
+                <div className='nav_link'>
+                <button onClick={logout} className='logout_button'>
+                    logout
+                </button>
+                </div>
+            </div>
             
-            <button onClick={logout} className='logout_button'>
-                logout
-            </button>
         </div>    
     </div>
   );
