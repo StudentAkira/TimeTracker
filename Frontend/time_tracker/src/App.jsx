@@ -12,6 +12,7 @@ import SingleSubject from './components/single_entity/subject/single_subject.jsx
 import SingleTopic from './components/single_entity/topic/single_topic.jsx';
 import Subject from './components/subject/subject.jsx';
 import Topic from './components/topic/topic.jsx';
+import Test from './test/test.jsx';
 
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
               <Route path={frontURLs.single_topic} element={<SingleTopic />}/>
               {/* <Route path="/period/:title" element={<SinglePeriod />}/> */}
               <Route path={frontURLs.period} element={<SinglePeriod />}/>
+
+              <Route path="/test" element={<Test />}/>
             </Routes>
           </BrowserRouter>
         </div>

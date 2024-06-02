@@ -1,3 +1,5 @@
+import datetime
+
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
@@ -30,8 +32,8 @@ class PeriodManager:
             PeriodReadResponseSchema(
                 title=period_db.title,
                 description=period_db.description,
-                start_time=period_db.start_time,
-                end_time=period_db.end_time,
+                start_time=datetime.datetime.timestamp(period_db.start_time),
+                end_time=datetime.datetime.timestamp(period_db.end_time) if period_db.end_time else None,
             )
             for period_db in get_periods_by_topic_db(self.__db, topic_db, offset, limit)
         ]

@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy.orm import Session
 from starlette.responses import Response
 
@@ -48,7 +50,15 @@ class PeriodService:
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         if not user_db.last_unfinished_period:
             return None
-        return PeriodReadResponseSchema.from_orm(user_db.last_unfinished_period)
+        print(datetime.datetime.timestamp(user_db.last_unfinished_period.start_time), user_db.last_unfinished_period.start_time)
+        return PeriodReadResponseSchema(
+            title=user_db.last_unfinished_period.title,
+            description=user_db.last_unfinished_period.description,
+            start_time=datetime.datetime.timestamp(user_db.last_unfinished_period.start_time),
+            end_time=datetime.datetime.timestamp(
+                user_db.last_unfinished_period.end_time
+            ) if user_db.last_unfinished_period.end_time else None
+        )
 
     def update(self, response: Response, token: str):
         pass

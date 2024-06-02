@@ -25,6 +25,7 @@ function SinglePeriod(){
 
         if(response_json == null){
             setPeriod(response_json)
+            setFetching(false)
             return
         }
         if ("detail" in response_json){

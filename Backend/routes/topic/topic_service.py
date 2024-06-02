@@ -41,7 +41,6 @@ class TopicService:
     def read_topic_by_title(self, response: Response, token: str, title: str) -> TopicSchema:
         decoded_token = self.__token_manager.decode_token(token, response)
         topic_db = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, title)
-        print(topic_db, '----------------------------------------------')
         return TopicSchema.from_orm(topic_db)
 
     def update_topic(self, response: Response, token: str, topic_data: TopicUpdateSchema) -> dict[str, str]:
