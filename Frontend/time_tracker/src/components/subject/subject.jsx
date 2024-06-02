@@ -82,6 +82,7 @@ function Subject() {
                                 <Card 
                                     title={<a href={`${frontURLs.subject}/${item.title}`}>{item.title}</a>} 
                                     content={item.description} 
+                                    additional_data={item.total_hours.toPrecision(2) + " hours"}
                                 />
                             </div>
                         )

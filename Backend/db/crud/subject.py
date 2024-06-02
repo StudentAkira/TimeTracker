@@ -20,10 +20,16 @@ def create_subject_db(db: Session, user_db: User, subject_data: SubjectSchema):
     db.commit()
 
 
-def read_subjects_by_owner_db(db: Session, user_db: User, offset: int, limit: int):
+def read_subjects_by_owner_db(db: Session, user_db: User, offset: int, limit: int) -> list[SubjectSchema]:
     subjects_db = db.query(Subject). \
         filter(cast("ColumnElement[bool]", Subject.owner_id == user_db.id)).offset(offset).limit(limit).all()
-    return subjects_db
+
+    return [SubjectSchema(
+            title=subject_db.title,
+            description=subject_db.description,
+            total_hours=sum([topic_db.total_hours for topic_db in subject_db.topics])
+            )
+            for subject_db in subjects_db]
 
 
 def read_subject_by_title_db(db: Session, user_db: User, title: str) -> Subject | None:

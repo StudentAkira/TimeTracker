@@ -38,6 +38,7 @@ class SubjectManager:
         return SubjectFullDataSchema(
             title=subject_db.title,
             description=subject_db.description,
+            total_hours=sum([topic_db.total_hours for topic_db in subject_db.topics]),
             topics=[TopicSchema.from_orm(topic_db) for topic_db in subject_db.topics]
         )
 

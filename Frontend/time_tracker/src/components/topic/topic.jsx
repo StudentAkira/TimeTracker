@@ -87,7 +87,7 @@ function Topic() {
                             <div className="topic_wrapper">
                                 <Card title={
                                     <a href={`${frontURLs.topic}/${item.title}`}>{item.title}</a>
-                                    } content={item.description} additional_data={`${String(item.total_hours).substring(0, 5)} hours`}/>
+                                    } content={item.description} additional_data={`${item.total_hours.toPrecision(2)} hours`}/>
                             </div>
                         )
                     )

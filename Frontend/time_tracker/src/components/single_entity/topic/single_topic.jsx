@@ -180,7 +180,7 @@ function SingleTopic(){
                                 <Card 
                                     title={<a href={`${frontURLs.period}/${item.title}`}>{item.title}</a>} 
                                     content={item.description} 
-                                    additional_data={(Math.ceil(item.end_time - item.start_time) / 3600).toPrecision(2)}
+                                    additional_data={(Math.ceil(item.end_time - item.start_time) / 3600).toPrecision(2) + " hours"}
                                 />
                             </div>
                         )

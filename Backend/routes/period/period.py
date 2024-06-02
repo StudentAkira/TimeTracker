@@ -39,7 +39,7 @@ async def read_period(
 
 
 @period.get("/read_period_by_title")
-async def read_period(
+async def read_period_by_title(
         response: Response,
         title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
