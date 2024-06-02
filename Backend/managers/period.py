@@ -4,12 +4,13 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
-from db.crud.period import create_period_db, get_periods_by_topic_db, get_period_by_id_db, \
-    update_end_time_db, finish_period_db, delete_period_db, get_period_by_title_and_user_db
+from db.crud.period import create_period_db, get_periods_by_topic_db, finish_period_db, delete_period_db, \
+    get_period_by_title_and_user_db, period_update_db
 from db.models.period import Period
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.period.period import PeriodSchema
+from db.schemas.period.period_patch_end_time import PeriodUpdateSchema
 from db.schemas.period.period_read_response import PeriodReadResponseSchema
 
 
@@ -38,14 +39,11 @@ class PeriodManager:
             for period_db in get_periods_by_topic_db(self.__db, topic_db, offset, limit)
         ]
 
-    def update(self):
-        pass
-
     def delete(self, period_db: Period):
         delete_period_db(self.__db, period_db)
 
-    def update_end_time(self, period_db):
-        update_end_time_db(self.__db, period_db)
+    def update(self, period_db: Period, topic_db: Topic | None, period_data: PeriodUpdateSchema):
+        period_update_db(self.__db, period_db, topic_db,  period_data)
 
     def finish_period(self, user_db: User):
         finish_period_db(self.__db, user_db)

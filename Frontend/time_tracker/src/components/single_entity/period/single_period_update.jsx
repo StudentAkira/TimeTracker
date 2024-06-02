@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react";
-import NotFound from "../../notfound/notfound";
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import { useParams } from "react-router-dom";
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import { useEffect, useState } from "react";
+import NotFound from "../../notfound/notfound.jsx";
 
-function SingleNote(){
+function SinglePeriodUpdate(){
 
+    
     const params = useParams()
 
     const [item, setItem] = useState(null)
     const [fetching, setFetching] = useState(true)
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
+    const [topic_title, setTopictitle] = useState(null);
 
     let new_title = null;
     let new_description = null;
+    let new_topic_title = null;
 
 
     const get_item = async () => {
@@ -27,24 +30,23 @@ function SingleNote(){
         credentials: "include"
         };
     
-        const response =  await fetch(`${APIEndpoints.note_read_by_title}?title=${params.title}`, requestOptions)
+        const response =  await fetch(`${APIEndpoints.period_read_by_title}?title=${params.title}`, requestOptions)
         const response_json = await response.json()
-
 
         if (response_json == null){
             setFetching(false)
             return
         }
         if ("detail" in response_json){
-            setFetching(false)
-            setItem(null)
             return
           }
         
         setItem(response_json)
         setFetching(false)
         setTitle(response_json["title"])
-        setDescription(response_json["content"])
+        setDescription(response_json["description"])
+        setTopictitle(response_json["topic_title"])
+
     }
 
     const update_item = async () => {
@@ -53,9 +55,10 @@ function SingleNote(){
         myHeaders.append("Content-Type", "application/json");
 
         const raw = JSON.stringify({
+        "topic_title":  new_topic_title,
         "title": title,
-        "new_title": new_title == null ? null : new_title,
-        "new_content": new_description == null ? null : new_description,
+        "new_title": new_title,
+        "new_description": new_description,
         });
 
         const requestOptions = {
@@ -66,18 +69,18 @@ function SingleNote(){
         credentials: "include"
         };
 
-        const response = await fetch(APIEndpoints.note_update, requestOptions)
+        const response = await fetch(APIEndpoints.period_update, requestOptions)
         const response_json = await response.json()
 
         if ("detail" in response_json){
             alert(response_json["detail"]["error"]);
             return
           }
-        alert('Note was updated');
+        alert('Period was updated');
         window.location.href = new_title == null ? title : new_title
     }
 
-    const delete_note = async () => {
+    const delete_period = async () => {
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Content-Type", "application/json");
@@ -89,7 +92,7 @@ function SingleNote(){
         credentials: "include"
         };
 
-        const response = await fetch(APIEndpoints.note_delete + `/?title=${title}`, requestOptions)
+        const response = await fetch(APIEndpoints.period_delete + `/?title=${title}`, requestOptions)
         const response_json = await response.json()
 
         console.log(response_json);
@@ -98,8 +101,8 @@ function SingleNote(){
             alert(response_json["detail"]["error"]);
             return
           }
-        alert('Note was deleted');
-        window.location.href = frontURLs.note
+        alert('Period was deleted');
+        window.location.href = frontURLs.topic
     }
 
     useEffect(() => {
@@ -121,17 +124,23 @@ function SingleNote(){
         )
     }
 
+    
     return (
-        <div className="note">
-            <h1 className="note_title">title :: </h1><input type="text" id="note_title" defaultValue={title}  onChange={
+        <div className="period">
+            <h1 className="topic_title">topic title</h1><input type="text" id="topic_title" defaultValue={topic_title}  onChange={
+                            (e) => {
+                                topic_title == e.target.value? new_topic_title = null: new_topic_title = e.target.value;
+                                }
+                            }/>
+            <h1 className="period_title">title :: </h1><input type="text" id="period_title" defaultValue={title}  onChange={
                             (e) => {
                                 title == e.target.value? new_title = null: new_title = e.target.value;
                                 }
                             }/>
             <br />
             <br />
-            <h1 className="note_description">description :: </h1>
-            <textarea name="note_description" id="note_description" cols="60" rows="30" defaultValue={description} onChange={
+            <h1 className="period_description">description :: </h1>
+            <textarea name="period_description" id="period_description" cols="60" rows="30" defaultValue={description} onChange={
                             (e) => {
                                 description == e.target.value? new_description = null: new_description = e.target.value;
                                 }
@@ -139,11 +148,12 @@ function SingleNote(){
             </textarea>
                         
             <div className="buttons">
-                <button className="update_note" onClick={update_item}>update</button>
-                <button className="delete_note" onClick={delete_note}>delete</button>
+                <button className="update_period" onClick={update_item}>update</button>
+                <button className="delete_period" onClick={delete_period}>delete</button>
             </div>
+
         </div>
     );
 }
 
-export default SingleNote;
+export default SinglePeriodUpdate;

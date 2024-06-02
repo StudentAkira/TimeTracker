@@ -38,9 +38,11 @@ class TopicService:
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         return self.__topic_manager.read(user_db, offset, limit)
 
-    def read_topic_by_title(self, response: Response, token: str, title: str) -> TopicSchema:
+    def read_topic_by_title(self, response: Response, token: str, title: str) -> TopicSchema | None:
         decoded_token = self.__token_manager.decode_token(token, response)
         topic_db = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, title)
+        if not topic_db:
+            return None
         return TopicSchema.from_orm(topic_db)
 
     def update_topic(self, response: Response, token: str, topic_data: TopicUpdateSchema) -> dict[str, str]:

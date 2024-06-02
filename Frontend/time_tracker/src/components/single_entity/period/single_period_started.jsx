@@ -42,7 +42,6 @@ function SinglePeriodStarted(params){
   }
 
   const timestamp =  Math.ceil((Date.now() - (params.period.start_time * 1000)) / 1000);
-  console.log(timestamp);
   const seconds = Math.round(timestamp) % 60;
   const minutes = Math.round(timestamp / 60) % 60;
   const hours = Math.round(minutes / 60) % 24;
@@ -67,8 +66,6 @@ function SinglePeriodStarted(params){
         <div className="timer">
           <h1 className="timer">
           </h1>
-          {/* topic started at :: {start_time_hours} {start_time_minute}<br />
-          time now :: {hours_now} {minutes_now}<br /> */}
           {hours}h {minutes}m {seconds}s
         </div>
       </div>

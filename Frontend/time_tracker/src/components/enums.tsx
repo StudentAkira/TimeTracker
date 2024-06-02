@@ -29,7 +29,10 @@ export enum APIEndpoints {
     get_active_period = base + "/period/read_last_unfinished",
     period_read = base + "/period/read",
     period_create = base + "/period/create",
-    period_finish = base + "/period/finish"
+    period_update = base + "/period/update",
+    period_delete = base + "/period/delete",
+    period_finish = base + "/period/finish",
+    period_read_by_title = base + "/period/read_period_by_title"
 
 }
 export enum frontURLs {
@@ -41,6 +44,7 @@ export enum frontURLs {
     subject = "/subject",
     topic = "/topic",
     period = "/period",
+
     period_create = "/period_create",
 
     single_subject = "/subject/:title",

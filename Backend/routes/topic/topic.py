@@ -43,7 +43,7 @@ async def read_topic_by_title(
         title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
-) -> TopicSchema:
+) -> TopicSchema | None:
     service = TopicService(db)
     return service.read_topic_by_title(response, token, title)
 

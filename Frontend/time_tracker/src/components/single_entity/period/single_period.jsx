@@ -29,6 +29,7 @@ function SinglePeriod(){
             return
         }
         if ("detail" in response_json){
+            setFetching(false)
             alert(response_json["detail"]["error"])
             return
           }

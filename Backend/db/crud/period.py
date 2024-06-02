@@ -8,6 +8,7 @@ from db.models.period import Period
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.period.period import PeriodSchema
+from db.schemas.period.period_patch_end_time import PeriodUpdateSchema
 from utils.date_util import DateUtil
 
 
@@ -49,11 +50,13 @@ def get_period_by_title_and_user_db(db: Session, user_db: User, period_title: st
     ).first()
     return period_db
 
-def update_end_time_db(db: Session, period_db: Period):
-    date_util = DateUtil()
-    period_db.topic.total_hours -= date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
-    period_db.end_time = datetime.datetime.now()
-    period_db.topic.total_hours += date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
+
+def period_update_db(db: Session, period_db: Period, topic_db: Topic | None, period_data: PeriodUpdateSchema):
+
+    period_db.title = period_data.new_title if period_data.new_title else period_db.title
+    period_db.topic = topic_db if topic_db else period_db.topic
+    period_db.description = period_data.new_description if period_data.new_description else period_db.description
+
     db.add(period_db)
     db.commit()
 

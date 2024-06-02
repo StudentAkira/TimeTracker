@@ -37,6 +37,8 @@ function SingleSubject(){
             return
         }
         if ("detail" in response_json){
+            setFetching(false)
+            setItem(null)
             return
           }
         

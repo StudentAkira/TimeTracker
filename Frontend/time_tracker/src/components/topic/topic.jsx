@@ -27,7 +27,6 @@ function Topic() {
         const response_json = await response.json()
 
         if ("detail" in response_json){
-            alert(response_json)
             return
           }
         setItems(response_json);

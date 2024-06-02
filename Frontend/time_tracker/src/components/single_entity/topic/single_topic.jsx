@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import NotFound from "../../notfound/notfound.jsx";
+import Card from "../../card/card.jsx";
 
 function SingleTopic(){
 
@@ -11,6 +12,9 @@ function SingleTopic(){
     const [fetching, setFetching] = useState(true)
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
+    const [periods, setPeriods] = useState([])
+    const [offset, setOffset] = useState(0)
+    const [limit, setLimit] = useState(49)
 
     let new_title = null;
     let new_description = null;
@@ -34,6 +38,8 @@ function SingleTopic(){
             return
         }
         if ("detail" in response_json){
+            setFetching(false)
+            setItem(null)
             return
           }
         
@@ -99,8 +105,29 @@ function SingleTopic(){
         window.location.href = frontURLs.topic
     }
 
+    const get_periods = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+
+        const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+        credentials: "include"
+        };
+
+        const response = await fetch(`${APIEndpoints.period_read}?offset=${offset}&limit=${limit}&topic_title=${params.title}`, requestOptions)
+        const response_json = await response.json()
+
+        if ("detail" in response_json){
+            return
+          }
+        setPeriods(response_json);
+    }
+
     useEffect(() => {
         get_item()
+        get_periods()
     }, []);
 
     if (fetching) {
@@ -118,6 +145,7 @@ function SingleTopic(){
     }
 
     return (
+        <div className="topic_wrapper">
             <div className="topic">
                 <h1 className="topic_title">title :: </h1><input type="text" id="topic_title" defaultValue={title}  onChange={
                                 (e) => {
@@ -144,6 +172,23 @@ function SingleTopic(){
                     <button className="delete_topic" onClick={delete_note}>delete</button>
                 </div>
             </div>
+            <div className="periods">
+            {
+                    periods.map(
+                        (item, index) => (
+                            <div className="subject_wrapper" >
+                                <Card 
+                                    title={<a href={`${frontURLs.period}/${item.title}`}>{item.title}</a>} 
+                                    content={item.description} 
+                                    additional_data={(Math.ceil(item.end_time - item.start_time) / 3600).toPrecision(2)}
+                                />
+                            </div>
+                        )
+                    )
+                }
+            </div>
+        </div>
+            
     );
 }
 
