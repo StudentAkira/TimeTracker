@@ -66,7 +66,7 @@ def finish_period_db(db: Session, user_db: User):
     period_db.end_time = datetime.datetime.now()
 
     date_util = DateUtil()
-    period_db.topic.total_hours = date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
+    period_db.topic.total_hours += date_util.get_difference_in_hours(period_db.end_time, period_db.start_time)
 
     user_db.last_unfinished_period = None
     db.add(user_db)

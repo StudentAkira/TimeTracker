@@ -19,11 +19,11 @@ function SinglePeriodCreate(){
         });
 
         const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-        credentials: "include"
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+            credentials: "include"
         };
 
         const response = await fetch(APIEndpoints.period_create, requestOptions)
