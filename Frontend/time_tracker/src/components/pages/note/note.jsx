@@ -28,7 +28,11 @@ function Note() {
             window.location.href = frontURLs.login
             return;
         }
-        request_service.read_items(setItems, offset, limit, APIEndpoints.note_read)
+        request_service.read_items(
+            setItems, 
+            APIEndpoints.note_read
+            `offset=${offset}&limit=${limit}`
+            )
     }, []);
 
     return (

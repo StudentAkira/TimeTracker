@@ -23,6 +23,8 @@ export interface item{
   description: string
   total_hours: undefined | string 
   datetime_: undefined | string
+  end_time: undefined | number
+  start_time: undefined | number
 }
 
 export interface items_props {
@@ -34,8 +36,14 @@ export interface create_item_args {
   path: string
 }
 
-export interface update_item_props {
+export interface single_item_props {
   service: RequestService
   title: string
   description: string
+  update_path: string
+  delete_path: string
+  redirect_path: string
+
+  update_alert_message: string
+  delete_alert_message: string
 }

@@ -2,9 +2,13 @@ import React from "react";
 import Card from "../card/card";
 import "./items_section.css"
 import { items_props } from "../../context/props";
+import get_additional_data from "../../utils/additional_data_util.tsx";
 
 
 function Items(props : items_props){
+
+    console.log(props.items);
+    
     return (
     <div className="items">
         {
@@ -19,9 +23,7 @@ function Items(props : items_props){
                             description={
                                 item.description
                                 } 
-                            additional_data={
-                                `${item.datetime_ == undefined ?  item.total_hours : item.datetime_.substring(0, 19)}`
-                                }/>
+                            additional_data={get_additional_data(item)}/>
                     </div>
                 )
             )

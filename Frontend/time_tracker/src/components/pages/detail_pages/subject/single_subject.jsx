@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import RequestService from "../../../../services/requests/request_service.js";
 import { APIEndpoints, frontURLs } from "../../../enums.tsx";
+import Items from "../../../ui/items_section/items_section.tsx";
+import UpdateItem from "../../../ui/update_item/update_item.tsx";
 import NotFound from "../../notfound/notfound.jsx";
-import "./single_subject.css"
-import Card from "../../../ui/card/card.jsx";
+import "./single_subject.css";
 
 function SingleSubject(){
 
@@ -11,73 +13,11 @@ function SingleSubject(){
 
     const [item, setItem] = useState(null)
     const [fetching, setFetching] = useState(true)
-    const [title, setTitle] = useState(null);
+    const [title, setTitle] = useState(params.title);
     const [description, setDescription] = useState(null);
     const [topics, setTopics] = useState([])
 
-    let new_title = null;
-    let new_description = null;
-
-    const get_item = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-    
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-    
-        const response =  await fetch(`${APIEndpoints.subject_read_by_title}?title=${params.title}`, requestOptions)
-        const response_json = await response.json()
-
-        if (response_json == null){
-            setFetching(false)
-            return
-        }
-        if ("detail" in response_json){
-            setFetching(false)
-            setItem(null)
-            return
-          }
-        
-        setItem(response_json)
-        setFetching(false)
-        setTitle(response_json["title"])
-        setDescription(response_json["description"])
-        setTopics(response_json["topics"])
-    }
-
-    const update_item = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-        "title": title,
-        "new_title": new_title == null ? null : new_title,
-        "new_description": new_description == null ? null : new_description,
-        });
-
-        const requestOptions = {
-        method: "PATCH",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(APIEndpoints.subject_update, requestOptions)
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            alert(response_json["detail"]["error"]);
-            return
-          }
-        alert('Subject was updated');
-        window.location.href = new_title == null ? title : new_title
-    }
+    const request_service = new RequestService()
     
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
@@ -91,7 +31,14 @@ function SingleSubject(){
             window.location.href = frontURLs.login
             return;
         }
-        get_item()
+        request_service.get_item(
+            APIEndpoints.subject_read_by_title,
+            title,
+            setFetching,
+            setItem,
+            setTitle,
+            setDescription
+        )
     }, []);
 
     const append_topic_to_subject = async () => {
@@ -146,30 +93,6 @@ function SingleSubject(){
             return
           }
     }
-
-    const delete_subject = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
-
-        const requestOptions = {
-        method: "DELETE",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(APIEndpoints.subject_delete + `/?subject_title=${title}`, requestOptions)
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            alert(response_json["detail"]["error"]);
-            return
-          }
-        alert('Subject was deleted');
-        window.location.href = frontURLs.subject
-    }
-
     if (fetching) {
         return (
             <>
@@ -187,36 +110,31 @@ function SingleSubject(){
     return (
         <>
             <div className="subject_edit">
-                    <div className="subject_create_wrapper">
-                        <h1 className="subject_title">title :: </h1><input type="text" id="title" defaultValue={title}  onChange={
-                            (e) => {
-                                title == e.target.value? new_title = null: new_title = e.target.value;
-                                }
-                            }/>
-                        <br />
-                        <br />
-                        <h1 className="subject_description">description :: </h1>
-                        <div className="content">
-                            <textarea name="subject_content" id="description" cols="60" rows="30" defaultValue={description} onChange={
-                            (e) => {
-                                description == e.target.value? new_description = null: new_description = e.target.value;
-                                }
-                            }>
-                            </textarea>
-                        </div>
-                        <br />
-                        <div className="buttons">
-                            <button className="update_subject" onClick={update_item}>update</button>
-                            <button className="delete_subject" onClick={delete_subject}>delete</button>
-                        </div>
-                    </div>
+            <UpdateItem 
+                service={request_service}
+                title={title}
+                description={description}
+                update_path={APIEndpoints.subject_update}
+                delete_path={APIEndpoints.subject_delete}
+                redirect_path={frontURLs.subject}
+                update_alert_message="Subject updated"
+                delete_alert_message="Subject deleted"
+
+           />
                     <div className="topic_to_subject_wrapper">
                         <div className="topic_append">
                             topic title :: <input type="text" id="topic_title_to_append"/>
                             <button onClick={() => {
                                     setFetching(true)
                                     append_topic_to_subject()
-                                    get_item()
+                                    request_service.get_item(
+                                        APIEndpoints.subject_read_by_title,
+                                        title,
+                                        setFetching,
+                                        setItem,
+                                        setTitle,
+                                        setDescription
+                                    )
                                 }}>
                                 append
                             </button>
@@ -228,34 +146,25 @@ function SingleSubject(){
                             <button onClick={() => {
                                     setFetching(true)
                                     remove_topic_from_subject()
-                                    get_item()
+                                    request_service.get_item(
+                                        APIEndpoints.subject_read_by_title,
+                                        title,
+                                        setFetching,
+                                        setItem,
+                                        setTitle,
+                                        setDescription
+                                    )
                                 }}>
                                 remove
                             </button>
                         </div>
                     </div>
-                </div>
-                <div className="subject_topics">
-                    {
-                        topics.map(
-                            (topic, index) => (
-                                <div className="topic_wrapper" >
-                                    <Card 
-                                        title={
-                                            <a href={`${frontURLs.topic}/${topic.title}`}>{topic.title}</a>
-                                        } 
-                                        description={topic.description} 
-                                        additional_data={
-                                        <>
-                                            {String(topic.total_hours).substring(0, 5)} hours
-                                        </>
-                                    }
-                                    />
-                                </div>
-                            )
-                        )
-                    }
-            </div>
+            </div> {/** todo */}
+
+                <Items 
+                    items={topics}
+                    item_link={frontURLs.topic}
+                />
         </>
     );
 }

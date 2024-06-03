@@ -29,7 +29,11 @@ function Subject() {
             window.location.href = frontURLs.login
             return;
         }
-        request_service.read_items(setItems, offset, limit, APIEndpoints.subject_read)
+        request_service.read_items(
+            setItems,
+            APIEndpoints.subject_read
+            `offset=${offset}&limit=${limit}`
+            )
     }, []);
 
   return (

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import NotFound from "../../notfound/notfound.jsx";
-import Card from "../../../ui/card/card.jsx";
+import RequestService from "../../../../services/requests/request_service.js";
 import { APIEndpoints, frontURLs } from "../../../enums.tsx";
+import Items from "../../../ui/items_section/items_section.tsx";
+import UpdateItem from "../../../ui/update_item/update_item.tsx";
+import NotFound from "../../notfound/notfound.jsx";
 
 function SingleTopic(){
 
@@ -10,11 +12,13 @@ function SingleTopic(){
 
     const [item, setItem] = useState(null)
     const [fetching, setFetching] = useState(true)
-    const [title, setTitle] = useState(null);
+    const [title, setTitle] = useState(params.title);
     const [description, setDescription] = useState(null);
     const [periods, setPeriods] = useState([])
     const [offset, setOffset] = useState(0)
     const [limit, setLimit] = useState(49)
+
+    const request_service = new RequestService();
 
     let new_title = null;
     let new_description = null;
@@ -136,6 +140,13 @@ function SingleTopic(){
             return;
         }
         get_item()
+        // request_service.read_items(
+        //     setPeriods,
+        //     offset,
+        //     limit,
+        //     APIEndpoints.period_read,
+        //     `offset=${offset}&limit=${limit}&topic_title=${title}`
+        // )
         get_periods()
     }, []);
 
@@ -155,47 +166,21 @@ function SingleTopic(){
 
     return (
         <div className="topic_wrapper">
-            <div className="topic">
-                <h1 className="topic_title">title :: </h1><input type="text" id="topic_title" defaultValue={title}  onChange={
-                                (e) => {
-                                    title == e.target.value? new_title = null: new_title = e.target.value;
-                                    }
-                                }/>
-                <br />
-                <br />
-                <h1 className="topic_description">description :: </h1>
-                <textarea name="topic_description" id="topic_description" cols="60" rows="30" defaultValue={description} onChange={
-                                (e) => {
-                                    description == e.target.value? new_description = null: new_description = e.target.value;
-                                    }
-                                }>
-                </textarea>
+            <UpdateItem 
+                service={request_service}
+                title={title}
+                description={description}
+                update_path={APIEndpoints.topic_update}
+                delete_path={APIEndpoints.topic_delete}
+                redirect_path={frontURLs.topic}
+                update_alert_message="Topic updated"
+                delete_alert_message="Topic deleted"
 
-                <div className="buttons">
-                    <button className="update_topic" onClick={
-                                ()=>{
-                                    update_item()
-                                    get_item()
-                            }
-                        }>update</button>
-                    <button className="delete_topic" onClick={delete_note}>delete</button>
-                </div>
-            </div>
-            <div className="periods">
-            {
-                    periods.map(
-                        (item, index) => (
-                            <div className="subject_wrapper" >
-                                <Card 
-                                    title={<a href={`${frontURLs.period}/${item.title}`}>{item.title}</a>} 
-                                    content={item.description} 
-                                    additional_data={(Math.ceil(item.end_time - item.start_time) / 3600).toPrecision(2) + " hours"}
-                                />
-                            </div>
-                        )
-                    )
-                }
-            </div>
+           />
+            <Items 
+                    items={periods}
+                    item_link={frontURLs.period}
+                />
         </div>
             
     );

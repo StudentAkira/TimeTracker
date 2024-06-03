@@ -28,7 +28,11 @@ function Topic() {
             window.location.href = frontURLs.login
             return;
         }
-        request_service.read_items(setItems, offset, limit, APIEndpoints.topic_read)
+        request_service.read_items(
+            setItems, 
+            APIEndpoints.topic_read
+            `offset=${offset}&limit=${limit}`
+            )
     }, []);
 
     return (

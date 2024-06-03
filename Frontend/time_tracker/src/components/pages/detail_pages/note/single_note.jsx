@@ -60,6 +60,12 @@ function SingleNote(){
                 service={request_service}
                 title={title}
                 description={description}
+                update_path={APIEndpoints.note_update}
+                delete_path={APIEndpoints.note_delete}
+                redirect_path={frontURLs.note}
+                update_alert_message="Note updated"
+                delete_alert_message="Note deleted"
+
            />
         </div>
     );

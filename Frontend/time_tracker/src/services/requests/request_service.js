@@ -28,7 +28,7 @@ class RequestService{
         }
         alert(response_json["message"]);
     }
-    async read_items(setItems, offset, limit, path) {
+    async read_items(setItems, path, query_params) {
         
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
@@ -40,7 +40,8 @@ class RequestService{
         credentials: "include"
         };
 
-        const response = await fetch(`${path}?offset=${offset}&limit=${limit}`, requestOptions)
+        // const response = await fetch(`${path}?offset=${offset}&limit=${limit}`, requestOptions)
+        const response = await fetch(`${path}?${query_params}`, requestOptions)
         const response_json = await response.json()
 
         if ("detail" in response_json){
@@ -139,7 +140,7 @@ class RequestService{
             alert(response_json["detail"]["error"]);
             return
           }
-        alert('Note was updated');
+        alert(alert_message);
         window.location.href = new_title == null ? title : new_title
     }
     

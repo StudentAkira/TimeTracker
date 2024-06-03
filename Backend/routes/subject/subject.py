@@ -86,12 +86,12 @@ async def update_subject(
 @subject.delete("/delete")
 async def delete_subject(
         response: Response,
-        subject_title: Annotated[str, Query()],
+        title: Annotated[str, Query()],
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ):
     service = SubjectService(db)
-    return service.delete(response, token, subject_title)
+    return service.delete(response, token, title)
 
 
 @subject.post("/append_topic")
