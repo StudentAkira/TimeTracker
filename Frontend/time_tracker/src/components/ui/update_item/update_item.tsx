@@ -1,6 +1,5 @@
 import React from "react";
 import { single_item_props } from "../../context/props";
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
 
 function UpdateItem(props : single_item_props){
 
