@@ -24,6 +24,14 @@ def read_topic_db(db: Session, user_db: User, offset: int, limit: int) -> list[t
         filter(cast("ColumnElement[bool]", Topic.owner_id == user_db.id)).offset(offset).limit(limit).all()
     return topics_db
 
+def get_user_topics_starts_with_db(db: Session, user_db: User, title: str, offset: int, limit: int)\
+        -> list[type(Topic)]:
+    topics_db = db.query(Topic).filter(and_(
+        Topic.owner_id == user_db.id,
+        Topic.title.ilike(f"{title}%")
+    )).offset(offset).limit(limit).all()
+    return topics_db
+
 
 def update_topic_db(db: Session, topic_db: Topic, topic_data: TopicUpdateSchema):
     topic_db.title = topic_data.new_title if topic_data.new_title else topic_db.title

@@ -5,7 +5,7 @@ from starlette import status
 from db.crud.subject import get_subject_by_user_id_title_db, create_subject_db, read_subjects_by_owner_db, \
     update_subject_db, \
     delete_subject_db, append_topic_to_subject_db, remove_topic_from_subject_db, read_all_topic_by_subject_db, \
-    read_subject_by_title_db
+    read_subject_by_title_db, get_user_subjects_starts_with_db
 from db.models.subject import Subject
 from db.models.topic import Topic
 from db.models.user import User
@@ -63,6 +63,15 @@ class SubjectManager:
         topics_db = read_all_topic_by_subject_db(self.__db, subject_db)
         return [TopicSchema.from_orm(topic_db) for topic_db in topics_db]
 
+    def get_user_notes_with_title_starts_with(self, user_db : User, title: str, offset: int, limit: int) -> list[SubjectSchema]:
+        subjects_db = get_user_subjects_starts_with_db(self.__db, user_db, title, offset, limit)
+        return [SubjectSchema(
+            title=subject_db.title,
+            description=subject_db.description,
+            total_hours=sum([topic_db.total_hours for topic_db in subject_db.topics])
+        ) for subject_db in subjects_db]
+
+
     def raise_exception_if_subject_owner_wrong(self, user_db: User, subject_db: Subject):
         if subject_db not in user_db.subjects:
             raise HTTPException(
@@ -97,6 +106,7 @@ class SubjectManager:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail={"error": self.__topic_already_in_subject_error}
             )
+
 
 
 

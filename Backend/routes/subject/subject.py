@@ -49,6 +49,18 @@ async def read_subject_by_title(
     return service.read_by_title(response, token, title)
 
 
+@subject.get("/read_by_title_starts_with")
+async def read_subject_by_title_starts_with(
+        response: Response,
+        title: Annotated[str, Query()],
+        offset: Annotated[int, Query(gte=0)] = 0,
+        limit: Annotated[int, Query(lt=50)] = 49,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> list[SubjectSchema] | None:
+    service = SubjectService(db)
+    return service.read_by_title_starts_with(response, token, title, offset, limit)
+
 @subject.get("/get_topics")
 async def remove_topic_from_subject(
         response: Response,

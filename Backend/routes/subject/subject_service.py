@@ -53,6 +53,12 @@ class SubjectService:
         self.__subject_manager.raise_exception_if_subject_not_found(subject_db)
         return self.__subject_manager.read_all_topic_by_subject(subject_db)
 
+    def read_by_title_starts_with(self, response: Response, token: str, title: str, offset: int, limit: int) -> list[SubjectSchema]:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        subjects = self.__subject_manager.get_user_notes_with_title_starts_with(user_db, title, offset, limit)
+        return subjects
+
     def update(self, response: Response, token: str, subject_data: SubjectUpdateSchema):
         decoded_token = self.__token_manager.decode_token(token, response)
         subject_with_taken_title_db = self.__subject_manager.get_subject_by_user_id_title(
@@ -100,4 +106,6 @@ class SubjectService:
         self.__subject_manager.raise_exception_if_topic_not_in_list(subject_db, topic_db)
         self.__subject_manager.remove(subject_db, topic_db)
         return {"message": self.__topic_removed_to_subject_message}
+
+
 

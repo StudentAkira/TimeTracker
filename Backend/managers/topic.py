@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from db.crud.topic import get_topic_by_title_and_user_id_db, create_topic_db, read_topic_db, update_topic_db, \
-    delete_topic_db
+    delete_topic_db, get_user_topics_starts_with_db
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.topic.topic import TopicSchema
@@ -38,6 +38,14 @@ class TopicManager:
         topic_db = get_topic_by_title_and_user_id_db(self.__db, user_id, title)
         return topic_db
 
+    def get_user_notes_with_title_starts_with(self, user_db, title, offset, limit):
+        topics_db = get_user_topics_starts_with_db(self.__db, user_db, title, offset, limit)
+        return [TopicSchema(
+            title=topic_db.title,
+            description=topic_db.description,
+            total_hours=topic_db.total_hours
+        ) for topic_db in topics_db]
+
     def raise_exception_if_topic_exists(self, topic_db: Topic | None):
         if topic_db:
             raise HTTPException(
@@ -51,4 +59,5 @@ class TopicManager:
                 status_code=status.HTTP_409_CONFLICT,
                 detail={"error": self.__topic_not_found_error}
             )
+
 

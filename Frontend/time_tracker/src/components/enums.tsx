@@ -19,12 +19,14 @@ export enum APIEndpoints {
     append_topic_to_subject = base + "/subject/append_topic",
     remove_topic_from_subject = base + "/subject/remove_topic",
     subject_delete = base + "/subject/delete",
+    subject_read_by_title_starts_with = base + "/subject/read_by_title_starts_with",
     
     topic_read = base + "/topic/read",
     topic_read_by_title = base + "/topic/read_by_title",
     topic_create = base + "/topic/create",
     topic_update = base + "/topic/patch",
     topic_delete = base + "/topic/delete",
+    topic_read_by_title_starts_with = base + "/topic/read_by_title_starts_with",
 
     get_active_period = base + "/period/read_last_unfinished",
     period_read = base + "/period/read",

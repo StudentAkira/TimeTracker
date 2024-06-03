@@ -45,6 +45,13 @@ class TopicService:
             return None
         return TopicSchema.from_orm(topic_db)
 
+    def read_topic_by_title_starts_with(self, response: Response, token: str, title: str, offset: int, limit: int) \
+            -> list[TopicSchema]:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        topics = self.__topic_manager.get_user_notes_with_title_starts_with(user_db, title, offset, limit)
+        return topics
+
     def update_topic(self, response: Response, token: str, topic_data: TopicUpdateSchema) -> dict[str, str]:
         decoded_token = self.__token_manager.decode_token(token, response)
         topic_to_update_db = self.__topic_manager.\
@@ -62,4 +69,5 @@ class TopicService:
         self.__topic_manager.raise_exception_if_topic_does_not_exists(topic_to_delete)
         self.__topic_manager.delete(topic_to_delete)
         return {"message": self.__topic_deleted_message}
+
 

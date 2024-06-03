@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import Card from '../../ui/card/card.jsx';
 import "./topic.css"
+import RequestService from '../../../services/requests/request_service.js';
+import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
+import SearchBar from '../../ui/search_bar/search_bar.jsx';
+import Items from '../../ui/items_section/items_section.jsx';
 
 
 function Topic() {
@@ -10,6 +14,8 @@ function Topic() {
     const [items, setItems] = useState([]);
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(49);
+
+    const request_service = new RequestService()
 
     const read_items = async () => {
         
@@ -79,28 +85,27 @@ function Topic() {
 
   return (
         <div className="topic">
-            <div className="topics">
-                {
-                    items.map(
-                        (item) => (
-                            <div className="topic_wrapper">
-                                <Card title={
-                                    <a href={`${frontURLs.topic}/${item.title}`}>{item.title}</a>
-                                    } content={item.description} additional_data={`${item.total_hours.toPrecision(2)} hours`}/>
-                            </div>
-                        )
-                    )
-                }
-            </div>
+           <NewItemForm 
+                    service={request_service} 
+                    setItems={setItems}  
+                    offset={offset} 
+                    limit={limit} 
+                    create_path={APIEndpoints.topic_create}
+                    read_path={APIEndpoints.topic_read}
+                />
 
-            <div className="create_topic">
-            <h1>title :: </h1><input type="text" id="title"/>
-                <br />
-                <br />
-                <h1>description :: </h1>
-                <textarea name="description" id="description" cols="60" rows="30"></textarea>
-                <button onClick={create_topic}>create</button>
-            </div>
+            <SearchBar 
+                service={request_service}
+                setItems={setItems}
+                offset={offset}
+                limit={limit}
+                path={APIEndpoints.topic_read_by_title_starts_with}
+            />
+            
+            <Items 
+                items={items}
+                item_link={frontURLs.topic}
+            />
         </div>
   );
 }

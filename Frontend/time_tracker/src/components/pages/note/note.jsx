@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import RequestService from "../../../services/requests/request_service.js";
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
-import Card from '../../ui/card/card.jsx';
-import "./note.css"
-import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
-import RequestService from "../../../services/requests/request_service.js"
-import SearchBar from '../../ui/search_bar/search_bar.jsx';
 import Items from '../../ui/items_section/items_section.jsx';
+import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
+import SearchBar from '../../ui/search_bar/search_bar.jsx';
+import "./note.css";
 
 
 

@@ -48,6 +48,19 @@ async def read_topic_by_title(
     return service.read_topic_by_title(response, token, title)
 
 
+@topic.get('/read_by_title_starts_with')
+async def read_topic_by_title_starts_with(
+        response: Response,
+        title: Annotated[str, Query()],
+        offset: Annotated[int, Query(gte=0)] = 0,
+        limit: Annotated[int, Query(lt=50)] = 49,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> list[TopicSchema] | None:
+    service = TopicService(db)
+    return service.read_topic_by_title_starts_with(response, token, title, offset, limit)
+
+
 @topic.patch('/patch')
 async def update_topic(
         response: Response,

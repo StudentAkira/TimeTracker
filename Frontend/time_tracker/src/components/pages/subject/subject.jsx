@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
-import Card from '../../ui/card/card.jsx';
-import "./subject.css"
-import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
 import RequestService from '../../../services/requests/request_service.js';
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import Items from '../../ui/items_section/items_section.jsx';
+import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
+import SearchBar from '../../ui/search_bar/search_bar.jsx';
+import "./subject.css";
 
 
 function Subject() {
@@ -15,27 +15,6 @@ function Subject() {
     const [limit, setLimit] = useState(49);
 
     const request_service = new RequestService()
-
-    const get_items = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(`${APIEndpoints.subject_read}?offset=${offset}&limit=${limit}`, requestOptions)
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            alert(response_json)
-            return
-          }
-        setItems(response_json);
-    }
 
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
@@ -50,37 +29,8 @@ function Subject() {
             window.location.href = frontURLs.login
             return;
         }
-        get_items()
+        request_service.read_items(setItems, offset, limit, APIEndpoints.subject_read)
     }, []);
-
-    const create_subject = async () => {
-
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-        "title": document.getElementById("title").value,
-        "description": document.getElementById("description").value,
-        });
-
-        const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(APIEndpoints.subject_create, requestOptions);
-        const response_json = await response.json();
-        if ("detail" in response_json){
-            alert(response_json["detail"]["error"])
-            return
-          }
-        alert(response_json["message"]);
-        get_items()
-    }
 
   return (
         <div className="subject">
@@ -92,6 +42,14 @@ function Subject() {
                 create_path={APIEndpoints.subject_create}
                 read_path={APIEndpoints.subject_read}
             />
+
+            <SearchBar 
+                    service={request_service}
+                    setItems={setItems}
+                    offset={offset}
+                    limit={limit}
+                    path={APIEndpoints.subject_read_by_title_starts_with}
+                />
 
             <Items 
                 items={items}

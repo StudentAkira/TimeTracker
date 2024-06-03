@@ -41,6 +41,15 @@ def read_subject_by_title_db(db: Session, user_db: User, title: str) -> Subject 
     return subject_db
 
 
+def get_user_subjects_starts_with_db(db: Session, user_db: User, title: str, offset: int, limit: int)\
+        -> list[type(Subject)]:
+    subjects_db = db.query(Subject).filter(and_(
+        Subject.owner_id == user_db.id,
+        Subject.title.ilike(f"{title}%")
+    )).offset(offset).limit(limit).all()
+    return subjects_db
+
+
 def update_subject_db(db: Session, subject_db: Subject, subject_data: SubjectUpdateSchema):
     subject_db.title = subject_data.new_title if subject_data.new_title else subject_db.title
     subject_db.description = subject_data.new_description if subject_data.new_description else subject_db.description
