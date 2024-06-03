@@ -34,8 +34,6 @@ class RequestService{
             query_params
         ) {
         
-        console.log(path);
-
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
 

@@ -107,26 +107,6 @@ function SingleTopic(){
         window.location.href = frontURLs.topic
     }
 
-    const get_periods = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(`${APIEndpoints.period_read}?offset=${offset}&limit=${limit}&topic_title=${params.title}`, requestOptions)
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            return
-          }
-        setPeriods(response_json);
-    }
-
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
             return false;
@@ -145,7 +125,6 @@ function SingleTopic(){
             APIEndpoints.period_read,
             `offset=${offset}&limit=${limit}&topic_title=${title}`
         )
-        get_periods()
     }, []);
 
     if (fetching) {

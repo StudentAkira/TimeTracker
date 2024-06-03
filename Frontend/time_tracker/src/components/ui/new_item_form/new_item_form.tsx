@@ -25,7 +25,7 @@ function NewItemForm(props : new_item_form_props){
 
             <button onClick={()=>{
                 props.service.create_item(props.create_path)
-                props.service.read_items(props.setItems, props.offset, props.limit, props.read_path)
+                props.service.read_items(props.setItems, props.read_path, `offset=${props.offset}&limit=${props.limit}`)
             }} className="create_button">create </button>
         </div>
     );
