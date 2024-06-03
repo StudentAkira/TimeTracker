@@ -20,8 +20,6 @@ function Test(){
     const date = new Date(timestamp);
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    console.log(hours, minutes); // Output: 9
-
     return (
         <>
             <h1>{now}</h1>

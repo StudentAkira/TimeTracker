@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class NoteCreateSchema(BaseModel):
     title: str
-    content: str
+    description: str
 
     class Config:
         from_attributes = True

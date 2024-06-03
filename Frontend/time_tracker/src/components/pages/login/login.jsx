@@ -1,9 +1,9 @@
 // import './auth.css';
 
-import { APIEndpoints, frontURLs } from "../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
 
 
-function Auth() {
+function Login() {
   
   const login = async () => {
     const myHeaders = new Headers();
@@ -47,4 +47,4 @@ function Auth() {
   );
 }
 
-export default Auth;
+export default Login;

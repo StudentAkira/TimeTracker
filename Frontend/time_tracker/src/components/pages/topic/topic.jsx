@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { APIEndpoints, frontURLs } from '../enums.tsx';
-import Card from '../card/card.jsx';
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import Card from '../../ui/card/card.jsx';
 import "./topic.css"
 
 
@@ -71,7 +71,6 @@ function Topic() {
         const response_json = await response.json();
         if ("detail" in response_json){
             alert(response_json["detail"]["error"])
-            console.log(response_json);
             return
           }
         alert(response_json["message"]);

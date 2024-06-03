@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import NotFound from "../../notfound/notfound.jsx";
-import Card from "../../card/card.jsx";
+import Card from "../../../ui/card/card.jsx";
+import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 
 function SingleTopic(){
 
@@ -94,8 +94,6 @@ function SingleTopic(){
 
         const response = await fetch(APIEndpoints.topic_delete + `/?title=${title}`, requestOptions)
         const response_json = await response.json()
-
-        console.log(response_json);
 
         if ("detail" in response_json){
             alert(response_json["detail"]["error"]);

@@ -1,0 +1,6 @@
+.create_item {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 100px;
+}

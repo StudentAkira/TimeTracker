@@ -5,4 +5,4 @@ class NoteUpdateSchema(BaseModel):
     title: str
 
     new_title: str | None = Field(default=None)
-    new_content: str | None = Field(default=None)
+    new_description: str | None = Field(default=None)

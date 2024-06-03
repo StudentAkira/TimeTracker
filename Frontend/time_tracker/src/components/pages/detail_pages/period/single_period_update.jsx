@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 import { useEffect, useState } from "react";
 import NotFound from "../../notfound/notfound.jsx";
 
@@ -94,8 +94,6 @@ function SinglePeriodUpdate(){
 
         const response = await fetch(APIEndpoints.period_delete + `/?title=${title}`, requestOptions)
         const response_json = await response.json()
-
-        console.log(response_json);
 
         if ("detail" in response_json){
             alert(response_json["detail"]["error"]);

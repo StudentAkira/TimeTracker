@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./single_period_create.css"
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 
 
 function SinglePeriodCreate(){

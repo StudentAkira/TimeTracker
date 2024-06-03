@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { APIEndpoints, frontURLs } from '../enums.tsx';
-import Card from '../card/card.jsx';
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import Card from '../../ui/card/card.jsx';
 import "./subject.css"
+import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
 
 
 function Subject() {
@@ -86,7 +87,7 @@ function Subject() {
                             <div className="subject_wrapper" >
                                 <Card 
                                     title={<a href={`${frontURLs.subject}/${item.title}`}>{item.title}</a>} 
-                                    content={item.description} 
+                                    description={item.description} 
                                     additional_data={item.total_hours.toPrecision(2) + " hours"}
                                 />
                             </div>
@@ -94,15 +95,7 @@ function Subject() {
                     )
                 }
             </div>
-
-            <div className="create_subject">
-                <h1>title :: </h1><input type="text" id="title"/>
-                <br />
-                <br />
-                <h1>description :: </h1>
-                <textarea name="description" id="description" cols="60" rows="30"></textarea>
-                <button onClick={create_subject}>create</button>
-            </div>
+            <NewItemForm create_item={create_subject} read_items={get_items}/>
         </div>
   );
 }

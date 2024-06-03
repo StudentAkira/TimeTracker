@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NotFound from "../../notfound/notfound";
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import { useParams } from "react-router-dom";
+import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 
 function SingleNote(){
 
@@ -30,7 +30,6 @@ function SingleNote(){
         const response =  await fetch(`${APIEndpoints.note_read_by_title}?title=${params.title}`, requestOptions)
         const response_json = await response.json()
 
-
         if (response_json == null){
             setFetching(false)
             return
@@ -44,7 +43,7 @@ function SingleNote(){
         setItem(response_json)
         setFetching(false)
         setTitle(response_json["title"])
-        setDescription(response_json["content"])
+        setDescription(response_json["description"])
     }
 
     const update_item = async () => {
@@ -55,7 +54,7 @@ function SingleNote(){
         const raw = JSON.stringify({
         "title": title,
         "new_title": new_title == null ? null : new_title,
-        "new_content": new_description == null ? null : new_description,
+        "new_description": new_description == null ? null : new_description,
         });
 
         const requestOptions = {
@@ -91,8 +90,6 @@ function SingleNote(){
 
         const response = await fetch(APIEndpoints.note_delete + `/?title=${title}`, requestOptions)
         const response_json = await response.json()
-
-        console.log(response_json);
 
         if ("detail" in response_json){
             alert(response_json["detail"]["error"]);

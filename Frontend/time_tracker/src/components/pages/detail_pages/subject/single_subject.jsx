@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 import NotFound from "../../notfound/notfound.jsx";
 import "./single_subject.css"
-import Card from "../../card/card.jsx";
+import Card from "../../../ui/card/card.jsx";
 
 function SingleSubject(){
 
@@ -162,8 +162,6 @@ function SingleSubject(){
         const response = await fetch(APIEndpoints.subject_delete + `/?subject_title=${title}`, requestOptions)
         const response_json = await response.json()
 
-        console.log(response_json);
-
         if ("detail" in response_json){
             alert(response_json["detail"]["error"]);
             return
@@ -246,10 +244,10 @@ function SingleSubject(){
                                         title={
                                             <a href={`${frontURLs.topic}/${topic.title}`}>{topic.title}</a>
                                         } 
-                                        content={topic.description} 
+                                        description={topic.description} 
                                         additional_data={
                                         <>
-                                            <h3>{String(topic.total_hours).substring(0, 5)} hours</h3>
+                                            {String(topic.total_hours).substring(0, 5)} hours
                                         </>
                                     }
                                     />

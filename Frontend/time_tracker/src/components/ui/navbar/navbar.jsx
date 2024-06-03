@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { APIEndpoints, frontURLs } from '../enums.tsx';
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import "./navbar.css"
 
 

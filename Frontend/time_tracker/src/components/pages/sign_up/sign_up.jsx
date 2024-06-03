@@ -1,6 +1,6 @@
 // import './sign_in.css';
 
-import { APIEndpoints, frontURLs } from "../enums.tsx";
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
 
 
 

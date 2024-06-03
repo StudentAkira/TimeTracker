@@ -14,7 +14,7 @@ from db.schemas.note.note_update import NoteUpdateSchema
 def create_note_db(db: Session, user_db: User, note_data: NoteCreateSchema):
     note_db = Note(
         title=note_data.title,
-        content=note_data.content,
+        content=note_data.description,
         datetime_=datetime.datetime.now()
     )
     user_db.notes.append(note_db)
@@ -56,7 +56,7 @@ def get_user_notes_starts_with_db(db: Session, user_db: User, title: str, offset
 
 def update_user_note_db(db: Session, note_db: Note, note_data: NoteUpdateSchema):
     note_db.title = note_data.new_title if note_data.new_title else note_db.title
-    note_db.content = note_data.new_content if note_data.new_content else note_db.content
+    note_db.content = note_data.new_description if note_data.new_description else note_db.content
     db.add(note_db)
     db.commit()
 

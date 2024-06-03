@@ -2,18 +2,18 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { frontURLs } from './components/enums.tsx';
-import Auth from './components/login/login.jsx';
-import NavBar from './components/navbar/navbar.jsx';
-import Note from './components/note/note.jsx';
-import SignUp from './components/sign_up/sign_up.jsx';
-import SingleNote from './components/single_entity/note/single_note.jsx';
-import SinglePeriod from './components/single_entity/period/single_period.jsx';
-import SingleSubject from './components/single_entity/subject/single_subject.jsx';
-import SingleTopic from './components/single_entity/topic/single_topic.jsx';
-import Subject from './components/subject/subject.jsx';
-import Topic from './components/topic/topic.jsx';
-import Test from './test/test.jsx';
-import SinglePeriodUpdate from './components/single_entity/period/single_period_update.jsx';
+import NavBar from "./components/ui/navbar/navbar.jsx"
+import Login from "./components/pages/login/login.jsx"
+import SignUp from "./components/pages/sign_up/sign_up.jsx"
+import Note from "./components/pages/note/note.jsx"
+import Subject from "./components/pages/subject/subject.jsx"
+import Topic from "./components/pages/topic/topic.jsx"
+import SingleSubject from "./components/pages/detail_pages/subject/single_subject.jsx"
+import SingleNote from "./components/pages/detail_pages/note/single_note.jsx"
+import SingleTopic from "./components/pages/detail_pages/topic/single_topic.jsx"
+import SinglePeriodUpdate from "./components/pages/detail_pages/period/single_period_update.jsx"
+import SinglePeriod from "./components/pages/detail_pages/period/single_period.jsx"
+import Test from "./test/test.jsx"
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         <div className="wrapper">
           <BrowserRouter>
             <Routes>
-              <Route path={frontURLs.login} element={<Auth />}/>
+              <Route path={frontURLs.login} element={<Login />}/>
               <Route path={frontURLs.sign_up} element={<SignUp />}/>
               <Route path={frontURLs.note} element={<Note />}/>
               <Route path={frontURLs.subject} element={<Subject />}/>
