@@ -24,3 +24,14 @@
 .title_input:focus {
     outline: none;
 }
+
+.title_input {
+    border: 1px solid black;
+    border-radius: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+
+    display: block;
+    grid-column: 2;
+}

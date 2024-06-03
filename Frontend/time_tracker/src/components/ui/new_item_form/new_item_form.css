@@ -5,11 +5,17 @@
     margin-bottom: 100px;
 }
 
-.title_input {
+.item_title {
     font-size: 1.5rem;
     display: grid;
     grid-template-columns: 2;
 }
+
+.item_description {
+    font-size: 1.5rem;
+    display: grid;
+}
+
 
 .title {
     border: 1px solid black;
@@ -53,4 +59,8 @@
     border-radius: 2rem;
     border: 1px solid black;
     font-size: 1.5rem;
+}
+
+.description_label_wrapper{
+    text-align: center;
 }

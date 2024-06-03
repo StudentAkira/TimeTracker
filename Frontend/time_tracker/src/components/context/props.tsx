@@ -26,11 +26,16 @@ export interface item{
 }
 
 export interface items_props {
-  items: [{
-    title: string
-    description: string
-    total_hours: undefined | string 
-    datetime_: undefined | string
-  }]
+  items: [item]
   item_link: string
 } 
+
+export interface create_item_args {
+  path: string
+}
+
+export interface update_item_props {
+  service: RequestService
+  title: string
+  description: string
+}
