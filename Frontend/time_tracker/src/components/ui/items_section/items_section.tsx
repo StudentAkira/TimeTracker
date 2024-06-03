@@ -7,8 +7,6 @@ import get_additional_data from "../../utils/additional_data_util.tsx";
 
 function Items(props : items_props){
 
-    console.log(props.items);
-    
     return (
     <div className="items">
         {

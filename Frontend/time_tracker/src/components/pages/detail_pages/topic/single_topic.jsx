@@ -140,13 +140,11 @@ function SingleTopic(){
             return;
         }
         get_item()
-        // request_service.read_items(
-        //     setPeriods,
-        //     offset,
-        //     limit,
-        //     APIEndpoints.period_read,
-        //     `offset=${offset}&limit=${limit}&topic_title=${title}`
-        // )
+        request_service.read_items(
+            setPeriods,
+            APIEndpoints.period_read,
+            `offset=${offset}&limit=${limit}&topic_title=${title}`
+        )
         get_periods()
     }, []);
 

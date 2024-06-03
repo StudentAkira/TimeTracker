@@ -31,7 +31,7 @@ function Subject() {
         }
         request_service.read_items(
             setItems,
-            APIEndpoints.subject_read
+            APIEndpoints.subject_read,
             `offset=${offset}&limit=${limit}`
             )
     }, []);

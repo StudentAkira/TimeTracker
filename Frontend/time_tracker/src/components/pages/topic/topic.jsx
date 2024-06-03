@@ -30,7 +30,7 @@ function Topic() {
         }
         request_service.read_items(
             setItems, 
-            APIEndpoints.topic_read
+            APIEndpoints.topic_read,
             `offset=${offset}&limit=${limit}`
             )
     }, []);

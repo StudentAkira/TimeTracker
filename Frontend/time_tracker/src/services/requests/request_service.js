@@ -28,8 +28,14 @@ class RequestService{
         }
         alert(response_json["message"]);
     }
-    async read_items(setItems, path, query_params) {
+    async read_items(
+            setItems,
+            path,
+            query_params
+        ) {
         
+        console.log(path);
+
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
 
