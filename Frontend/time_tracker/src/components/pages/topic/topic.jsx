@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { APIEndpoints, frontURLs } from "../../enums.tsx";
-import Card from '../../ui/card/card.jsx';
-import "./topic.css"
 import RequestService from '../../../services/requests/request_service.js';
-import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
-import SearchBar from '../../ui/search_bar/search_bar.jsx';
-import Items from '../../ui/items_section/items_section.jsx';
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import Items from '../../ui/items_section/items_section.tsx';
+import NewItemForm from '../../ui/new_item_form/new_item_form.tsx';
+import SearchBar from '../../ui/search_bar/search_bar.tsx';
+import "./topic.css";
 
 
 function Topic() {
@@ -16,27 +15,6 @@ function Topic() {
     const [limit, setLimit] = useState(49);
 
     const request_service = new RequestService()
-
-    const read_items = async () => {
-        
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(`${APIEndpoints.topic_read}?offset=${offset}&limit=${limit}`, requestOptions)
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            return
-          }
-        setItems(response_json);
-    }
 
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
@@ -50,42 +28,12 @@ function Topic() {
             window.location.href = frontURLs.login
             return;
         }
-        read_items()
+        request_service.read_items(setItems, offset, limit, APIEndpoints.topic_read)
     }, []);
 
-    const create_topic = async () => {
-
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw = JSON.stringify({
-        "title": document.getElementById("title").value,
-        "description": document.getElementById("description").value,
-        });
-
-
-        const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(APIEndpoints.topic_create, requestOptions);
-        const response_json = await response.json();
-        if ("detail" in response_json){
-            alert(response_json["detail"]["error"])
-            return
-          }
-        alert(response_json["message"]);
-        read_items();
-    }
-
-  return (
+    return (
         <div className="topic">
-           <NewItemForm 
+            <NewItemForm 
                     service={request_service} 
                     setItems={setItems}  
                     offset={offset} 
@@ -107,7 +55,7 @@ function Topic() {
                 item_link={frontURLs.topic}
             />
         </div>
-  );
+    );
 }
 
 export default Topic;

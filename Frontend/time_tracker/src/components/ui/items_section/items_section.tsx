@@ -1,8 +1,10 @@
+import React from "react";
 import Card from "../card/card";
 import "./items_section.css"
+import { items_props } from "../../context/props";
 
 
-function Items(props){
+function Items(props : items_props){
     return (
     <div className="items">
         {

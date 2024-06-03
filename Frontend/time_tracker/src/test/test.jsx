@@ -1,21 +1,9 @@
 import { useEffect, useState } from "react";
-import MyComponent from "../components/ui/items_section/items_section.jsx";
+import MyComponent from "../components/ui/items_section/items_section.tsx";
 
 function Test(){
 
-    // const [now, setNow] = useState(Date.now())
 
-    // useEffect(() => {
-    //     const i =setInterval(()=>{
-
-    //         setNow(Date.now())
-
-    //     }, 1000)
-
-    //     return () => {
-    //         clearInterval(i)
-    //     }
-    // }, [now]);
 
     return (
         <>

@@ -1,7 +1,8 @@
 import "./search_bar.css"
+import { search_bar_props } from "../../context/props";
+import React from "react";
 
-
-function SearchBar(props){
+function SearchBar(props : search_bar_props){
 
     const debounce = (cb, delay = 500) => {
         let timeout
@@ -12,7 +13,6 @@ function SearchBar(props){
             }, delay)
         }
     }
-    // APIEndpoints.note_read_by_title_starts_with
 
     return (
         <div className="search_bar">

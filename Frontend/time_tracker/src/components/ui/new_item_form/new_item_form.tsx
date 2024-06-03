@@ -1,7 +1,9 @@
+import { new_item_form_props } from "../../context/props";
 import "./new_item_form.css"
+import React from "react";
 
 
-function NewItemForm(props){
+function NewItemForm(props : new_item_form_props){
 
 
     return (
@@ -13,7 +15,7 @@ function NewItemForm(props){
                 <input type="text" id="title" className="title"/>
             </div>
             <div className="item_description">
-                <textarea name="description" id="description" cols="60" rows="30" className="description_field"></textarea>
+                <textarea name="description" id="description" cols={60} rows={30} className="description_field"></textarea>
             </div>
             <button onClick={()=>{
                 props.service.create_item(props.create_path)

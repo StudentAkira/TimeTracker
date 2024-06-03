@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import RequestService from '../../../services/requests/request_service.js';
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
-import Items from '../../ui/items_section/items_section.jsx';
-import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
-import SearchBar from '../../ui/search_bar/search_bar.jsx';
+import Items from '../../ui/items_section/items_section.tsx';
+import NewItemForm from '../../ui/new_item_form/new_item_form.tsx';
+import SearchBar from '../../ui/search_bar/search_bar.tsx';
 import "./subject.css";
 
 
