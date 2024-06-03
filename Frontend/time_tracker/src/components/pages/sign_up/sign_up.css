@@ -29,7 +29,6 @@
 
 .title {
     text-align: center;
-    font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
     font-size: 3.5rem;
@@ -37,7 +36,6 @@
 }
 
 div > a {
-    font-family: "Roboto", sans-serif;
     color:var(--font_color);
     text-decoration: none;
     font-size: 1.5rem;

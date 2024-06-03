@@ -3,6 +3,8 @@ import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import Card from '../../ui/card/card.jsx';
 import "./subject.css"
 import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
+import RequestService from '../../../services/requests/request_service.js';
+import Items from '../../ui/items_section/items_section.jsx';
 
 
 function Subject() {
@@ -11,6 +13,8 @@ function Subject() {
     const [items, setItems] = useState([]);
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(49);
+
+    const request_service = new RequestService()
 
     const get_items = async () => {
         const myHeaders = new Headers();
@@ -80,22 +84,21 @@ function Subject() {
 
   return (
         <div className="subject">
-            <div className="subjects">
-                {
-                    items.map(
-                        (item, index) => (
-                            <div className="subject_wrapper" >
-                                <Card 
-                                    title={<a href={`${frontURLs.subject}/${item.title}`}>{item.title}</a>} 
-                                    description={item.description} 
-                                    additional_data={item.total_hours.toPrecision(2) + " hours"}
-                                />
-                            </div>
-                        )
-                    )
-                }
-            </div>
-            <NewItemForm create_item={create_subject} read_items={get_items}/>
+            <NewItemForm 
+                service={request_service} 
+                setItems={setItems}  
+                offset={offset} 
+                limit={limit} 
+                create_path={APIEndpoints.subject_create}
+                read_path={APIEndpoints.subject_read}
+            />
+
+            <Items 
+                items={items}
+                item_link={frontURLs.subject}
+            />
+
+
         </div>
   );
 }

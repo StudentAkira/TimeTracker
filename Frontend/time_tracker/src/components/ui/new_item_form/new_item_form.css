@@ -1,6 +1,56 @@
 .create_item {
     display: grid;
     justify-content: center;
-    gap: 10px;
+    gap: 2rem;
     margin-bottom: 100px;
+}
+
+.title_input {
+    font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: 2;
+}
+
+.title {
+    border: 1px solid black;
+    border-radius: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+
+    display: block;
+    grid-column: 2;
+}
+
+.title:focus {
+    outline: none;
+}
+
+
+
+.title_label_wrapper {
+    grid-column: 1;
+    display: grid;
+}
+
+.description_field {
+    padding: 1rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    overflow: auto;
+    font-size: 1.5rem;
+
+    width: 60vh;
+    height: 46vh;
+}
+
+.description_field:focus {
+    outline: none;
+}
+
+.create_button {
+    height: 2rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    font-size: 1.5rem;
 }

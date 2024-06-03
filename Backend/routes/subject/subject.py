@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_create import SubjectCreateSchema
 from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.subject.topic_to_subject import TopicToSubjectSchema
@@ -17,7 +18,7 @@ subject = APIRouter(prefix="/api/subject", tags=["subject"])
 @subject.post("/create")
 async def create_subject(
         response: Response,
-        subject_data: SubjectSchema,
+        subject_data: SubjectCreateSchema,
         token: str = Depends(authorized_only),
         db: Session = Depends(get_db),
 ) -> dict[str, str]:

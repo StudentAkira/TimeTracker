@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import "./navbar.css"
 
@@ -16,8 +15,7 @@ function NavBar() {
         credentials:"include"
         };
 
-        const response = await fetch(APIEndpoints.logout, requestOptions);
-        const response_json = await response.json()
+        await fetch(APIEndpoints.logout, requestOptions);
 
         window.location.href = frontURLs.login;
         localStorage.removeItem("user_data");

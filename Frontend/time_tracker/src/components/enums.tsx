@@ -10,7 +10,7 @@ export enum APIEndpoints {
     note_create = base + "/note/create",
     note_update = base + "/note/patch",
     note_delete = base + "/note/delete",
-    note_read_by_title_starts_witn = base + "/note/read_by_title_starts_with",
+    note_read_by_title_starts_with = base + "/note/read_by_title_starts_with",
 
     subject_read = base + "/subject/read",
     subject_read_by_title = base + "/subject/read_by_title",

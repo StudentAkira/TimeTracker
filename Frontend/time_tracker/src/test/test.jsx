@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
+import MyComponent from "../components/ui/items_section/items_section.jsx";
 
 function Test(){
 
-    const [now, setNow] = useState(Date.now())
+    // const [now, setNow] = useState(Date.now())
 
-    useEffect(() => {
-        const i =setInterval(()=>{
+    // useEffect(() => {
+    //     const i =setInterval(()=>{
 
-            setNow(Date.now())
+    //         setNow(Date.now())
 
-        }, 1000)
+    //     }, 1000)
 
-        return () => {
-            clearInterval(i)
-        }
-    }, [now]);
+    //     return () => {
+    //         clearInterval(i)
+    //     }
+    // }, [now]);
 
-    const timestamp = Date.now();
-    const date = new Date(timestamp);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
     return (
         <>
-            <h1>{now}</h1>
+            <MyComponent />
         </>
     );
 }

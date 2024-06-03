@@ -10,6 +10,7 @@ from db.models.subject import Subject
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_create import SubjectCreateSchema
 from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.topic.topic import TopicSchema
@@ -24,7 +25,7 @@ class SubjectManager:
         self.__topic_not_in_subject_error = "topic not in subject"
         self.__topic_already_in_subject_error = "topic already in subject"
 
-    def create(self, user_db: User, subject_data: SubjectSchema):
+    def create(self, user_db: User, subject_data: SubjectCreateSchema):
         create_subject_db(self.__db, user_db, subject_data)
 
     def read(self, user_db: User, offset: int, limit: int) -> list[SubjectSchema]:

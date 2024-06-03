@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_create import SubjectCreateSchema
 from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.subject.topic_to_subject import TopicToSubjectSchema
@@ -28,7 +29,7 @@ class SubjectService:
         self.__topic_appended_to_subject_message = "topic appended to subject"
         self.__topic_removed_to_subject_message = "topic removed from subject"
 
-    def create(self, response: Response, token: str, subject_data: SubjectSchema) -> dict[str, str]:
+    def create(self, response: Response, token: str, subject_data: SubjectCreateSchema) -> dict[str, str]:
         decoded_token = self.__token_manager.decode_token(token, response)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
         existing_subject_db = self.__subject_manager.get_subject_by_user_id_title(subject_data.title, decoded_token.user_id)

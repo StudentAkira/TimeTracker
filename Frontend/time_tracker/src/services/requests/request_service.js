@@ -1,7 +1,7 @@
-import { APIEndpoints } from "../components/enums.tsx";
+class RequestService{
 
-class NoteService{
-    async create_item() {
+
+    async create_item(path) {
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Content-Type", "application/json");
@@ -19,20 +19,16 @@ class NoteService{
             credentials: "include"
         };
 
-        const response = await fetch(APIEndpoints.note_create, requestOptions);
+        const response = await fetch(path, requestOptions);
         const response_json = await response.json();
         if ("detail" in response_json){
+            console.log(response_json);
             alert(response_json["detail"]["error"])
             return
         }
         alert(response_json["message"]);
     }
-    
-    sort_items_by_time(items){
-        items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))
-    }
-
-    async read_items(setItems, offset, limit) {
+    async read_items(setItems, offset, limit, path) {
         
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
@@ -44,7 +40,7 @@ class NoteService{
         credentials: "include"
         };
 
-        const response = await fetch(`${APIEndpoints.note_read}?offset=${offset}&limit=${limit}`, requestOptions)
+        const response = await fetch(`${path}?offset=${offset}&limit=${limit}`, requestOptions)
         const response_json = await response.json()
 
         if ("detail" in response_json){
@@ -55,7 +51,37 @@ class NoteService{
         setItems(response_json);
     }
 
-   
+    async search_by_title_starts_with(setItems, offset, limit, path) {
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+
+        const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+        credentials: "include"
+        };
+
+        const response = await fetch(`${path}?title=${
+            document.getElementById("title_input").value
+        }&offset=${
+            offset
+        }&limit=${
+            limit
+        }`, requestOptions)
+
+        const response_json = await response.json()
+
+        if ("detail" in response_json){
+            alert(response_json["detail"]["error"])
+            return
+          }
+        this.sort_items_by_time(response_json)  
+        setItems(response_json);
+    }
+    sort_items_by_time(items){
+        items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))
+    }
 }
 
-export default NoteService;
+export default RequestService;

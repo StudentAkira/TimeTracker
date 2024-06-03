@@ -7,10 +7,11 @@ from db.models.subject import Subject
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.subject.subject import SubjectSchema
+from db.schemas.subject.subject_create import SubjectCreateSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 
 
-def create_subject_db(db: Session, user_db: User, subject_data: SubjectSchema):
+def create_subject_db(db: Session, user_db: User, subject_data: SubjectCreateSchema):
     subject_db = Subject(
         title=subject_data.title,
         description=subject_data.description

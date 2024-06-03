@@ -3,17 +3,19 @@ import { APIEndpoints, frontURLs } from "../../enums.tsx";
 import Card from '../../ui/card/card.jsx';
 import "./note.css"
 import NewItemForm from '../../ui/new_item_form/new_item_form.jsx';
-import NoteService from "../../../services/note_service.js"
+import RequestService from "../../../services/requests/request_service.js"
+import SearchBar from '../../ui/search_bar/search_bar.jsx';
+import Items from '../../ui/items_section/items_section.jsx';
 
 
 
 function Note() {
 
-
     const [items, setItems] = useState([]);
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(49);
 
+    const request_service = new RequestService()
 
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
@@ -22,84 +24,43 @@ function Note() {
         return true 
     }
 
-    const note_service = new NoteService()
-    
-
-    const debounce = (cb, delay = 500) => {
-        let timeout
-        return (...args) => {
-            clearTimeout(timeout)
-            timeout = setTimeout(() => {
-                cb(...args)
-            }, delay)
-        }
-    }
-
-    const sort_items_by_time = (items) => {
-        items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))
-    }
-
-    const search_by_title_starts_with = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(`${APIEndpoints.note_read_by_title_starts_witn}?title=${
-            document.getElementById("title_input").value
-        }&offset=${
-            offset
-        }&limit=${
-            limit
-        }`, requestOptions)
-
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            alert(response_json["detail"]["error"])
-            return
-          }
-        sort_items_by_time(response_json)  
-        setItems(response_json);
-    }
+    console.log(items);
 
     useEffect(() => {
         if(!is_auth()){
             window.location.href = frontURLs.login
             return;
         }
-        note_service.read_items(setItems, offset, limit)
+        request_service.read_items(setItems, offset, limit, APIEndpoints.note_read)
     }, []);
 
-  return (
-        <div className="note">
-            <NewItemForm service={note_service} setItems={setItems} offset={offset} limit={limit}/>
+    return (
+            <div className="note">
 
-            <div className="search_bar">
-                <h1 className='search_label'>Search by title :: </h1>
-                <div className='search_input_wrapper'><input type="text" id="title_input" onChange={debounce(search_by_title_starts_with)}/></div>
-            </div>
+                <NewItemForm 
+                    service={request_service} 
+                    setItems={setItems}  
+                    offset={offset} 
+                    limit={limit} 
+                    create_path={APIEndpoints.note_create}
+                    read_path={APIEndpoints.note_read}
+                />
 
-            <div className="notes">
-                {
-                    items.map(
-                        (item) => (
-                            <div className="note_wrapper">
-                                <Card title={
-                                    <a href={`${frontURLs.note}/${item.title}`}>{item.title}</a>
-                                    } description={item.description} additional_data={`${item.datetime_.substring(0, 19)}`}/>
-                            </div>
-                        )
-                    )
-                }
+                <SearchBar 
+                    service={request_service}
+                    setItems={setItems}
+                    offset={offset}
+                    limit={limit}
+                    path={APIEndpoints.note_read_by_title_starts_with}
+                />
+                
+                <Items 
+                    items={items}
+                    item_link={frontURLs.note}
+                />
+
             </div>
-        </div>
-  );
+    );
 }
 
 export default Note;
