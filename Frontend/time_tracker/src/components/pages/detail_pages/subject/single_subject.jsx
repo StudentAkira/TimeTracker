@@ -107,6 +107,8 @@ function SingleSubject(){
         )
     }
 
+    console.log(item);
+
     return (
         <>
             <div className="subject_edit">
@@ -162,7 +164,7 @@ function SingleSubject(){
             </div> {/** todo */}
 
                 <Items 
-                    items={topics}
+                    items={item.topics}
                     item_link={frontURLs.topic}
                 />
         </>
