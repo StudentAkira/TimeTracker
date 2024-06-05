@@ -20,6 +20,7 @@ export enum APIEndpoints {
     remove_topic_from_subject = base + "/subject/remove_topic",
     subject_delete = base + "/subject/delete",
     subject_read_by_title_starts_with = base + "/subject/read_by_title_starts_with",
+    subject_read_not_related_topics = base + "/subject/read_not_related_topics",
     
     topic_read = base + "/topic/read",
     topic_read_by_title = base + "/topic/read_by_title",

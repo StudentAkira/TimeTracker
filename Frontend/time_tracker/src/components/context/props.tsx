@@ -3,7 +3,7 @@ import RequestService from "../../services/requests/request_service"
 
 export interface new_item_form_props {
     service : RequestService
-    setItems: Dispatch<SetStateAction<never[]>>
+    setItems: Dispatch<SetStateAction<never[]>>//const [item, setItems <- this function] = useState()
     offset: Number
     limit: Number
     create_path: string
@@ -12,7 +12,7 @@ export interface new_item_form_props {
 
 export interface search_bar_props {
     service : RequestService
-    setItems: Dispatch<SetStateAction<never[]>>
+    setItems: Dispatch<SetStateAction<never[]>>//const [item, setItems <- this function] = useState()
     offset: Number
     limit: Number
     path: string
@@ -46,4 +46,9 @@ export interface single_item_props {
 
   update_alert_message: string
   delete_alert_message: string
+}
+
+export interface choose_relate_items_props {
+  service: RequestService
+  item_title_label: string
 }

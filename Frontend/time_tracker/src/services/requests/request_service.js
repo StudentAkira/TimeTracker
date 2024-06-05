@@ -169,6 +169,35 @@ class RequestService{
         alert(alert_message);
         window.location.href = redirect_path
     }
+
+    async read_related_items(
+        setItems,
+        path,
+        query_params
+    ) {
+    
+    const myHeaders = new Headers();
+    myHeaders.append("accept", "application/json");
+
+    const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+    credentials: "include"
+    };
+
+    // const response = await fetch(`${path}?offset=${offset}&limit=${limit}`, requestOptions)
+    const response = await fetch(`${path}?${query_params}`, requestOptions)
+    const response_json = await response.json()
+
+    if ("detail" in response_json){
+        alert(response_json)
+        return
+      }
+    this.sort_items_by_time(response_json)
+    setItems(response_json);
+}
+    
 }
 
 export default RequestService;

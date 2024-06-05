@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
-import MyComponent from "../components/ui/items_section/items_section.tsx";
+import Child from "./some_jsx.jsx"
 
 function Test(){
 
-
+    const [count, setCount] = useState(0)
 
     return (
         <>
-            <MyComponent />
+            {count} 
+            <button onClick={()=>{
+                setCount((count)=>count + 1)
+                setCount((count)=>count + 1)
+                }}>append</button>
+            <Child />
         </>
     );
 }
