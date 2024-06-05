@@ -1,6 +1,7 @@
 .search_bar {
     display: flex;
     gap: 10px;
+    padding-bottom: 2rem;
 }
 
 .search_input_wrapper {
@@ -34,4 +35,8 @@
 
     display: block;
     grid-column: 2;
+}
+
+.search_label {
+    font-size: 2rem;
 }

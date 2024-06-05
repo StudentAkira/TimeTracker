@@ -14,7 +14,6 @@
 }
 
 .subject_edit {
-    display: flex;
 }
 
 .topic_to_subject_wrapper {
@@ -32,4 +31,42 @@
 .topic_remove {
     grid-column: 2;
     padding: 2rem;
+}
+
+.topic_additional_label {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+.edit_title_field_button {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+
+.edit_title_field_button > input {
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+    display: block;
+
+}
+
+.edit_title_field_button > button {
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    padding: 0;
+    font-size: 1.5rem;
+    display: block;
+
 }

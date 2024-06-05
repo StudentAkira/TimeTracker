@@ -31,7 +31,7 @@ function ChooseRelatedItems(props: choose_relate_items_props){
         }
         request_service.read_items(
             setItems,
-            APIEndpoints.subject_read_not_related_topics_by_title_starts_with,
+            props.path,
             `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
             )
         setStartItmes((startitems)=> items)
@@ -42,7 +42,7 @@ function ChooseRelatedItems(props: choose_relate_items_props){
             <SearchBar 
                 service={request_service}
                 setItems={setItems}
-                path={APIEndpoints.subject_read_not_related_topics_by_title_starts_with}
+                path={props.path}
                 query_params={`${props.query_params}&offset=${offset}&limit=${limit}`}
             />
             <div className="related_items_wrapper">
