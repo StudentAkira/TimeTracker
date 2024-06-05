@@ -8,7 +8,7 @@ class Settings(BaseSettings):
 
     jwt_token_secret: str = "8508cc437a8ceca2a1a930ced2f40f57e617c5d790e2d662425d20c72386adc0c0a67bff18286870cfe86d859620a86177651afd2a817f69c0e0c7aa1b553ccf"
     jwt_algorithm: str = "HS256"
-    jwt_token_expiration_time_days: int = 2
+    jwt_token_expiration_time_days: int = 15
 
     frontend_domain: str = "127.0.0.1"
 

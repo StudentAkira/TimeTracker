@@ -18,6 +18,7 @@ def save_token_db(db: Session, token: str, user_id: int) -> TokenDatabaseSchema:
 
 
 def delete_token_db(db: Session, token_db: type(Token)):
+    print(token_db)
     db.delete(token_db)
     db.commit()
 
