@@ -28,12 +28,13 @@ function Note() {
             window.location.href = frontURLs.login
             return;
         }
-        console.log(APIEndpoints.note_read);
         request_service.read_items(
             setItems, 
             APIEndpoints.note_read,
             `offset=${offset}&limit=${limit}`
             )
+        request_service.sort_items_by_time(items)  
+
     }, []);
 
     return (
@@ -49,7 +50,7 @@ function Note() {
                 />
 
                 <SearchBar 
-                    service={request_service}
+                    service={request_service} 
                     setItems={setItems}
                     offset={offset}
                     limit={limit}

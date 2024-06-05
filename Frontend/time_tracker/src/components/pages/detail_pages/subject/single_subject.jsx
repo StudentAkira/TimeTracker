@@ -107,8 +107,6 @@ function SingleSubject(){
         )
     }
 
-    console.log(item);
-
     return (
         <>
             <div className="subject_edit">

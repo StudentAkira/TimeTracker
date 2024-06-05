@@ -2,7 +2,9 @@ from typing import cast
 
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
+from sqlalchemy.testing import not_in
 
+from db.models.subject import Subject
 from db.models.topic import Topic
 from db.models.user import User
 from db.schemas.topic.topic_create import TopicCreateSchema
@@ -24,6 +26,7 @@ def read_topic_db(db: Session, user_db: User, offset: int, limit: int) -> list[t
         filter(cast("ColumnElement[bool]", Topic.owner_id == user_db.id)).offset(offset).limit(limit).all()
     return topics_db
 
+
 def get_user_topics_starts_with_db(db: Session, user_db: User, title: str, offset: int, limit: int)\
         -> list[type(Topic)]:
     topics_db = db.query(Topic).filter(and_(
@@ -31,6 +34,16 @@ def get_user_topics_starts_with_db(db: Session, user_db: User, title: str, offse
         Topic.title.ilike(f"{title}%")
     )).offset(offset).limit(limit).all()
     return topics_db
+
+
+def get_user_topics_not_related_to_subject(db: Session, user_db: User, subject_db: Subject, offset: int, limit: int):
+    topics_not_related_to_subject_db = db.query(Topic).\
+        filter(cast("ColumnElement[bool]", Topic.owner_id == user_db.id),
+               Topic.title.not_in(
+                   set(topic_db.title for topic_db in subject_db.topics) if subject_db.topics is not None else set()
+               )).\
+        offset(offset).limit(limit)
+    return topics_not_related_to_subject_db
 
 
 def update_topic_db(db: Session, topic_db: Topic, topic_data: TopicUpdateSchema):

@@ -11,6 +11,7 @@ function Subject() {
 
 
     const [items, setItems] = useState([]);
+    const [startitems, setStartitems] = useState([]);
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(49);
 
@@ -34,6 +35,7 @@ function Subject() {
             APIEndpoints.subject_read,
             `offset=${offset}&limit=${limit}`
             )
+        setStartitems(items)
     }, []);
 
   return (

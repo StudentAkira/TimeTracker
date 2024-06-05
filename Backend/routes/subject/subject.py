@@ -9,6 +9,7 @@ from db.schemas.subject.subject_create import SubjectCreateSchema
 from db.schemas.subject.subject_full_data import SubjectFullDataSchema
 from db.schemas.subject.subject_update import SubjectUpdateSchema
 from db.schemas.subject.topic_to_subject import TopicToSubjectSchema
+from db.schemas.topic.topic import TopicSchema
 from dependencies import get_db, authorized_only
 from routes.subject.subject_service import SubjectService
 
@@ -60,6 +61,20 @@ async def read_subject_by_title_starts_with(
 ) -> list[SubjectSchema] | None:
     service = SubjectService(db)
     return service.read_by_title_starts_with(response, token, title, offset, limit)
+
+
+@subject.get("/read_topics_not_related_to_subject")
+async def read_topics_not_related_to_subject(
+        response: Response,
+        title: Annotated[str, Query()],
+        offset: Annotated[int, Query(gte=0)] = 0,
+        limit: Annotated[int, Query(lt=50)] = 49,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> list[TopicSchema]:
+    service = SubjectService(db)
+    return service.read_topics_not_related_to_subject(response, token, title, offset, limit)
+
 
 @subject.get("/get_topics")
 async def remove_topic_from_subject(

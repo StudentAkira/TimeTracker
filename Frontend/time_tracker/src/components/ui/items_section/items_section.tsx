@@ -7,15 +7,12 @@ import get_additional_data from "../../utils/additional_data_util.tsx";
 
 function Items(props : items_props){
 
-    console.log(props.items);
-    
-
     return (
     <div className="items">
         {
             props.items.map(
-                (item) => (
-                    <div className="item_wrapper">
+                (item, index) => (
+                    <div className="item_wrapper" key={index}>
                         <Card 
                             title={
                             // <a href={`${frontURLs.note}/${item.title}`}>{item.title}</a>

@@ -51,4 +51,5 @@ export interface single_item_props {
 export interface choose_relate_items_props {
   service: RequestService
   item_title_label: string
+  parent_item_title: string
 }

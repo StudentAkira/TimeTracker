@@ -63,7 +63,7 @@ class SubjectManager:
         topics_db = read_all_topic_by_subject_db(self.__db, subject_db)
         return [TopicSchema.from_orm(topic_db) for topic_db in topics_db]
 
-    def get_user_notes_with_title_starts_with(self, user_db : User, title: str, offset: int, limit: int) -> list[SubjectSchema]:
+    def get_user_subjects_with_title_starts_with(self, user_db : User, title: str, offset: int, limit: int) -> list[SubjectSchema]:
         subjects_db = get_user_subjects_starts_with_db(self.__db, user_db, title, offset, limit)
         return [SubjectSchema(
             title=subject_db.title,

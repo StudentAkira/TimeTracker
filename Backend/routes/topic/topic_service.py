@@ -49,7 +49,7 @@ class TopicService:
             -> list[TopicSchema]:
         decoded_token = self.__token_manager.decode_token(token, response)
         user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
-        topics = self.__topic_manager.get_user_notes_with_title_starts_with(user_db, title, offset, limit)
+        topics = self.__topic_manager.get_user_topics_with_title_starts_with(user_db, title, offset, limit)
         return topics
 
     def update_topic(self, response: Response, token: str, topic_data: TopicUpdateSchema) -> dict[str, str]:

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./choose_related_items.css"
-import { choose_relate_items_props } from "../../context/props";
+import { choose_relate_items_props, item } from "../../context/props";
 import RequestService from "../../../services/requests/request_service";
-import { APIEndpoints, frontURLs } from "../../enums";
+import { APIEndpoints, frontURLs } from "../../enums.tsx";
+import Items from "../items_section/items_section";
+import SearchBar from "../search_bar/search_bar.tsx";
 
 
 function ChooseRelatedItems(props: choose_relate_items_props){
 
-    const [items, setItems] = useState(null)
+    const [items, setItems] = useState([])
+    const [startitems, setStartItmes] = useState([])
 
     const [offset, setOffset] = useState(0)
     const [limit, setLimit] = useState(49)
@@ -25,18 +28,40 @@ function ChooseRelatedItems(props: choose_relate_items_props){
             window.location.href = frontURLs.login
             return;
         }
-
-        request_service.read_related_items(
-            request_service,
-            APIEndpoints.subject_read_not_related_topics,
-            `?offset=${offset}&limit=${limit}`
-            )
+        // request_service.read_items(
+        //     setItems,
+        //     APIEndpoints.subject_read_not_related_topics,
+        //     `title=${props.parent_item_title}&offset=${offset}&limit=${limit}`
+        //     )
+        setStartItmes((startitems)=> items)
     }, []);
 
     return (
-        <div className="append_item_wrapper">
+        <div className="choose_items_wrapper">
             {props.item_title_label} <input type="text" id="topic_title_to_append"/>
-
+            <SearchBar 
+                service={request_service}
+                setItems={setItems}
+                offset={offset}
+                limit={limit}
+                path={APIEndpoints.topic_read_by_title_starts_with}
+            />
+            <div className="related_items_wrapper">
+            {
+                items.map(
+                (item: item, index) => (
+                    <div className="choose_item_wrapper" key={index}>
+                        <div className="item">
+                            <div className="item_title">
+                                {item.title}
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                )
+            )
+        }
+            </div>
         </div>
     );
 }
