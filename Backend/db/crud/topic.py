@@ -1,6 +1,6 @@
 from typing import cast
 
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
 from sqlalchemy.testing import not_in
 
@@ -44,6 +44,28 @@ def get_user_topics_not_related_to_subject(db: Session, user_db: User, subject_d
                )).\
         offset(offset).limit(limit)
     return topics_not_related_to_subject_db
+
+
+def get_user_topics_not_related_to_subject_by_title_starts_with(
+            db: Session,
+            user_db: User,
+            subject_db: Subject,
+            start_title: str,
+            offset: int,
+            limit: int):
+    topics_db = db.query(Topic).filter(
+        and_(
+            Topic.title.ilike(f"{start_title}%"),
+            or_(
+                Topic.subject == None,
+                Topic.subject_id != subject_db.id
+            ),
+            Topic.owner_id == user_db.id
+            )
+    ).offset(offset).limit(limit).all()
+    topics_not_related = [topic_db.title for topic_db in topics_db]
+    print(topics_not_related)
+    return topics_db
 
 
 def update_topic_db(db: Session, topic_db: Topic, topic_data: TopicUpdateSchema):

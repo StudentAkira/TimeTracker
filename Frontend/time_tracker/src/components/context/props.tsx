@@ -13,9 +13,8 @@ export interface new_item_form_props {
 export interface search_bar_props {
     service : RequestService
     setItems: Dispatch<SetStateAction<never[]>>//const [item, setItems <- this function] = useState()
-    offset: Number
-    limit: Number
     path: string
+    query_params: string
 }
 
 export interface item{
@@ -51,5 +50,5 @@ export interface single_item_props {
 export interface choose_relate_items_props {
   service: RequestService
   item_title_label: string
-  parent_item_title: string
+  query_params: string
 }

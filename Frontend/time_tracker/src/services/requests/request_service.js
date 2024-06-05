@@ -19,10 +19,13 @@ class RequestService{
             credentials: "include"
         };
 
+        console.log(raw);
+
         const response = await fetch(path, requestOptions);
         const response_json = await response.json();
         if ("detail" in response_json){
             alert(response_json["detail"]["error"])
+            console.log(response_json);
             return
         }
         alert(response_json["message"]);
@@ -57,7 +60,7 @@ class RequestService{
         
     }
 
-    async search_by_title_starts_with(setItems, offset, limit, path) {
+    async search_by_title_starts_with(setItems, path, query_params) {
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
 
@@ -68,13 +71,9 @@ class RequestService{
         credentials: "include"
         };
 
-        const response = await fetch(`${path}?title=${
-            document.getElementById("title_input").value
-        }&offset=${
-            offset
-        }&limit=${
-            limit
-        }`, requestOptions)
+        console.log(query_params);
+
+        const response = await fetch(`${path}?${query_params}`, requestOptions)
 
         const response_json = await response.json()
 
@@ -83,6 +82,7 @@ class RequestService{
             return
           }
         setItems((items)=>response_json);
+        console.log(response_json);
     }
     sort_items_by_time(items){
         items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))

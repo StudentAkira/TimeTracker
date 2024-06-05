@@ -76,6 +76,27 @@ async def read_topics_not_related_to_subject(
     return service.read_topics_not_related_to_subject(response, token, title, offset, limit)
 
 
+@subject.get("/read_topics_not_related_to_subject_by_title_starts_with")
+async def read_topics_not_related_to_subject(
+        response: Response,
+        subject_title: Annotated[str, Query()],
+        title: Annotated[str, Query()],
+        offset: Annotated[int, Query(gte=0)] = 0,
+        limit: Annotated[int, Query(lt=50)] = 49,
+        token: str = Depends(authorized_only),
+        db: Session = Depends(get_db),
+) -> list[TopicSchema]:
+    service = SubjectService(db)
+    return service.read_topics_not_related_to_subject_by_title_starts_with(
+        response,
+        token,
+        subject_title,
+        title,
+        offset,
+        limit
+    )
+
+
 @subject.get("/get_topics")
 async def remove_topic_from_subject(
         response: Response,

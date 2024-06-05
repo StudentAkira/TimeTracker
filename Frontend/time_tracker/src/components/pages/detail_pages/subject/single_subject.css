@@ -16,3 +16,20 @@
 .subject_edit {
     display: flex;
 }
+
+.topic_to_subject_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5rem;
+
+}
+
+.topic_append {
+    grid-column: 1;
+    padding: 2rem;
+}
+
+.topic_remove {
+    grid-column: 2;
+    padding: 2rem;
+}

@@ -6,6 +6,7 @@ import Items from "../../../ui/items_section/items_section.tsx";
 import UpdateItem from "../../../ui/update_item/update_item.tsx";
 import NotFound from "../../notfound/notfound.jsx";
 import "./single_subject.css";
+import ChooseRelatedItems from "../../../ui/choose_related_items/choose_related_items.tsx";
 
 function SingleSubject(){
 
@@ -121,6 +122,7 @@ function SingleSubject(){
                 delete_alert_message="Subject deleted"
 
            />
+           
                     <div className="topic_to_subject_wrapper">
                         <div className="topic_append">
                             topic title :: <input type="text" id="topic_title_to_append"/>
@@ -138,9 +140,12 @@ function SingleSubject(){
                                 }}>
                                 append
                             </button>
+                            <ChooseRelatedItems
+                            service={request_service}
+                            item_title_label={"test"}
+                            query_params={`subject_title=${params.title}`}
+                            />
                         </div>
-                        <br />
-                        <br />
                         <div className="topic_remove">
                             topic title :: <input type="text" id="topic_title_to_remove"/>
                             <button onClick={() => {
@@ -157,6 +162,11 @@ function SingleSubject(){
                                 }}>
                                 remove
                             </button>
+                            <ChooseRelatedItems
+                            service={request_service}
+                            item_title_label={"test"}
+                            query_params={`subject_title=${params.title}`}
+                            />
                         </div>
                     </div>
             </div> {/** todo */}

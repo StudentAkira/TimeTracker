@@ -52,9 +52,8 @@ function Note() {
                 <SearchBar 
                     service={request_service} 
                     setItems={setItems}
-                    offset={offset}
-                    limit={limit}
                     path={APIEndpoints.note_read_by_title_starts_with}
+                    query_params={`offset=${offset}&limit=${limit}`}
                 />
                 
                 <Items 

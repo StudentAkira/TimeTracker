@@ -9,6 +9,7 @@ import SearchBar from "../search_bar/search_bar.tsx";
 
 function ChooseRelatedItems(props: choose_relate_items_props){
 
+
     const [items, setItems] = useState([])
     const [startitems, setStartItmes] = useState([])
 
@@ -28,23 +29,21 @@ function ChooseRelatedItems(props: choose_relate_items_props){
             window.location.href = frontURLs.login
             return;
         }
-        // request_service.read_items(
-        //     setItems,
-        //     APIEndpoints.subject_read_not_related_topics,
-        //     `title=${props.parent_item_title}&offset=${offset}&limit=${limit}`
-        //     )
+        request_service.read_items(
+            setItems,
+            APIEndpoints.subject_read_not_related_topics_by_title_starts_with,
+            `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
+            )
         setStartItmes((startitems)=> items)
     }, []);
 
     return (
         <div className="choose_items_wrapper">
-            {props.item_title_label} <input type="text" id="topic_title_to_append"/>
             <SearchBar 
                 service={request_service}
                 setItems={setItems}
-                offset={offset}
-                limit={limit}
-                path={APIEndpoints.topic_read_by_title_starts_with}
+                path={APIEndpoints.subject_read_not_related_topics_by_title_starts_with}
+                query_params={`${props.query_params}&offset=${offset}&limit=${limit}`}
             />
             <div className="related_items_wrapper">
             {

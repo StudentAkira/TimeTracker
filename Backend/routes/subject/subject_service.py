@@ -69,6 +69,29 @@ class SubjectService:
         topics = self.__topic_manager.get_user_topics_not_related_to_subject(user_db, subject_db, offset, limit)
         return topics
 
+    def read_topics_not_related_to_subject_by_title_starts_with(
+            self,
+            response: Response,
+            token: str,
+            subject_title: str,
+            title: str,
+            offset: int,
+            limit: int
+    ) \
+            -> list[TopicSchema]:
+        decoded_token = self.__token_manager.decode_token(token, response)
+        user_db = self.__user_manager.get_user_by_id_or_raise_if_not_found(decoded_token.user_id)
+        subject_db = self.__subject_manager.get_subject_by_user_id_title(subject_title, decoded_token.user_id)
+        self.__subject_manager.raise_exception_if_subject_not_found(subject_db)
+        topics = self.__topic_manager.get_user_topics_not_related_to_subject_by_title_starts_with(
+            user_db,
+            subject_db,
+            title,
+            offset,
+            limit
+        )
+        return topics
+
 
     def update(self, response: Response, token: str, subject_data: SubjectUpdateSchema):
         decoded_token = self.__token_manager.decode_token(token, response)

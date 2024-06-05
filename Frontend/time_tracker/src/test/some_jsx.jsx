@@ -11,7 +11,7 @@ function Child(){
             <ChooseRelatedItems
                 service={request_service}
                 item_title_label={"test"}
-                parent_item_title={"свободное время"}
+                query_params={`subject_title=${"zxcvbnm"}`}
             />
         </>
     );

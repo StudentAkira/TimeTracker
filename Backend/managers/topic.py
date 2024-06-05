@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from db.crud.topic import get_topic_by_title_and_user_id_db, create_topic_db, read_topic_db, update_topic_db, \
-    delete_topic_db, get_user_topics_starts_with_db, get_user_topics_not_related_to_subject
+    delete_topic_db, get_user_topics_starts_with_db, get_user_topics_not_related_to_subject, \
+    get_user_topics_not_related_to_subject_by_title_starts_with
 from db.models.subject import Subject
 from db.models.topic import Topic
 from db.models.user import User
@@ -52,6 +53,24 @@ class TopicManager:
         topics_db = get_user_topics_not_related_to_subject(self.__db, user_db, subject_db, offset, limit)
         return [TopicSchema.from_orm(topic_db) for topic_db in topics_db]
 
+    def get_user_topics_not_related_to_subject_by_title_starts_with(
+            self,
+            user_db: User,
+            subject_db: Subject,
+            start_title: str,
+            offset: int,
+            limit: int
+    ):
+        topics_db = get_user_topics_not_related_to_subject_by_title_starts_with(
+            self.__db,
+            user_db,
+            subject_db,
+            start_title,
+            offset,
+            limit
+        )
+        return [TopicSchema.from_orm(topic_db) for topic_db in topics_db]
+
     def raise_exception_if_topic_exists(self, topic_db: Topic | None):
         if topic_db:
             raise HTTPException(
@@ -65,6 +84,7 @@ class TopicManager:
                 status_code=status.HTTP_409_CONFLICT,
                 detail={"error": self.__topic_not_found_error}
             )
+
 
 
 

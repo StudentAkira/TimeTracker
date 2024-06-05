@@ -51,8 +51,7 @@ function Topic() {
             <SearchBar 
                 service={request_service}
                 setItems={setItems}
-                offset={offset}
-                limit={limit}
+                query_params={`offset=${offset}&limit=${limit}`}
                 path={APIEndpoints.topic_read_by_title_starts_with}
             />
             
