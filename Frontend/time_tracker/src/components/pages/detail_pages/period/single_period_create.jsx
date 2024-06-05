@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import "./single_period_create.css"
 import { APIEndpoints, frontURLs } from "../../../enums.tsx";
+import RequestService from "../../../../services/requests/request_service.js";
+import ChooseRelatedItems from "../../../ui/choose_related_items/choose_related_items.tsx";
+import SearchBar from "../../../ui/search_bar/search_bar.tsx";
 
 
 function SinglePeriodCreate(){
 
     const [starting, setStarting] = useState(false);
+    const [items, setItems] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(49);
 
     const start_period = async () => {
         const myHeaders = new Headers();
@@ -38,6 +44,8 @@ function SinglePeriodCreate(){
         window.location.href = "/period"
     }
 
+    const request_service = new RequestService()
+
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
             return false;
@@ -50,6 +58,11 @@ function SinglePeriodCreate(){
             window.location.href = frontURLs.login
             return;
         }
+        request_service.read_items(
+            setItems, 
+            APIEndpoints.topic_read,
+            `offset=${offset}&limit=${limit}`
+            )
     }, []);
 
     if(starting){
@@ -64,6 +77,28 @@ function SinglePeriodCreate(){
                 <div className="period_title_wrapper">
                     <h1 className="period_title">title :: </h1><input type="text" id="period_title"/>
                     <h1 className="related_topic_title">topic :: </h1><input type="text" id="related_topic_title"/>
+                </div>
+                <SearchBar 
+                    service={request_service} 
+                    setItems={setItems}
+                    path={APIEndpoints.topic_read_by_title_starts_with}
+                    query_params={`offset=${offset}&limit=${limit}`}
+                />
+                <div className="topic_to_start_period_wrapper">
+                {
+                    items.map(
+                    (item, index) => (
+                            <div className="choose_item_wrapper" key={index}>
+                                <div className="item">
+                                    <div className="item_title">
+                                        {item.title}
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        )
+                    )
+                }
                 </div>
                 <div className="period_description_wrapper">
                     <h1 className="period_description">description :: </h1>

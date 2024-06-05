@@ -1,10 +1,9 @@
 .period_create_wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
 }
 
 .period_data_wrapper {
-    grid-column: 1;
+    grid-column: span 2;
+
 }
 
 .period_timer_wrapper {
@@ -26,4 +25,9 @@
 .finish_button {
     display: block;
     grid-column: 3;
+}
+
+.topic_to_start_period_wrapper {
+    height: 20rem;
+    overflow: hidden;
 }

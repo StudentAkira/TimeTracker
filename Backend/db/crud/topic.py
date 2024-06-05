@@ -85,6 +85,21 @@ def get_user_topics_related_to_subject_by_title_starts_with(
     return topics_db
 
 
+def get_user_topics_by_title_starts_with(
+            db: Session,
+            user_db: User,
+            start_title: str,
+            offset: int,
+            limit: int):
+    topics_db = db.query(Topic).filter(
+        and_(
+            Topic.title.ilike(f"{start_title}%"),
+            Topic.owner_id == user_db.id
+            )
+    ).offset(offset).limit(limit).all()
+    return topics_db
+
+
 def update_topic_db(db: Session, topic_db: Topic, topic_data: TopicUpdateSchema):
     topic_db.title = topic_data.new_title if topic_data.new_title else topic_db.title
     topic_db.description = topic_data.new_description if topic_data.new_description else topic_db.description

@@ -78,11 +78,12 @@ class RequestService{
         const response_json = await response.json()
 
         if ("detail" in response_json){
+            console.log(response_json);
             alert(response_json["detail"]["error"])
             return
           }
-        setItems((items)=>response_json);
         console.log(response_json);
+        setItems((items)=>response_json);
     }
     sort_items_by_time(items){
         items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))

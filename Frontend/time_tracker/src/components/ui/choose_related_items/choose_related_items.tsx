@@ -12,9 +12,10 @@ function ChooseRelatedItems(props: choose_relate_items_props){
 
     const [items, setItems] = useState([])
     const [startitems, setStartItmes] = useState([])
+    const [page, setPage] = useState(1)
 
     const [offset, setOffset] = useState(0)
-    const [limit, setLimit] = useState(49)
+    const [limit, setLimit] = useState(3)
 
     const request_service = new RequestService();
 
@@ -49,17 +50,51 @@ function ChooseRelatedItems(props: choose_relate_items_props){
             {
                 items.map(
                 (item: item, index) => (
-                    <div className="choose_item_wrapper" key={index}>
-                        <div className="item">
-                            <div className="item_title">
-                                {item.title}
+                        <div className="choose_item_wrapper" key={index}>
+                            <div className="item">
+                                <div className="item_title">
+                                    {item.title}
+                                </div>
+                                <hr />
                             </div>
-                            <hr />
                         </div>
-                    </div>
+                    )
                 )
-            )
-        }
+            }
+            <button className="prev_page_button"
+                onClick={() => {
+                        setOffset((offset) => {
+                            if(offset > 0)return offset - limit
+                            return 0;
+                        })
+                        setPage((page) => page == 0? page + 1:page - 1)
+                        request_service.read_items(
+                            setItems,
+                            props.path,
+                            `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
+                            )
+                        setStartItmes((startitems)=> items)
+                    }
+                }
+            >
+                {"<-"}
+            </button>
+                {page - 1}
+            <button className="next_page_button"
+                onClick={() => {
+                        setOffset((offset) => offset + limit)
+                        setPage((page) => page + 1)
+                        request_service.read_items(
+                            setItems,
+                            props.path,
+                            `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
+                            )
+                        setStartItmes((startitems)=> items)
+                    }
+                }
+            >
+                {"->"}
+            </button>
             </div>
         </div>
     );
