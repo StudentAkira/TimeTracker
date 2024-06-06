@@ -1,4 +1,5 @@
 .period_create_wrapper {
+    padding-bottom: 5rem;
 }
 
 .period_data_wrapper {
@@ -6,20 +7,24 @@
 
 }
 
-.period_timer_wrapper {
-    grid-column: 3;
+.period_title_wrapper, .topic_title_wrapper {
+    padding-bottom: 2rem;
+    height: 3rem;
 }
 
 .buttons_wrapper {
-    display: grid;
-
-    height: 5vh;
-    grid-template-columns: repeat(3, 1fr);
+    width: 30vh;
+    width: 100%;
 }
 
 .start_button {
     display: block;
     grid-column: 1;
+    height: 2rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    font-size: 1.5rem;
+    width: 100%;
 }
 
 .finish_button {
@@ -30,4 +35,15 @@
 .topic_to_start_period_wrapper {
     height: 20rem;
     overflow: hidden;
+    width: 30vh;
+}
+
+.period_topic {
+    display: flex;
+    justify-content: space-around;
+}
+
+.period_description {
+    margin: 0;
+    padding-bottom: 2rem;
 }

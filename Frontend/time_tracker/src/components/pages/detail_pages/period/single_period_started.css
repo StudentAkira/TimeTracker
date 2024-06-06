@@ -1,4 +1,27 @@
 .period_data_wrapper {
     display: grid;
-    gap: 30px;
+    gap: 3rem;
+
+    text-align: center;
+}
+
+.timer, .finish_button {
+    font-size: 2rem;
+    margin: 0;
+
+    width: 100%;
+}
+
+.finish_button {
+    font-size: 2rem;
+    border-radius: 2rem;
+
+    display: block;
+    width: 50%;
+    height: 15vh;
+}
+
+.finish_button_wrapper {
+    display: flex;
+    justify-content: center;
 }

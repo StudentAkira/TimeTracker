@@ -28,6 +28,7 @@ function SearchBar(props : search_bar_props){
                             }
                         )
                     }/>
+                    
                 </div>
             </div>
     );

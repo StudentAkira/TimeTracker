@@ -1,5 +1,6 @@
 // import './sign_in.css';
 
+import { useEffect } from "react";
 import { APIEndpoints, frontURLs } from "../../enums.tsx";
 
 
@@ -37,6 +38,18 @@ function SignUp() {
 
     window.location.href = frontURLs.login;
   }
+  const is_auth = () => {
+    if(localStorage.getItem("user_data") == null){
+        return false;
+    }
+    return true 
+}
+  useEffect(() => {
+    if(is_auth()){
+        window.location.href = frontURLs.note
+        return;
+    }
+})
 
   return (
     <div className="AuthPage">

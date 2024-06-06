@@ -59,40 +59,7 @@ function ChooseRelatedItems(props: choose_relate_items_props){
                     )
                 )
             }
-            {/* <button className="prev_page_button"
-                onClick={() => {
-                        setOffset((offset) => {
-                            if(offset > 0)return offset - limit
-                            return 0;
-                        })
-                        setPage((page) => page == 0? page + 1:page - 1)
-                        request_service.read_items(
-                            setItems,
-                            props.path,
-                            `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
-                            )
-                        setStartItmes((startitems)=> items)
-                    }
-                }
-            >
-                {"<-"}
-            </button>
-                {page - 1}
-            <button className="next_page_button"
-                onClick={() => {
-                        setOffset((offset) => offset + limit)
-                        setPage((page) => page + 1)
-                        request_service.read_items(
-                            setItems,
-                            props.path,
-                            `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
-                            )
-                        setStartItmes((startitems)=> items)
-                    }
-                }
-            >
-                {"->"}
-            </button> */}
+            
             </div>
         </div>
     );

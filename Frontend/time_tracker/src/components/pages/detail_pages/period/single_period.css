@@ -1,0 +1,34 @@
+.period_title_field, .related_topic_title_field {
+    border: 1px solid black;
+    border-radius: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+    display: block;
+
+}
+
+.period_description_field {
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+    display: block;
+    border: 1px solid black;
+    border-radius: 2rem;
+}
+
+.period_description_field:focus {
+    outline: none;
+}
+
+
+.period_title_wrapper, .topic_title_wrapper {
+    display: flex;
+}
+
+.period_title, .related_topic_title {
+    margin: 0;
+}
+
+.period_title_topic_wrapper {
+    display: grid;
+}

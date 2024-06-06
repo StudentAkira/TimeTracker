@@ -70,14 +70,14 @@ function SinglePeriodStarted(params){
               FINISH
             </button>
           </div>
-            
+          <div className="timer_wrapper">
+            <h1 className="timer">
+              {hours}h {minutes}m {seconds}s
+            </h1>
+          </div>
         </div>
         
-        <div className="timer">
-          <h1 className="timer">
-          </h1>
-          {hours}h {minutes}m {seconds}s
-        </div>
+        
       </div>
     );
 }

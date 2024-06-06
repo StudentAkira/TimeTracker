@@ -63,3 +63,7 @@
     display: block;
 
 }
+
+.edit_title_field_label {
+    font-weight: bold;
+}
