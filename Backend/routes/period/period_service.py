@@ -40,9 +40,7 @@ class PeriodService:
     def read(self, response: Response, token: str, topic_title: str, offset: int, limit: int) \
             -> list[PeriodReadResponseSchema]:
         decoded_token = self.__token_manager.decode_token(token, response)
-        print(topic_title)
         topic_db = self.__topic_manager.get_topic_by_title_and_user_id(decoded_token.user_id, topic_title)
-        print(topic_db)
         self.__topic_manager.raise_exception_if_topic_does_not_exists(topic_db)
         return self.__period_manager.read(topic_db, offset, limit)
 

@@ -111,72 +111,72 @@ function SingleSubject(){
     return (
         <>
             <div className="subject_edit">
-            <UpdateItem 
-                service={request_service}
-                title={title}
-                description={description}
-                update_path={APIEndpoints.subject_update}
-                delete_path={APIEndpoints.subject_delete}
-                redirect_path={frontURLs.subject}
-                update_alert_message="Subject updated"
-                delete_alert_message="Subject deleted"
+                <UpdateItem 
+                    service={request_service}
+                    title={title}
+                    description={description}
+                    update_path={APIEndpoints.subject_update}
+                    delete_path={APIEndpoints.subject_delete}
+                    redirect_path={frontURLs.subject}
+                    update_alert_message="Subject updated"
+                    delete_alert_message="Subject deleted"
 
-           />
-           
-                    <div className="topic_to_subject_wrapper">
-                        <div className="topic_append">
-                            <div className="topic_additional_label">Topics not related to subject</div>
-                            <div className="edit_title_field_button">
-                                topic title :: <input type="text" id="topic_title_to_append"/>
-                                <button onClick={() => {
-                                        setFetching(true)
-                                        append_topic_to_subject()
-                                        request_service.get_item(
-                                            APIEndpoints.subject_read_by_title,
-                                            title,
-                                            setFetching,
-                                            setItem,
-                                            setTitle,
-                                            setDescription
-                                        )
-                                    }}>
-                                    +
-                                </button>
-                            </div>
-                            <ChooseRelatedItems
-                                service={request_service}
-                                item_title_label={"test"}
-                                query_params={`subject_title=${params.title}`}
-                                path={APIEndpoints.subject_read_not_related_topics_by_title_starts_with}
-                            />
+                />
+            
+                <div className="topic_to_subject_wrapper">
+                    <div className="topic_append">
+                        <div className="topic_additional_label">Topics not related to subject</div>
+                        <div className="edit_title_field_button">
+                            topic title :: <input type="text" id="topic_title_to_append"/>
+                            <button onClick={() => {
+                                    setFetching(true)
+                                    append_topic_to_subject()
+                                    request_service.get_item(
+                                        APIEndpoints.subject_read_by_title,
+                                        title,
+                                        setFetching,
+                                        setItem,
+                                        setTitle,
+                                        setDescription
+                                    )
+                                }}>
+                                +
+                            </button>
                         </div>
-                        <div className="topic_remove">
-                            <div className="topic_additional_label">Topics related to subject</div>
-                            <div className="edit_title_field_button">
-                                topic title :: <input type="text" id="topic_title_to_remove"/>
-                                <button onClick={() => {
-                                        setFetching(true)
-                                        remove_topic_from_subject()
-                                        request_service.get_item(
-                                            APIEndpoints.subject_read_by_title,
-                                            title,
-                                            setFetching,
-                                            setItem,
-                                            setTitle,
-                                            setDescription
-                                        )
-                                    }}>
-                                    -
-                                </button>
-                            </div>
-                            <ChooseRelatedItems
-                                service={request_service}
-                                item_title_label={"test"}
-                                query_params={`subject_title=${params.title}`}
-                                path={APIEndpoints.subject_read_related_topics_by_title_starts_with}
-                            />
-                        </div>
+                        <ChooseRelatedItems
+                            service={request_service}
+                            item_title_label={"test"}
+                            query_params={`subject_title=${params.title}`}
+                            path={APIEndpoints.subject_read_not_related_topics_by_title_starts_with}
+                        />
                     </div>
+                    <div className="topic_remove">
+                        <div className="topic_additional_label">Topics related to subject</div>
+                        <div className="edit_title_field_button">
+                            topic title :: <input type="text" id="topic_title_to_remove"/>
+                            <button onClick={() => {
+                                    setFetching(true)
+                                    remove_topic_from_subject()
+                                    request_service.get_item(
+                                        APIEndpoints.subject_read_by_title,
+                                        title,
+                                        setFetching,
+                                        setItem,
+                                        setTitle,
+                                        setDescription
+                                    )
+                                }}>
+                                -
+                            </button>
+                        </div>
+                        <ChooseRelatedItems
+                            service={request_service}
+                            item_title_label={"test"}
+                            query_params={`subject_title=${params.title}`}
+                            path={APIEndpoints.subject_read_related_topics_by_title_starts_with}
+                        />
+                    </div>
+                </div>
             </div>
 
                 <Items 

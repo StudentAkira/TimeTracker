@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 import { useEffect, useState } from "react";
 import NotFound from "../../notfound/notfound.jsx";
+import RequestService from "../../../../services/requests/request_service.js";
 
 function SinglePeriodUpdate(){
 
@@ -18,36 +19,9 @@ function SinglePeriodUpdate(){
     let new_description = null;
     let new_topic_title = null;
 
+    const request_service = new RequestService(); 
 
-    const get_item = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
     
-        const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-    
-        const response =  await fetch(`${APIEndpoints.period_read_by_title}?title=${params.title}`, requestOptions)
-        const response_json = await response.json()
-
-        if (response_json == null){
-            setFetching(false)
-            return
-        }
-        if ("detail" in response_json){
-            return
-          }
-        
-        setItem(response_json)
-        setFetching(false)
-        setTitle(response_json["title"])
-        setDescription(response_json["description"])
-        setTopictitle(response_json["topic_title"])
-
-    }
 
     const update_item = async () => {
         const myHeaders = new Headers();
@@ -80,28 +54,7 @@ function SinglePeriodUpdate(){
         window.location.href = new_title == null ? title : new_title
     }
 
-    const delete_period = async () => {
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
 
-        const requestOptions = {
-        method: "DELETE",
-        headers: myHeaders,
-        redirect: "follow",
-        credentials: "include"
-        };
-
-        const response = await fetch(APIEndpoints.period_delete + `/?title=${title}`, requestOptions)
-        const response_json = await response.json()
-
-        if ("detail" in response_json){
-            alert(response_json["detail"]["error"]);
-            return
-          }
-        alert('Period was deleted');
-        window.location.href = frontURLs.topic
-    }
     const is_auth = () => {
         if(localStorage.getItem("user_data") == null){
             return false;
@@ -113,7 +66,14 @@ function SinglePeriodUpdate(){
             window.location.href = frontURLs.login
             return;
         }
-        get_item()
+        request_service.get_item(
+            APIEndpoints.period_read_by_title,
+            params.title,
+            setFetching,
+            setItem,
+            setTitle, 
+            setDescription
+        )
     }, []);
 
 
@@ -156,7 +116,16 @@ function SinglePeriodUpdate(){
                         
             <div className="buttons">
                 <button className="update_period" onClick={update_item}>update</button>
-                <button className="delete_period" onClick={delete_period}>delete</button>
+                <button className="delete_period" onClick={
+                    ()=>{
+                        request_service.delete_item(
+                            APIEndpoints.period_delete,
+                            title,
+                            frontURLs.topic,
+                            "Period deleted"
+                        )
+                    }
+                    }>delete</button>
             </div>
 
         </div>

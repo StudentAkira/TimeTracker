@@ -11,11 +11,10 @@ function ChooseRelatedItems(props: choose_relate_items_props){
 
 
     const [items, setItems] = useState([])
-    const [startitems, setStartItmes] = useState([])
     const [page, setPage] = useState(1)
 
     const [offset, setOffset] = useState(0)
-    const [limit, setLimit] = useState(3)
+    const [limit, setLimit] = useState(49)
 
     const request_service = new RequestService();
 
@@ -35,7 +34,6 @@ function ChooseRelatedItems(props: choose_relate_items_props){
             props.path,
             `${props.query_params}&offset=${offset}&limit=${limit}&title=${""}`
             )
-        setStartItmes((startitems)=> items)
     }, []);
 
     return (
@@ -61,7 +59,7 @@ function ChooseRelatedItems(props: choose_relate_items_props){
                     )
                 )
             }
-            <button className="prev_page_button"
+            {/* <button className="prev_page_button"
                 onClick={() => {
                         setOffset((offset) => {
                             if(offset > 0)return offset - limit
@@ -94,7 +92,7 @@ function ChooseRelatedItems(props: choose_relate_items_props){
                 }
             >
                 {"->"}
-            </button>
+            </button> */}
             </div>
         </div>
     );
