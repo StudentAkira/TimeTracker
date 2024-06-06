@@ -1,5 +1,7 @@
 import React from "react";
 import { single_item_props } from "../../context/props";
+import "./update_item.css"
+
 
 function UpdateItem(props : single_item_props){
 
@@ -7,8 +9,8 @@ function UpdateItem(props : single_item_props){
     let new_description: null | string = null;
 
     return (
-        <div className="item">
-            <h1 className="item_title">title :: </h1><input type="text" id="item_title" defaultValue={props.title}  onChange={
+        <div className="update_item_wrapper">
+            <h1 className="item_title">title :: </h1><input type="text" id="item_title" className="item_title_field" defaultValue={props.title}  onChange={
                         (e) => {
                             props.title == e.target.value?
                             new_title = null: new_title = e.target.value;
@@ -16,8 +18,8 @@ function UpdateItem(props : single_item_props){
                         }/>
         <br />
         <br />
-        <h1 className="item_description">description :: </h1>
-        <textarea name="item_description" id="item_description" cols={60} rows={30} defaultValue={props.description} onChange={
+        <h1 className="item_description_label">description :: </h1>
+        <textarea name="item_description" id="item_description" className="item_description_field" cols={60} rows={30} defaultValue={props.description} onChange={
                         (e) => {
                             props.description == e.target.value? new_description = null: new_description = e.target.value;
                             }

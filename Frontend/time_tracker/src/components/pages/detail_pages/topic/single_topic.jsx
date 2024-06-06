@@ -5,6 +5,7 @@ import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 import Items from "../../../ui/items_section/items_section.tsx";
 import UpdateItem from "../../../ui/update_item/update_item.tsx";
 import NotFound from "../../notfound/notfound.jsx";
+import "./single_topic.css"
 
 function SingleTopic(){
 

@@ -1,16 +1,9 @@
-.buttons {
-    display: flex;
-    gap: 10px;
-}
+
 
 .subject_topics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-}
-
-.topic_wrapper {
-    height: 40vh;
 }
 
 .subject_edit {

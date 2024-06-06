@@ -1,3 +1,9 @@
 .topic {
     place-self: center;
 }
+
+.topic_wrapper {
+
+    display: grid;
+    gap: 10rem;
+}

@@ -1,0 +1,41 @@
+.update_item_wrapper {
+    display: grid;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update_item {
+    height: 2rem;
+    width: 5rem;
+    border-radius: 2rem;
+}
+
+.delete_item {
+    height: 2rem;
+    width: 5rem;
+    border-radius: 2rem;
+}
+
+.item_description_field {
+    padding: 1rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    overflow: auto;
+    font-size: 1.5rem;
+    width: 60vh;
+    height: 46vh;
+}
+
+.item_title_field {
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+    display: block;
+}
