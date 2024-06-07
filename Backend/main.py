@@ -26,7 +26,8 @@ origins = ['http://localhost:3000', 'http://127.0.0.1:3000',
            'https://localhost:3000', 'https://127.0.0.1:3000',
             'http://localhost:3001', 'http://127.0.0.1:3001',
            'http://127.0.0.1:9000', f"http://{settings.frontend_domain}",
-            f"https://{settings.frontend_domain}", f"http://"
+            f"https://{settings.frontend_domain}",
+           "http://172.28.32.1:3000",
         ]
 
 app.add_middleware(

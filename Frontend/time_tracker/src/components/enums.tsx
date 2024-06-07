@@ -42,6 +42,7 @@ export enum APIEndpoints {
 }
 export enum frontURLs {
     base = "http://127.0.0.1:3000",
+    // base = "http://172.28.32.1:3000",
     sign_up = "/sign_up",
     login = "/login",
 

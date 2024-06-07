@@ -49,7 +49,9 @@ function SinglePeriod(){
     }
 
     return (
-        <>{period == null ? <SinglePeriodCreate /> : <SinglePeriodStarted period={period}/>}</>
+        <>
+        {period == null ? <SinglePeriodCreate /> : <SinglePeriodStarted period={period}/>}
+        </>
     );
 }
 

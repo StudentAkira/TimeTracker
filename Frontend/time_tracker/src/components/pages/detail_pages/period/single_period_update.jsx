@@ -3,6 +3,7 @@ import { APIEndpoints, frontURLs } from "../../../enums.tsx";
 import { useEffect, useState } from "react";
 import NotFound from "../../notfound/notfound.jsx";
 import RequestService from "../../../../services/requests/request_service.js";
+import "./single_period_update.css"
 
 function SinglePeriodUpdate(){
 
@@ -34,6 +35,8 @@ function SinglePeriodUpdate(){
         "new_title": new_title,
         "new_description": new_description,
         });
+
+        console.log(new_topic_title);
 
         const requestOptions = {
         method: "PATCH",
@@ -72,7 +75,8 @@ function SinglePeriodUpdate(){
             setFetching,
             setItem,
             setTitle, 
-            setDescription
+            setDescription,
+            setTopictitle
         )
     }, []);
 
@@ -94,27 +98,30 @@ function SinglePeriodUpdate(){
     
     return (
         <div className="period">
-            <h1 className="topic_title">topic title</h1><input type="text" id="topic_title" defaultValue={topic_title}  onChange={
-                            (e) => {
-                                topic_title == e.target.value? new_topic_title = null: new_topic_title = e.target.value;
-                                }
-                            }/>
-            <h1 className="period_title">title :: </h1><input type="text" id="period_title" defaultValue={title}  onChange={
-                            (e) => {
-                                title == e.target.value? new_title = null: new_title = e.target.value;
-                                }
-                            }/>
+            <div className="topic_period_titles">
+                <h1 className="topic_title">topic title :: </h1><input type="text" id="topic_title" className="title_field" defaultValue={topic_title}  onChange={
+                                (e) => {
+                                    topic_title == e.target.value? new_topic_title = null: new_topic_title = e.target.value;
+                                    }
+                                }/>
+                <h1 className="period_title">title :: </h1><input type="text" id="period_title" className="title_field" defaultValue={title}  onChange={
+                                (e) => {
+                                    title == e.target.value? new_title = null: new_title = e.target.value;
+                                    }
+                                }/>
+            </div>
+            
             <br />
             <br />
             <h1 className="period_description">description :: </h1>
-            <textarea name="period_description" id="period_description" cols="60" rows="30" defaultValue={description} onChange={
+            <textarea name="period_description" id="period_description" cols="60" className="description_field" rows="30" defaultValue={description} onChange={
                             (e) => {
                                 description == e.target.value? new_description = null: new_description = e.target.value;
                                 }
                             }>
             </textarea>
                         
-            <div className="buttons">
+            <div className="period_buttons">
                 <button className="update_period" onClick={update_item}>update</button>
                 <button className="delete_period" onClick={
                     ()=>{
@@ -127,7 +134,6 @@ function SinglePeriodUpdate(){
                     }
                     }>delete</button>
             </div>
-
         </div>
     );
 }

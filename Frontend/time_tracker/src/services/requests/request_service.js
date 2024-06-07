@@ -89,7 +89,7 @@ class RequestService{
         items.sort((a, b) => new Date(b.datetime_) - new Date(a.datetime_))
     }
 
-    async get_item(path, title, setFetching, setItem, setTitle, setDescription) {
+    async get_item(path, title, setFetching, setItem, setTitle, setDescription, setAdditional) {
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
     
@@ -117,6 +117,9 @@ class RequestService{
         setFetching(false)
         setTitle(response_json["title"])
         setDescription(response_json["description"])
+        if(setAdditional != undefined){
+            setAdditional(response_json["topic_title"])
+        }
     }
 
     async update_item(title, new_title, new_description, path, alert_message) {
@@ -142,6 +145,7 @@ class RequestService{
         const response_json = await response.json()
 
         if ("detail" in response_json){
+            console.log(response_json);
             alert(response_json["detail"]["error"]);
             return
           }

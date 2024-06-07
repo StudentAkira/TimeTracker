@@ -28,10 +28,11 @@ function Login() {
     const response_json = await response.json()
 
     if ("detail" in response_json){
+      console.log(response_json);
       alert(response_json["detail"]["error"])
       return
     }
-
+    console.log(response_json);
     localStorage.setItem("user_data", 1)
     window.location.href = frontURLs.note;
 

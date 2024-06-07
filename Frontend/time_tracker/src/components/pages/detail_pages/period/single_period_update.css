@@ -1,0 +1,28 @@
+ .topic_period_titles > input {
+    padding: 1rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    overflow: auto;
+    font-size: 1.5rem;
+    width: 100%;
+}
+/*
+.description_field {
+    width: 100%;
+}
+*/
+.update_period, .delete_period {
+    font-size: 1.5rem;
+    height: 2rem;
+    width: 100%;
+}
+
+.period {
+    width: 50%;
+}
+
+.period_buttons {
+
+    display: grid;
+    justify-content: center;
+} 
