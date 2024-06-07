@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import { frontURLs } from './components/enums.tsx';
 import NavBar from "./components/ui/navbar/navbar.jsx"
 import Login from "./components/pages/login/login.jsx"
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      {localStorage.getItem("user_data") == null ? null : <NavBar />}
+      {/* {localStorage.getItem("user_data") == null ? null : <NavBar />}
         <div className="wrapper">
           <BrowserRouter>
             <Routes>
@@ -37,10 +37,14 @@ function App() {
               <Route path={frontURLs.single_period} element={<SinglePeriodUpdate />}/>
               <Route path={frontURLs.period} element={<SinglePeriod />}/>
 
-              <Route path="/test" element={<Test />}/>
             </Routes>
           </BrowserRouter>
-        </div>
+        </div> */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/test" element={<Test />}/>
+          </Routes>
+        </BrowserRouter>
     </div>
   );
 }
