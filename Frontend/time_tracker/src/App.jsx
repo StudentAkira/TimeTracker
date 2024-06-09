@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      {localStorage.getItem("user_data") == null ? null : <NavBar />}
+      {/* {localStorage.getItem("user_data") == null ? null : <NavBar />}
         <div className="wrapper">
           <BrowserRouter>
             <Routes>
@@ -39,12 +39,12 @@ function App() {
 
             </Routes>
           </BrowserRouter>
-        </div>
-        {/* <BrowserRouter>
+        </div> */}
+        <BrowserRouter>
           <Routes>
             <Route path="/test" element={<Test />}/>
           </Routes>
-        </BrowserRouter> */}
+        </BrowserRouter>
     </div>
   );
 }

@@ -6,9 +6,10 @@
 .field {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
+    transform-origin: 0px 0px;
     gap: 10rem;
     user-select: none;
-
+    
 }
 
 .team-wrapper {
@@ -23,8 +24,8 @@
 
     overflow: hidden;
 
-    width: 800px;
-    height: 800px;
+    width: 1300px;
+    height: 900px;
     border: 1px solid black;
 
 }
@@ -33,3 +34,4 @@
     height: 1px;
     background-color: transparent;
 }
+
