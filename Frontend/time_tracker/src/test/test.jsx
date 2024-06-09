@@ -18,6 +18,8 @@ function Test(){
     // const [prevWidth, setPrevWidth] = useState(0)
     // const [prevHeight, setPrevHight] = useState(0)
 
+
+
     const [test, setTest] = useState(1)
 
     const [scale, setScale] = useState(1)
@@ -143,8 +145,29 @@ function Test(){
 
         setTransition(Transition.None)
 
-        setPointX((pointX) => e.clientX - start.x)
-        setPointY((pointY) => e.clientY - start.y)
+        let new_pointX = e.clientX - start.x;
+        let new_pointY = e.clientY - start.y;
+
+        if (
+            new_pointX > document.getElementById("field").clientWidth * 0.95
+        )new_pointX = document.getElementById("field").clientWidth * 0.95
+
+        if (
+            new_pointY > document.getElementById("field").clientHeight * 0.4
+        )new_pointY = document.getElementById("field").clientHeight * 0.4
+
+
+        if (
+            new_pointX < -document.getElementById("field").clientWidth * 0.45
+        )new_pointX = -document.getElementById("field").clientWidth * 0.45
+
+        if (
+            new_pointY < -document.getElementById("field").clientHeight * 0.275
+        )new_pointY = -document.getElementById("field").clientHeight * 0.275
+
+
+        setPointX((pointX) => new_pointX)
+        setPointY((pointY) => new_pointY)
 
 
     }
@@ -158,6 +181,10 @@ function Test(){
         let xs = (e.clientX - pointX) / scale;
         let ys = (e.clientY - pointY) / scale;
         let new_scale = (-e.deltaY > 0) ? (scale * 1.2) : (scale / 1.2);
+
+        if(new_scale > 5) new_scale = 5;
+        if(new_scale < 0.3) new_scale = 0.3;
+
 
         setPointX((pointX)=> { 
             return e.clientX - xs * new_scale;
@@ -179,6 +206,7 @@ function Test(){
                     onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
                     onWheel={handleWheel}
+                    style={{width: `${Size.width}px`, height: `${Size.height}px`}}
                 >
                 <div className="field" id="field"
                     ref={itemsRef}
@@ -210,3 +238,8 @@ const Transition  = {
     None: "none",
     Transform: "transform 0.2s linear"  
 } 
+
+const Size = {
+    width: 1000,
+    height: 900
+}
