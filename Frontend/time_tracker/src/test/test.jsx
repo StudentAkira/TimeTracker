@@ -151,6 +151,7 @@ function Test(){
 
     
    const handleWheel = (e)=>{
+        if(panning)return
 
         setTransition(Transition.Transform)
 

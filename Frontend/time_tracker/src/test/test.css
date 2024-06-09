@@ -9,7 +9,7 @@
     transform-origin: 0px 0px;
     gap: 10rem;
     user-select: none;
-    
+    backface-visibility: hidden;
 }
 
 .team-wrapper {
