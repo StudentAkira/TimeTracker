@@ -148,22 +148,22 @@ function Test(){
         let new_pointX = e.clientX - start.x;
         let new_pointY = e.clientY - start.y;
 
-        if (
-            new_pointX > document.getElementById("field").clientWidth * 0.95
-        )new_pointX = document.getElementById("field").clientWidth * 0.95
+        // if (
+        //     new_pointX > document.getElementById("field").clientWidth * 0.95
+        // )new_pointX = document.getElementById("field").clientWidth * 0.95
 
-        if (
-            new_pointY > document.getElementById("field").clientHeight * 0.4
-        )new_pointY = document.getElementById("field").clientHeight * 0.4
+        // if (
+        //     new_pointY > document.getElementById("field").clientHeight * 0.4
+        // )new_pointY = document.getElementById("field").clientHeight * 0.4
 
 
-        if (
-            new_pointX < -document.getElementById("field").clientWidth * 0.45
-        )new_pointX = -document.getElementById("field").clientWidth * 0.45
+        // if (
+        //     new_pointX < -document.getElementById("field").clientWidth * 0.45
+        // )new_pointX = -document.getElementById("field").clientWidth * 0.45
 
-        if (
-            new_pointY < -document.getElementById("field").clientHeight * 0.275
-        )new_pointY = -document.getElementById("field").clientHeight * 0.275
+        // if (
+        //     new_pointY < -document.getElementById("field").clientHeight * 0.275
+        // )new_pointY = -document.getElementById("field").clientHeight * 0.275
 
 
         setPointX((pointX) => new_pointX)
