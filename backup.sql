@@ -260,7 +260,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 COPY public.note (id, title, content, datetime_, owner_id) FROM stdin;
-1	bugs	Багов конечно супермного тут. Но ничего, немного дизайн подправить и можно юзать с комфортом. В докер все как то на удивление быстро и просто закинулось, как будто на автомате, может шишек набил и сам уже не понимаю как оно все работает. \n\nНемного выгора поймал между прочим\n\nБаг с таймером, часы не увеличиваются	2024-06-07 11:20:45.750892	1
+1	AkiraAkiraAkira	AkiraAkiraAkira	2024-06-09 11:27:14.508794	1
 \.
 
 
@@ -269,12 +269,6 @@ COPY public.note (id, title, content, datetime_, owner_id) FROM stdin;
 --
 
 COPY public.period (id, title, description, start_time, end_time, topic_id, active_user_id) FROM stdin;
-2	playing chess 1	playing chess 1	2024-06-07 14:29:13.102054	2024-06-07 14:53:15.576892	2	\N
-1	bracket_front_end1	work with drawing tournament bracket on frontend using html css js	2024-06-07 14:13:13.806508	2024-06-07 14:26:36.916066	1	\N
-3	learning chess period1	learning chess period1	2024-06-07 16:44:34.614505	2024-06-07 16:52:40.592055	2	\N
-4	tournament_frontend_bracket1	tournament_frontend_bracket1	2024-06-07 17:40:56.891826	2024-06-07 17:57:49.334733	1	\N
-5	tournament_frontend_bracket2	tournament_frontend_bracket2	2024-06-07 19:09:16.291785	2024-06-07 20:09:45.164194	1	\N
-6	tournament_frontend_bracket3	tournament_frontend_bracket3	2024-06-07 20:10:33.75518	2024-06-07 20:16:12.981881	1	\N
 \.
 
 
@@ -283,9 +277,6 @@ COPY public.period (id, title, description, start_time, end_time, topic_id, acti
 --
 
 COPY public.subject (id, title, description, owner_id) FROM stdin;
-1	Frontend	Writing web apps, learning html css js	1
-2	Backend	Learning serverside web developing	1
-3	Plaing Chess	Openings patters free time to spend and so on	1
 \.
 
 
@@ -294,8 +285,6 @@ COPY public.subject (id, title, description, owner_id) FROM stdin;
 --
 
 COPY public.tokens (token, owner_id) FROM stdin;
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MTc5MzA5MDcsIm1pbGxpc2Vjb25kcyI6OTE4fQ.pl7RTUxpD7g8WHG0-vGqgoxFRMg8UomjQLiA0cWBZVY	1
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MTc5MzE3ODEsIm1pbGxpc2Vjb25kcyI6Njg0fQ.XG2uT9HrLx3lV9FQ7udZoFXjzZAKIWqQW_I2LPQ1bkk	1
 \.
 
 
@@ -304,8 +293,6 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3MTc5MzE3ODEsIm1
 --
 
 COPY public.topic (id, title, description, total_hours, owner_id, subject_id) FROM stdin;
-2	learning chess	plaing chess, learn openings and so on	0.5362369726763832	1	3
-1	tournament_frontend	tournament_frontend	1.6076814331610998	1	1
 \.
 
 
@@ -314,7 +301,7 @@ COPY public.topic (id, title, description, total_hours, owner_id, subject_id) FR
 --
 
 COPY public.users (id, username, hashed_password, first_name, second_name, third_name) FROM stdin;
-1	Akira	$2b$12$lj3GaKGvXC9MHM1VGC42qufJRPhDtAd1nVRXQ.A0zNvTfOY21BNHK	Akira	Akira	Akira
+1	Akira	$2b$12$KENNFIryzQ6r8CZRscTm8.L.Az9UAJGRpDt05S/Dq.5JBLTFPHuAK	Akira	Akira	Akira
 \.
 
 
@@ -329,21 +316,21 @@ SELECT pg_catalog.setval('public.note_id_seq', 1, true);
 -- Name: period_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.period_id_seq', 6, true);
+SELECT pg_catalog.setval('public.period_id_seq', 1, false);
 
 
 --
 -- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.subject_id_seq', 3, true);
+SELECT pg_catalog.setval('public.subject_id_seq', 1, false);
 
 
 --
 -- Name: topic_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.topic_id_seq', 2, true);
+SELECT pg_catalog.setval('public.topic_id_seq', 1, false);
 
 
 --

@@ -21,8 +21,7 @@
 
 .field-wrapper {
 
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow: hidden;
 
     width: 800px;
     height: 800px;

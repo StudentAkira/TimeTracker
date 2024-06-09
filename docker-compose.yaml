@@ -15,6 +15,9 @@ services:
     container_name: db
     env_file:
       - .db_env
+    volumes:
+      - db_time_tracker_volume:/var/lib/postgresql/data/
+          
   nginx-react:
     depends_on:
       - backend
@@ -24,6 +27,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - 80:80
+
+volumes:
+  db_time_tracker_volume:
+    external: true
 #  nginx:
 #    image: sha256:4900b3b015c807b67
 #    container_name: nginx
