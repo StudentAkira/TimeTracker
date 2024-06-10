@@ -151,18 +151,27 @@ function Test(){
 
     
    const handleWheel = (e)=>{
-
+        
         setTransition(Transition.Transform)
 
-        let xs = (e.clientX - pointX) / scale;
-        let ys = (e.clientY - pointY) / scale;
+        let offsetLeft = itemsRef.current.offsetLeft
+        let offsetTop = itemsRef.current.offsetTop
+
+        let xs = (e.clientX - offsetLeft - pointX) / scale;
+        let ys = (e.clientY - offsetTop - pointY) / scale;
         let new_scale = (-e.deltaY > 0) ? (scale * 1.2) : (scale / 1.2);
 
+        
+        // console.log("xs", xs);
+        // console.log("xy", ys);
+
         setPointX((pointX)=> { 
-            return e.clientX - xs * new_scale;
+            // console.log("x", e.clientX - xs * new_scale);
+            return e.clientX - offsetLeft - xs * new_scale;
         });
         setPointY((pointY)=> {
-            return e.clientY - ys * new_scale;
+            // console.log("y", e.clientY - ys * new_scale);
+            return e.clientY - offsetTop - ys * new_scale;
         });
         setScale((scale)=> new_scale)
 

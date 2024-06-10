@@ -49,13 +49,13 @@
 
         zoom.onwheel = function(e) {
             e.preventDefault()
-            var xs = (e.clientX - pointX) / scale;
+            var xs = (e.clientX - 100 - pointX) / scale;
             var ys = (e.clientY - pointY) / scale;
             (-e.deltaY > 0) ? (scale *= 1.2) : (scale /= 1.2);
             
             
 
-            pointX = e.clientX - xs * scale;
+            pointX = e.clientX - 100 - xs * scale;
             pointY = e.clientY - ys * scale;
             
             console.log("xs ", xs);

@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
     justify-content: center;
+    padding-top: 10rem;
 }
 
 .field {
@@ -9,7 +10,7 @@
     transform-origin: 0px 0px;
     gap: 10rem;
     user-select: none;
-    
+    backface-visibility: hidden;
 }
 
 .team-wrapper {
@@ -23,9 +24,8 @@
 .field-wrapper {
 
     overflow: hidden;
-
-    width: 1300px;
-    height: 900px;
+    width: 500px;
+    height: 500px;
     border: 1px solid black;
 
 }
