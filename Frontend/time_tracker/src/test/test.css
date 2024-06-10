@@ -9,7 +9,7 @@
     transform-origin: 0px 0px;
     gap: 10rem;
     user-select: none;
-    backface-visibility: hidden;
+    
 }
 
 .team-wrapper {
@@ -24,6 +24,8 @@
 
     overflow: hidden;
 
+    width: 1300px;
+    height: 900px;
     border: 1px solid black;
 
 }
@@ -32,4 +34,3 @@
     height: 1px;
     background-color: transparent;
 }
-
